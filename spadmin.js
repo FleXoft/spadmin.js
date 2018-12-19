@@ -307,8 +307,6 @@ function exec( command ) {
 
     }
 
-    nodelist = [];
-
 }
 
 // main()
@@ -437,12 +435,13 @@ async function asyncTSMSelect( destination, select, parameter ) {
 
     stdoutDisplayEnable = false;
 
-    buffer = [];
+    buffer.length = 0;
     bufferReady = false;
 
     child.stdin.write( select + param + "\n" );
     await wait();
 
+    destination.length = 0;
     buffer.forEach( function( s ) { destination.push( s ) } )
 
 }
