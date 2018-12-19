@@ -1,0 +1,6 @@
+20181219:
+	- meg kell vizsgálni, milyen módon tud a java-s program key leütésenként vizsgálni stdin-rõl
+		- https://stackoverflow.com/questions/9964995/java-how-do-you-detect-tab-key-press-within-a-non-gui-application
+		- https://sourceforge.net/projects/javacurses/
+		- jline3, lásd pom.xml
+	- alap program kiépítés, git repo kezelés, alap class-ok
