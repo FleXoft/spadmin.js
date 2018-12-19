@@ -8,6 +8,7 @@
 //
 //
 //
+// collaborator Fuge:20181219
 
 var serverlist = [ "alma", "korte", "szilva" ];
 
