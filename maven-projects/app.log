@@ -1,8 +1,0 @@
-DEBUG 2018.12.19 12:28:16,910 test.TestTSM - Start
-DEBUG 2018.12.19 12:28:16,915 test.TestTSM - Enter command (quit to exit):
-DEBUG 2018.12.19 12:28:33,350 test.TestTSM - Your input is : 123 
-DEBUG 2018.12.19 12:28:33,351 test.TestTSM - input:
-DEBUG 2018.12.19 12:28:33,351 test.TestTSM - Enter command (quit to exit):
-DEBUG 2018.12.19 12:28:36,261 test.TestTSM - Your input is : quit
-DEBUG 2018.12.19 12:28:36,261 test.TestTSM - Exit programm
-DEBUG 2018.12.19 12:28:36,261 test.TestTSM - End

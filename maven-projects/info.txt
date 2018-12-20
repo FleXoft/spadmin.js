@@ -1,6 +1,11 @@
 20181219:
-	- meg kell vizsgálni, milyen módon tud a java-s program key leütésenként vizsgálni stdin-rõl
+	- meg kell vizsgÃ¡lni, milyen mÃ³don tud a java-s program key leÃ¼tÃ©senkÃ©nt vizsgÃ¡lni stdin-rÅ‘l
 		- https://stackoverflow.com/questions/9964995/java-how-do-you-detect-tab-key-press-within-a-non-gui-application
 		- https://sourceforge.net/projects/javacurses/
-		- jline3, lásd pom.xml
-	- alap program kiépítés, git repo kezelés, alap class-ok
+		- jline3, lÃ¡sd pom.xml
+	- alap program kiÃ©pÃ­tÃ©s, git repo kezelÃ©s, alap class-ok
+	- kÃ©szen van egy kis prg, ami karakterenkÃ©nt olvassa be az stdin-rÅ‘l a jelet, elvileg windows-on Ã©s linux-on is mÅ±kÃ¶dik
+		- mvn exec:java -Dexec.mainClass="test.rawconsoleinput.TestRCI"
+	- Windows > Preferences > Java > Editor: uncheck Smart caret positioning in Java names
+	- Windows > Preferences > General > Keys:
+		- Command:"Next Editor" new binding > Ctrl-Tab
