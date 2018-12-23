@@ -8,14 +8,10 @@
 //
 //
 //
-// collaborator Fuge:20181219
 
-var serverlist = [ "alma", "korte", "szilva" ];
+var commands = new Object();
 
-var buffer = [];
-var bufferReady = false;
-
-var nodelist = [];
+commands[ "query" ] = [ "node" ]
 
 function commandCompletionEngine( line ) {
 
@@ -145,30 +141,6 @@ function commandCompletionEngine( line ) {
     return [ completions, line ];
 }
 
-function welcome() {
-
-    // clear the screen
-    process.stdout.write( '\u001B[2J\u001B[0;0f' );
-    updateScreenXY();
-
-    // https://github.com/dominikwilkowski/cfonts
-    process.stdout.write( '\n' );
-    process.stdout.write( '  ███████╗ ██████╗   █████╗  ██████╗  ███╗   ███╗ ██╗ ███╗   ██╗          ██╗ ███████╗\n'.bold.white );
-    process.stdout.write( '  ██╔════╝ ██╔══██╗ ██╔══██╗ ██╔══██╗ ████╗ ████║ ██║ ████╗  ██║          ██║ ██╔════╝\n'.bold.white );
-    process.stdout.write( '  ███████╗ ██████╔╝ ███████║ ██║  ██║ ██╔████╔██║ ██║ ██╔██╗ ██║          ██║ ███████╗\n'.bold.white );
-    process.stdout.write( '  ╚════██║ ██╔═══╝  ██╔══██║ ██║  ██║ ██║╚██╔╝██║ ██║ ██║╚██╗██║     ██   ██║ ╚════██║\n'.bold.white );
-    process.stdout.write( '  ███████║ ██║      ██║  ██║ ██████╔╝ ██║ ╚═╝ ██║ ██║ ██║ ╚████║ ██╗ ╚█████╔╝ ███████║\n'.bold.white );
-    process.stdout.write( '  ╚══════╝ ╚═╝      ╚═╝  ╚═╝ ╚═════╝  ╚═╝     ╚═╝ ╚═╝ ╚═╝  ╚═══╝ ╚═╝  ╚════╝  ╚══════╝\n'.bold.grey );
-    process.stdout.write( '  Powerful CLI administration tool for IBM Spectrum Protect aka Tivoli Storage Manager\n'.bold.white );
-    process.stdout.write( '\n' );
-
-    process.stdout.write( [ "= My node.js readline DEMO",
-    "= Welcome, enter TSM commands if you're lost type help", 
-    "= Your current platform is: " + os.platform() + " " + os.type() + " " + process.arch + " (" + os.release() + ")",
-    "= Terminal properties: [" + screenColumns + 'x' + screenRows + "]",
-    "=\n" ].join( '\n' ).grey );
-}
-
 function prompt() {
   var arrow  = '[' + currentTSMserver + ']' + ' > ', 
       length = arrow.length;
@@ -190,57 +162,9 @@ function quit() {
 
 }
 
-function updateScreenXY() {
-    screenColumns = os.platform() != "win32" ? process.stdout.columns : process.stdout.columns - 1; 
-    screenRows    = process.stdout.rows;
-}
-
-function showRuler() {
-
-    // prepare options for Getopt
-    var mirrorFlag = false;
-    
-    var x, c;
-
-    if ( ! mirrorFlag ) {
-      rulerModulo( 100 );
-      rulerModulo( 10 );
-    }
-
-    //1
-    for ( x = 1; screenColumns  >= x; x++ ) {
-
-    c = x % 10;
-    ( c == 0 ) ? process.stdout.write( c.toString().bold.green ) : process.stdout.write( c.toString() ) ;
-    }
-    process.stdout.write( "\n" );
-
-    if ( mirrorFlag ) {
-      rulerModulo( 10 );
-      rulerModulo( 100 );
-    }
-    
-}
-
-function rulerModulo( modulo ) {
-    var x, c;
-    // 10
-    for ( x = 1, c = 1; screenColumns >= x; x++ ) {
-        if ( x % modulo == 0 ) {
-            if ( c == modulo ) { c = 0 };
-            process.stdout.write( c.toString().bold.green );
-            c++;
-        }
-        else {
-            process.stdout.write( ' ' );
-        }
-    }
-    process.stdout.write( "\n" );
-}
-
 function exec( command ) {
 
-    updateScreenXY();
+    subs.updateScreenXY();
     if ( debug ) process.stdout.write( "DEBUG: Received command [".bold.green + command.bold.yellow + "]\n".bold.green );
 
     switch ( command.toLowerCase() ) {
@@ -282,7 +206,7 @@ function exec( command ) {
             break;
 
         case 'ruler':
-            showRuler();
+            subs.showRuler();
 
             prompt();
             break;
@@ -299,17 +223,20 @@ function exec( command ) {
             break;
    
         default:
-            buffer.length = 0;
-
+            buffer2.length = 0;
             stdoutDisplayEnable = true;
-
-            child.stdin.write( command + "\n" );
+            child2.stdin.write( command + "\n" );
 
     }
 
 }
 
 // main()
+
+// Declare the app
+var spadmin = {};
+
+// Dependencies
 var os       = require( 'os' );
 var colors   = require( 'colors' );
 var readline = require( 'readline' );
@@ -317,9 +244,21 @@ var child_pr = require( 'child_process' );
 
 const CFonts = require( 'cfonts' );
 
-var screenColumns = 80, screenRows = 25;
+var subs     = require( './lib/subs.js' );
 
-var stdoutDisplayEnable = true;
+//var screenColumns = 80, screenRows = 25;
+
+var serverlist = [ "alma", "korte", "szilva" ];
+
+var buffer = [];
+var bufferReady = false;
+
+var buffer2 = [];
+var bufferReady2 = false;
+
+var nodelist = [];
+
+var stdoutDisplayEnable = false;
 
 var debug   = false;
 
@@ -334,6 +273,10 @@ var currentNormalDSMADMCPID = 0;
 const child = child_pr.spawn( 'dsmadmc', [ '-ID=support', '-PA=asdpoi123', '-comma', '-ALWAYSPrompt' ], { detached:true } );
 // '-NEWLINEAFTERPrompt'
 currentCommaDSMADMCPID = child.pid;
+
+const child2 = child_pr.spawn( 'dsmadmc', [ '-ID=support', '-PA=asdpoi123', '-ALWAYSPrompt' ], { detached:true } );
+// '-NEWLINEAFTERPrompt'
+currentNormalDSMADMCPID = child2.pid;
 
 child.once( "exit", function ( errorcode, signal ) {
     console.log( "DSMADMC: exited ".red + "with code: " + errorcode + "SIGNAL: " + signal ? signal : "NULL" );
@@ -355,6 +298,18 @@ const wait = () => new Promise( res => {
         }
     };
     f();
+} );
+
+const wait2 = () => new Promise( res2 => {
+    const f2 = () => {
+        if( bufferReady2 ) { 
+            res2( bufferReady2 = false );
+        }
+        else { 
+            setTimeout( f2 );
+        }
+    };
+    f2();
 } );
 
 child.stdout.on( "data", function( data ) {
@@ -384,7 +339,7 @@ child.stdout.on( "data", function( data ) {
         currentTSMserver = match[1];        // update the current server name
 
 if ( debug ) process.stdout.write( "DEBUG: TSM server name: ".bold.green + currentTSMserver + "\n" );
-var line = "-".repeat( screenColumns - 4 );
+var line = "-".repeat( subs.getScreenColumns() - 4 );
 if ( debug ) process.stdout.write( "\rTSM " + line.grey + "\n" );
 
         buffer.forEach( function( s ) {
@@ -409,6 +364,65 @@ if ( debug ) process.stdout.write( "\rTSM " + line.grey + "\n" );
 if ( debug ) process.stdout.write( line.grey + " TSM\n" );
         
         bufferReady = true;
+        
+        if ( stdoutDisplayEnable ) { prompt(); }
+
+    }
+
+} );
+
+child2.stdout.on( "data", function( data ) {
+
+    var s = String( data );
+    buffer2 = buffer2.concat( s.split( os.EOL ) );
+
+// process.stdout.write( "DEBUG: ".bold.green + "-".repeat( screenColumns - 7 ).grey );
+// buffer.forEach( function( s ) {
+//     process.stdout.write( "DEBUG: [".bold.green + s.grey + "]\n".bold.green );
+// } );
+// process.stdout.write( "DEBUG: ".bold.green + "-".repeat( screenColumns - 7 ).grey );
+
+  // if( /^Protect: (\w+)>/.test( buffer.slice( -1 )[0] ) ){
+  //     buffer = buffer.filter( ( s, i ) => s.length !== 0 && i !== buffer.length - 1 );
+  //     buffer.forEach( s => console.log( `INSIDE: [${s}]` ) );
+  //     bufferReady = true;
+    // }
+
+    var match = buffer2[buffer2.length - 1].match( /^Protect: (\w+)>/ );
+    if ( match ) {
+
+        buffer2.pop();                       // remove it we dont need
+
+        buffer2 = buffer2.filter( n => n );   // clean empty lines
+
+        currentTSMserver = match[1];        // update the current server name
+
+if ( debug ) process.stdout.write( "DEBUG: TSM server name: ".bold.green + currentTSMserver + "\n" );
+var line = "-".repeat( subs.getScreenColumns() - 4 );
+if ( debug ) process.stdout.write( "\rTSM " + line.grey + "\n" );
+
+        buffer2.forEach( function( s ) {
+
+            if ( s.match( /^(\s*|IBM Spectrum Protect|\(c\) Copyright by IBM Corporation and other\(s\) 1990, \d\d\d\d\. All Rights Reserved\.|\s+Server Version \d, Release \d, Level \d\.\d+|\s+Server date\/time.*|Command Line Administrative Interface - Version \d, Release \d, Level \d\.\d+)$/ ) ) {
+                // skip it      
+            }
+            else {
+
+                match = s.match ( /^ANS8001I.*\s+(\d+)\.$/ )
+                if ( match ) {
+                    process.stdout.write( "DEBUG: LAST ERROR [".bold.green + match[1].bold.red + "]\n".bold.green );
+                }
+                else {
+                    // output 
+                    if ( stdoutDisplayEnable ) process.stdout.write( s + "\n" );
+                }
+            }
+
+        } );
+
+if ( debug ) process.stdout.write( line.grey + " TSM\n" );
+        
+        bufferReady2 = true;
         
         if ( stdoutDisplayEnable ) { prompt(); }
 
@@ -481,7 +495,9 @@ CFonts.say( "_flex", {
     space:          true,           // define if the output text should have empty lines on top and on the bottom
     maxLength:      '0',            // define how many character can be on one line
 } );
- 
-welcome();
 
-console.log ( 'dsmadmc PID#: [' + currentCommaDSMADMCPID.toString().bold.red + ']' );
+subs.welcome();
+
+console.log ( 'dsmadmc PID#s: [' + currentCommaDSMADMCPID.toString().bold.red + ', ' + currentNormalDSMADMCPID.toString().bold.red +  ']\n' );
+
+console.log ( 'Press ENTER to start!' );
