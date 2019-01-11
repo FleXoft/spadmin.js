@@ -270,11 +270,11 @@ var currentNormalDSMADMCPID = 0;
 // https://nodejs.org/api/child_process.html
 // https://github.com/nodejs/help/issues/1183
 // https://www.ibm.com/support/knowledgecenter/SSEQVQ_8.1.6/srv.reference/r_cmdline_adclient_options.html
-const child = child_pr.spawn( 'dsmadmc', [ '-ID=support', '-PA=asdpoi123', '-comma', '-ALWAYSPrompt' ], { detached:true } );
+const child = child_pr.spawn( 'dsmadmc', [ '-ID=support', '-PA=asdpoi123', '-comma', '-ALWAYSPrompt', '-NOConfirm' ], { detached:true } );
 // '-NEWLINEAFTERPrompt'
 currentCommaDSMADMCPID = child.pid;
 
-const child2 = child_pr.spawn( 'dsmadmc', [ '-ID=support', '-PA=asdpoi123', '-ALWAYSPrompt' ], { detached:true } );
+const child2 = child_pr.spawn( 'dsmadmc', [ '-ID=support', '-PA=asdpoi123', '-ALWAYSPrompt', '-NOConfirm' ], { detached:true } );
 // '-NEWLINEAFTERPrompt'
 currentNormalDSMADMCPID = child2.pid;
 
