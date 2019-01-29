@@ -9,3 +9,15 @@
 	- Windows > Preferences > Java > Editor: uncheck Smart caret positioning in Java names
 	- Windows > Preferences > General > Keys:
 		- Command:"Next Editor" new binding > Ctrl-Tab
+
+20190120:
+	- nem általánoskodom, beírom Java Class-okba a lehetséges konfigokat a TSM-es parancsokból, csinálok gyors parsert
+	- teszt:
+		- mvn exec:java -Dexec.mainClass="test.rawconsoleinput.TestRCI"
+		- mvn exec:java -Dexec.mainClass="text.textio.ContactInfo"
+		- mvn exec:java -Dexec.mainClass="test.jline3.TestJLine3"
+		- mvn exec:java -Dexec.mainClass="test.jline3.Test2"
+
+20190130:
+	- elkészítettem a query node parser class-okat
+		- lehetőleg általános módon, hogy használni lehessen más definíciókban is

@@ -18,13 +18,14 @@
 
 	<logger name="test" additivity="false">
 		<level value="DEBUG" />
-		<appender-ref ref="console" />
 		<appender-ref ref="FILE_APPENDER" />
 	</logger>
 
 	<root>
 		<priority value="ERROR" />
-		<appender-ref ref="console" />
 		<appender-ref ref="FILE_APPENDER" />
 	</root>
 </log4j:configuration>
+<!--
+		<appender-ref ref="console" />
+-->
