@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<cmdtree>
+	<choice fixPart="q" fullText="query">
+		<choice fixPart="n" fullText="node">
+			<seqList canbeempty="true" list="node1,node2" />
+			<seqSub canbeempty="true" subnode="domains" >
+				<seqText canbeempty="false" fixPart="do" fullText="DOmain" />
+				<seqText canbeempty="false" fixPart="=" fullText="=" />
+				<seqListSep canbeempty="false" listSeparator="," list="domain1,domain2" />
+			</seqSub>
+			<seqSub canbeempty="true" subnode="format" >
+				<seqText canbeempty="false" fixPart="f" fullText="Format" />
+				<seqText canbeempty="false" fixPart="=" fullText="=" />
+				<seqSub canbeempty="false" subnode="formatlist" >
+					<choice fixPart="s" fullText="Standard" />
+					<choice fixPart="d" fullText="Detailed" />
+s				</seqSub>
+			</seqSub>
+			<seqSub canbeempty="true" subnode="auth" >
+				<seqText canbeempty="false" fixPart="auth" fullText="AUTHentication" />
+				<seqText canbeempty="false" fixPart="=" fullText="=" />
+				<seqSub canbeempty="false" subnode="formatlist" >
+					<choice fixPart="lo" fullText="local" />
+					<choice fixPart="ld" fullText="ldap" />
+				</seqSub>
+			</seqSub>
+			<seqSub canbeempty="true" subnode="Type" >
+				<seqText canbeempty="false" fixPart="t" fullText="Type" />
+				<seqText canbeempty="false" fixPart="=" fullText="=" />
+				<seqSub canbeempty="false" subnode="TypeList" >
+					<choice fixPart="c" fullText="Client" />
+					<choice fixPart="nas" fullText="NAS" />
+					<choice fixPart="s" fullText="Server" />
+					<choice fixPart="a" fullText="Any" />
+				</seqSub>
+			</seqSub>
+		</choice>
+		<choice fixPart="ac" fullText="actlog">
+		</choice>
+	</choice>
+	<choice fixPart="d" fullText="dir">
+	</choice>
+</cmdtree>

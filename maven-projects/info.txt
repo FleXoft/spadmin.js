@@ -21,3 +21,14 @@
 20190130:
 	- elkészítettem a query node parser class-okat
 		- lehetőleg általános módon, hogy használni lehessen más definíciókban is
+
+20190422:
+	- query node cmd:
+		- https://www.ibm.com/support/knowledgecenter/en/SSGSG7_7.1.0/com.ibm.itsm.srv.ref.doc/r_cmd_node_query.html
+	- megalkottam a command-tree1.xml fájlt
+		- ebben le vannak írva a "query node", "query actlog", "dir" parancsok szintaktikája
+		- ebben elvileg minden megvan a TAB-os ellenőrzéshez és kiegészítéshez
+	- megvan a command-tree1.xml beolvasása
+	- elkezdtem megvalósítani a checkInput fgv-t, részben megvan
+		- a seq elemek még nincsenek meg
+		- ekkor folytatni kell az ellenőrzést egy adott karaktertől, nem elég az utolsó CmdTreeNode bemenő paraméternek
