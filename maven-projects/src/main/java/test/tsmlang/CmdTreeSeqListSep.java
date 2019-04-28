@@ -15,15 +15,9 @@ public class CmdTreeSeqListSep extends CmdTreeSeq
 		super( node,NODE_TYPE.seqListSep );
 		NamedNodeMap attributes = node.getAttributes();
 		this.listSeparator = setTextValue( attributes.getNamedItem( "listSeparator" ) );
-		this.listValues = setListValues( attributes.getNamedItem( "list" ) );
+		this.listValues = setListValues( attributes.getNamedItem( "list" ),"," );
 
 		addChildNodes();
-	}
-
-	private List<String> setListValues( Node node )
-	{
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	public String getListSeparator()

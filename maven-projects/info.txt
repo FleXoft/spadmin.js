@@ -32,3 +32,10 @@
 	- elkezdtem megvalósítani a checkInput fgv-t, részben megvan
 		- a seq elemek még nincsenek meg
 		- ekkor folytatni kell az ellenőrzést egy adott karaktertől, nem elég az utolsó CmdTreeNode bemenő paraméternek
+
+20190428:
+	- a nem megfelelő adatstruktúra miatt nagyon bonyi a parse-olás és lépkedés a cmdTree-ben
+	- átalakítom úgy a programot, hogy bármerre lehessen egy node-ról lépkedni, minden node-hoz tárolom:
+		- parent
+		- child
+		- nextSibling

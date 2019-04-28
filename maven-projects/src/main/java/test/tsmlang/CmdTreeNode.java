@@ -8,27 +8,32 @@ import org.w3c.dom.NodeList;
 
 public abstract class CmdTreeNode
 {
-	public enum NODE_TYPE { choice,seqText,seqSub,seqList,seqListSep };
+	public enum NODE_TYPE { root,choice,seqText,seqSub,seqList,seqListSep };
 
-	protected final Node node;
+	protected final int indexNode;
+	protected final Node xmlNode;
 	protected final NODE_TYPE type;
-	protected final List<CmdTreeNode> listSubNodes;
+	protected final CmdTreeNode parentCTNode;
+	protected CmdTreeNode childCTNode = null;
+	protected CmdTreeNode nextSeqCTNode = null;
 
-	public CmdTreeNode( Node node,NODE_TYPE type )
+
+	public CmdTreeNode( Node xmlNode,NODE_TYPE type,CmdTreeNode parentCTNode )
 	{
+		this.indexNode = MainCheck.indexNode++;
+		this.xmlNode = xmlNode;
 		this.type = type;
-		this.node = node;
-		this.listSubNodes = new ArrayList<CmdTreeNode>();
-		System.out.println( String.format( "new CmdTreeNode (%d)",node.hashCode() ) );
+		this.parentCTNode = parentCTNode;
+		System.out.println( String.format( "new CmdTreeNode (%02d)",indexNode ) );
 	}
 
 	protected void addChildNodes()
 	{
-		System.out.println( String.format( "addChildNodes start (%d)",node.hashCode() ) );
-		NodeList nodeList1 = node.getChildNodes();
+		System.out.println( String.format( "addChildNodes start (%d)",xmlNode.hashCode() ) );
+		NodeList nodeList1 = xmlNode.getChildNodes();
 		for ( int ic=0; ic<nodeList1.getLength(); ic++ )
 		{
-			System.out.println( String.format( "addChildNodes(%d) (%d)",node.hashCode(),ic ) );
+			System.out.println( String.format( "addChildNodes(%d) (%d)",xmlNode.hashCode(),ic ) );
 			Node node1 = nodeList1.item( ic );
 			short nodeType = node1.getNodeType();
 			if ( nodeType==Node.ELEMENT_NODE )
@@ -96,8 +101,36 @@ public abstract class CmdTreeNode
 		return result;
 	}
 
-	public List<CmdTreeNode> getListSubNodes()
+	public int getIndexNode()
 	{
-		return listSubNodes;
+		return indexNode;
+	}
+	public CmdTreeNode getChildCTNode()
+	{
+		return childCTNode;
+	}
+	public void setChildCTNode( CmdTreeNode childCTNode )
+	{
+		this.childCTNode = childCTNode;
+	}
+	public CmdTreeNode getNextSeqCTNode()
+	{
+		return nextSeqCTNode;
+	}
+	public void setNextSeqCTNode( CmdTreeNode nextSeqCTNode )
+	{
+		this.nextSeqCTNode = nextSeqCTNode;
+	}
+	public Node getXmlNode()
+	{
+		return xmlNode;
+	}
+	public NODE_TYPE getType()
+	{
+		return type;
+	}
+	public CmdTreeNode getParentCTNode()
+	{
+		return parentCTNode;
 	}
 }

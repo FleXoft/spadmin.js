@@ -14,7 +14,7 @@
 				<seqSub canbeempty="false" subnode="formatlist" >
 					<choice fixPart="s" fullText="Standard" />
 					<choice fixPart="d" fullText="Detailed" />
-s				</seqSub>
+				</seqSub>
 			</seqSub>
 			<seqSub canbeempty="true" subnode="auth" >
 				<seqText canbeempty="false" fixPart="auth" fullText="AUTHentication" />

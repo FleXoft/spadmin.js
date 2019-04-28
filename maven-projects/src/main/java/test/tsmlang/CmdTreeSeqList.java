@@ -13,15 +13,9 @@ public class CmdTreeSeqList extends CmdTreeSeq
 	{
 		super( node,NODE_TYPE.seqList );
 		NamedNodeMap attributes = node.getAttributes();
-		this.listValues = setListValues( attributes.getNamedItem( "list" ) );
+		this.listValues = setListValues( attributes.getNamedItem( "list" ),"," );
 
 		addChildNodes();
-	}
-
-	private List<String> setListValues( Node node )
-	{
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	public List<String> getListValues()
