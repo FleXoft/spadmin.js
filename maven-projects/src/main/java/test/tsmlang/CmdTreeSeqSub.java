@@ -7,13 +7,19 @@ public class CmdTreeSeqSub extends CmdTreeSeq
 {
 	private final String subNodeName;
 
-	public CmdTreeSeqSub( Node node )
+	public CmdTreeSeqSub( Node node,CmdTreeNode parentCTNode,CmdTreeNode prevSiblingCTNode )
 	{
-		super( node,NODE_TYPE.seqSub );
+		super( node,NODE_TYPE.seqSub,parentCTNode,prevSiblingCTNode );
 		NamedNodeMap attributes = node.getAttributes();
 		this.subNodeName = setTextValue( attributes.getNamedItem( "subnode" ) );
 
 		addChildNodes();
+	}
+
+	@Override
+	protected String checkCTNode( String cmd )
+	{
+		return cmd;
 	}
 
 	public String getSubNodeName()
@@ -27,14 +33,12 @@ public class CmdTreeSeqSub extends CmdTreeSeq
 		StringBuilder builder = new StringBuilder();
 		builder.append( "CmdTreeSeq [bCanBeEmpty=" );
 		builder.append( this.getbCanBeEmpty() );
+		builder.append( ", indexNode=" );
+		builder.append( indexNode );
 		builder.append( ", subNodeName=" );
 		builder.append( subNodeName );
-		builder.append( ", node=" );
-		builder.append( node.hashCode() );
 		builder.append( ", type=" );
 		builder.append( type );
-		builder.append( ", listSubNodes=" );
-		builder.append( listSubNodes );
 		builder.append( "]" );
 		return builder.toString();
 	}

@@ -10,14 +10,29 @@ public class CmdTreeSeqListSep extends CmdTreeSeq
 	private final String listSeparator;
 	private final List<String> listValues;
 
-	public CmdTreeSeqListSep( Node node )
+	public CmdTreeSeqListSep( Node node,CmdTreeNode parentCTNode,CmdTreeNode prevSiblingCTNode )
 	{
-		super( node,NODE_TYPE.seqListSep );
+		super( node,NODE_TYPE.seqListSep,parentCTNode,prevSiblingCTNode );
 		NamedNodeMap attributes = node.getAttributes();
 		this.listSeparator = setTextValue( attributes.getNamedItem( "listSeparator" ) );
 		this.listValues = setListValues( attributes.getNamedItem( "list" ),"," );
 
 		addChildNodes();
+	}
+
+	@Override
+	protected String checkCTNode( String cmd )
+	{
+		String result = null;
+		for ( String value : listValues )
+		{
+			if ( cmd.startsWith( value )==true )
+			{
+				result = cmd.substring( value.length() );
+				break;
+			}
+		}
+		return result;
 	}
 
 	public String getListSeparator()
@@ -35,16 +50,14 @@ public class CmdTreeSeqListSep extends CmdTreeSeq
 		StringBuilder builder = new StringBuilder();
 		builder.append( "CmdTreeSeq [bCanBeEmpty=" );
 		builder.append( this.getbCanBeEmpty() );
+		builder.append( ", indexNode=" );
+		builder.append( indexNode );
 		builder.append( ", listSeparator=" );
 		builder.append( listSeparator );
 		builder.append( ", listValues=" );
 		builder.append( listValues );
-		builder.append( ", node=" );
-		builder.append( node.hashCode() );
 		builder.append( ", type=" );
 		builder.append( type );
-		builder.append( ", listSubNodes=" );
-		builder.append( listSubNodes );
 		builder.append( "]" );
 		return builder.toString();
 	}

@@ -10,9 +10,9 @@ public abstract class CmdTreeSeq extends CmdTreeNode
 {
 	private final Boolean bCanBeEmpty;
 
-	public CmdTreeSeq( Node node,NODE_TYPE type )
+	public CmdTreeSeq( Node node,NODE_TYPE type,CmdTreeNode parentCTNode,CmdTreeNode prevSiblingCTNode )
 	{
-		super( node,type );
+		super( node,type,parentCTNode,prevSiblingCTNode );
 		NamedNodeMap attributes = node.getAttributes();
 		this.bCanBeEmpty = setBooleanValue( attributes.getNamedItem( "canbeempty" ) );
 	}

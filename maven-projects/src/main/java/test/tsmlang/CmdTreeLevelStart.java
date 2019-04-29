@@ -1,31 +1,28 @@
 package test.tsmlang;
 
-import org.w3c.dom.Node;
-
-public class CmdTreeRootNode extends CmdTreeNode
+public class CmdTreeLevelStart extends CmdTreeNode
 {
-	public CmdTreeRootNode( Node xmlNode )
+	public CmdTreeLevelStart( CmdTreeNode parentCTNode )
 	{
-		super( xmlNode,NODE_TYPE.root,null,null );
-
-		addChildNodes();
+		super( null,NODE_TYPE.levelStart,parentCTNode,null );
 	}
 
 	@Override
 	protected String checkCTNode( String cmd )
 	{
-		throw new RuntimeException( "unimplemented" );
+		return cmd;
 	}
 
 	@Override
 	public String toString()
 	{
 		StringBuilder builder = new StringBuilder();
-		builder.append( "CmdTreeRootNode [indexNode=" );
+		builder.append( "CmdTreeLevelStart [indexNode=" );
 		builder.append( indexNode );
 		builder.append( ", type=" );
 		builder.append( type );
 		builder.append( "]" );
 		return builder.toString();
 	}
+
 }

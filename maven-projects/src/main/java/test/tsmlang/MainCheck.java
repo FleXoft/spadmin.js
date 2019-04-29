@@ -1,9 +1,7 @@
 package test.tsmlang;
 
 import java.io.FileInputStream;
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -13,9 +11,6 @@ import javax.xml.xpath.XPathFactory;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-
-import test.tsmlang.CmdTreeNode.NODE_TYPE;
 
 public class MainCheck
 {
@@ -25,8 +20,13 @@ public class MainCheck
 	{
 		CmdTreeRootNode nodeRoot = loadXml();
 
-//		checkInput( cmdTree,"  q   n no" );
-		checkInput( nodeRoot,"  q   n do=domain1" );
+		printCmdTreeNode( nodeRoot,"" );
+
+//		checkInput( nodeRoot,"  q   n no" );
+//		checkInput( nodeRoot,"  q   n do=domain1" );
+//		checkInput( nodeRoot,"  q   n node1 auth=ld t=" );
+//		checkInput( nodeRoot,"  dir" );
+		checkInput( nodeRoot,"  q  ac" );
 
 //		checkInput( args[0] );
 //		handleTab( args[0] );
@@ -38,38 +38,37 @@ public class MainCheck
 //		egy olyan fát készítek, ahol 1 node-ból megmondható 
 //		- a parent
 //		- a child
-//		- a szinten következő node
+//		- a szinten következő node (nextSibling)
+//		ha a parent node-nak több child node-ja van, akkor a prent node az első child-ot tartalmazza, ahonnan végig lehet járni az összes sibling-et
 //		ez azért kell, hogy folytathassam a parse-olást, bármelyik node-ról, tudjak bármerre mozogni
 
-		CmdTreeRootNode rootNode = new CmdTreeRootNode( null,NODE_TYPE.root,null );
-		List<CmdTreeNode> cmdTree = new ArrayList<CmdTreeNode>();
+		CmdTreeRootNode rootNode = null;
 		try ( FileInputStream fileIS = new FileInputStream( COMMAND_TREE_XML ) )
 		{
 			DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder builder = builderFactory.newDocumentBuilder();
 			Document xmlDocument = builder.parse( fileIS );
 			XPath xPath = XPathFactory.newInstance().newXPath();
-			String expression = "/cmdtree/choice";
-			NodeList nodeList1 = (NodeList)xPath.compile( expression ).evaluate( xmlDocument,XPathConstants.NODESET );
-			for ( int ic=0; ic<nodeList1.getLength(); ic++ )
-			{
-				System.out.println( String.format( "main nodelist(%d)",ic ) );
-				Node node = nodeList1.item( ic );
-				short nodeType = node.getNodeType();
-				if ( nodeType==Node.ELEMENT_NODE )
-				{
-					cmdTree.add( CmdTreeNode.createNode( node ) );
-				}
-				else
-				{
-					System.out.println( String.format( "node(%s) tpye(%d)",node.getNodeName(),nodeType ) );
-				}
-			}
+			String expression = "/root";
+			Node xmlNodeRoot = (Node)xPath.compile( expression ).evaluate( xmlDocument,XPathConstants.NODE );
+			rootNode = (CmdTreeRootNode)CmdTreeNode.createNode( xmlNodeRoot,null,null );
 		}
-		return new CmdTreeRootNode( cmdTree );
+		return rootNode;
 	}
 
-	private static LinkedList<CmdTreeParsePosition> listLevels = null;
+	private static void printCmdTreeNode( CmdTreeNode ctnode,String prefix )
+	{
+//		mélységi bejárás szinteket jelző prefix kezeléssel
+		System.out.println( String.format( "%snode(%s)",prefix,ctnode ) );
+
+		if ( ctnode.getChildCTNode()!=null )
+			printCmdTreeNode( ctnode.getChildCTNode(),prefix + "\t" );
+
+		if ( ctnode.getNextSiblingCTNode()!=null )
+			printCmdTreeNode( ctnode.getNextSiblingCTNode(),prefix );
+	}
+
+	private static LinkedList<CmdTreeParsePosition> listPositions = null;
 	private static void checkInput( CmdTreeRootNode nodeRoot,String cmd )
 	{
 //		be kell járni a fát úgy, hogy nézni kell, mikor hova mehetek
@@ -87,20 +86,19 @@ public class MainCheck
 //				- ha megfelelő, akkor a következő szintre lépek
 //			- ha nincs találat, akkor visszamegyek az utolsó olyan szintre, ami még egyezett
 
-		listLevels = new LinkedList<CmdTreeParsePosition>();
-		String cmd1 = skipFirstSpaces( cmd );
-		CmdTreeParsePosition level = new CmdTreeParsePosition( cmd1,nodeRoot );
-		listLevels.add( level );
+		listPositions = new LinkedList<CmdTreeParsePosition>();
+		CmdTreeParsePosition level = new CmdTreeParsePosition( cmd,nodeRoot,null );
+		listPositions.add( level );
 
-		iterateOnLevel();
+		iterateOnLevel( "" );
 
 		System.out.println( "---------result" );
-		for ( CmdTreeParsePosition level1 : listLevels )
+		for ( CmdTreeParsePosition pos : listPositions )
 		{
-			if ( level1.getParentNode()==null )
-				System.out.println( String.format( "root(%s)",level1.getCmd() ) );
+			if ( pos.getCTNode()==null )
+				System.out.println( String.format( "root(%s)",pos.getCmd() ) );
 			else
-				System.out.println( String.format( "nodetype(%s)(%s)",level1.getParentNode().type,level1.getCmd() ) );
+				System.out.println( String.format( "nodetype(%s)(%s)",pos.getCTNode().type,pos.getCmd() ) );
 		}
 
 //		LinkedList<CmdTreeNode> cmdTreeNodes = new LinkedList<CmdTreeNode>();
@@ -128,139 +126,216 @@ public class MainCheck
 //		}
 	}
 
-	private static void iterateOnLevel()
+	private static void iterateOnLevel( String prefix )
 	{
-		CmdTreeParsePosition level = listLevels.getLast();
-		System.out.println( String.format( "iterateOnLevel (%s)",level.getCmd() ) );
+//		a listPositions utolsó eleméig megfelelő a parse tesz
+//		a printCmdTreeNode mélységi bejárás szerint vizsgálom tovább a fát
+//			először a child-okat vizsgálom, majd a testvéreket
+		CmdTreeParsePosition posLast = listPositions.getLast();
+		System.out.println( String.format( "%siterateOnLevel (%02d,%s)",prefix,posLast.getCTNode().indexNode,posLast.getCmd() ) );
+		if ( posLast.getCmd().isEmpty()==true )
+			return;
 
-		List<CmdTreeNode> list = level.getCmdTree();
-		CmdTreeNode node0 = list.get( 0 );
-		boolean bPartialMatch;
-		if ( node0.type==NODE_TYPE.choice )
-			bPartialMatch = iterateOnChoices( list );
-		else
-			bPartialMatch = iterateOnSeqs( list );
-		level.setbPartialMatch( bPartialMatch );
-	}
-
-	private static boolean iterateOnSeqs( List<CmdTreeNode> list )
-	{
-		boolean bResult = false;
-		for ( CmdTreeNode ctnode : list )
+		CmdTreeNode ctNode = posLast.getCTNode();
+		CmdTreeNode childCTNode = ctNode.getChildCTNode();
+		if ( childCTNode!=null )
 		{
-//			- FullText-ig egyezik, ekkor a fulltext utáni első karaktertől adom vissza a string-et, plusz ezt a node-ot találtnak veszem 
-//			- különben
-//				- ha FixPart-ig egyezik, ekkor a FixPart utáni első karaktertől adom vissza a string-et, plusz ezt a node-ot találtnak veszem
-//				- különben ez node nem jó
-			String cmd = listLevels.getLast().getCmd();
-			CmdTreeSeq ctsnode = (CmdTreeSeq)ctnode;
-			if ( ctsnode.type==NODE_TYPE.seqText )
+			ctNode = childCTNode;
+			boolean bPrevNodeMatch = false;
+			while ( true )
 			{
-				CmdTreeSeqText ctstnode = (CmdTreeSeqText)ctnode;
-				if ( cmd.startsWith( ctstnode.getFullText() )==true )
+				CmdTreeNode nextSiblingCTNode = ctNode.getNextSiblingCTNode();
+				if ( nextSiblingCTNode==null )
+					break;
+
+//					checkCTNode( posLast.getCmd(),ctNode,nextSiblingCTNode );
+				posLast = listPositions.getLast();
+				String cmd = posLast.getCmd();
+				String cmdResult = nextSiblingCTNode.checkCTNode( cmd );
+				if ( cmdResult==null )
 				{
-					String cmd2 = cmd.substring( ctstnode.getFullText().length() );
-					addNewLevelWithPartialMatch( cmd2,ctstnode );
-					bResult = true;
-				}
-				else if ( cmd.startsWith( ctstnode.getFixPart() )==true )
-				{
-					String cmd2 = cmd.substring( ctstnode.getFixPart().length() );
-					addNewLevelWithPartialMatch( cmd2,ctstnode );
-					cmd = cmd2;
-					bResult = true;
-				}
-			}
-			else if ( ctsnode.type==NODE_TYPE.seqSub )
-			{
-				CmdTreeSeqSub ctssnode = (CmdTreeSeqSub)ctnode;
-				CmdTreeParsePosition levelChild = addNewLevel( cmd,ctssnode );
-				if ( levelChild==null )
-					throw new RuntimeException( "invalid xml:seqSub with no children" );
-				cmd = listLevels.getLast().getCmd();
-				bResult = levelChild.isbPartialMatch();
-			}
-			else if ( ctsnode.type==NODE_TYPE.seqList )
-			{
-				CmdTreeSeqList ctslnode = (CmdTreeSeqList)ctnode;
-				String strFound = null;
-				for ( String value : ctslnode.getListValues() )
-				{
-					if ( cmd.equalsIgnoreCase( value )==true )
+					if ( nextSiblingCTNode instanceof CmdTreeSeq )
 					{
-						strFound = value;
-						break;
+						CmdTreeSeq ctsNode = (CmdTreeSeq)nextSiblingCTNode;
+						if ( ctsNode.getbCanBeEmpty()==false )
+							break;
+					}
+					else if ( nextSiblingCTNode instanceof CmdTreeChoice )
+					{
+						if ( bPrevNodeMatch==true )
+							break;
 					}
 				}
-				if ( strFound!=null )
+				else
 				{
-					String cmd2 = cmd.substring( strFound.length() );
-					addNewLevelWithPartialMatch( cmd2,ctslnode );
-					bResult = true;
+					CmdTreeParsePosition nextPos = new CmdTreeParsePosition( cmdResult,nextSiblingCTNode,true );
+					listPositions.add( nextPos );
+					iterateOnLevel( prefix + " " );
 				}
-			}
-
-			if ( ctsnode.getbCanBeEmpty()==false )
-				break;
-		}
-		return bResult;
-	}
-
-	private static boolean iterateOnChoices( List<CmdTreeNode> list )
-	{
-		boolean bResult = false;
-		CmdTreeParsePosition level = listLevels.getLast();
-		String cmd = level.getCmd();
-		for ( CmdTreeNode ctnode : list )
-		{
-//			- FullText-ig egyezik, ekkor a fulltext utáni első karaktertől adom vissza a string-et, plusz ezt a node-ot találtnak veszem 
-//			- különben
-//				- ha FixPart-ig egyezik, ekkor a FixPart utáni első karaktertől adom vissza a string-et, plusz ezt a node-ot találtnak veszem
-//				- különben ez node nem jó
-			CmdTreeChoice ctcnode = (CmdTreeChoice)ctnode;
-			if ( cmd.startsWith( ctcnode.getFullText() )==true )
-			{
-				String cmd2 = cmd.substring( ctcnode.getFullText().length() );
-				addNewLevelWithPartialMatch( cmd2,ctcnode );
-				bResult = true;
-				break;
-			}
-			else if ( cmd.startsWith( ctcnode.getFixPart() )==true )
-			{
-				String cmd2 = cmd.substring( ctcnode.getFixPart().length() );
-				addNewLevelWithPartialMatch( cmd2,ctcnode );
-				bResult = true;
-				break;
+				ctNode = nextSiblingCTNode;
+				bPrevNodeMatch = ( cmdResult!=null );
 			}
 		}
-		return bResult;
+
+//		List<CmdTreeNode> list = level.getCmdTree();
+//		CmdTreeNode node0 = list.get( 0 );
+//		boolean bPartialMatch;
+//		if ( node0.type==NODE_TYPE.choice )
+//			bPartialMatch = iterateOnChoices( list );
+//		else
+//			bPartialMatch = iterateOnSeqs( list );
+//		level.setbPartialMatch( bPartialMatch );
 	}
 
-	private static CmdTreeParsePosition addNewLevel( String cmd2,CmdTreeNode ctnode )
-	{
-		return addNewLevel( cmd2,ctnode,false );
-	}
+//	private static boolean iterateOnSeqs( List<CmdTreeNode> list )
+//	{
+//		boolean bResult = false;
+//		for ( CmdTreeNode ctnode : list )
+//		{
+////			- FullText-ig egyezik, ekkor a fulltext utáni első karaktertől adom vissza a string-et, plusz ezt a node-ot találtnak veszem 
+////			- különben
+////				- ha FixPart-ig egyezik, ekkor a FixPart utáni első karaktertől adom vissza a string-et, plusz ezt a node-ot találtnak veszem
+////				- különben ez node nem jó
+//			String cmd = listPositionsLevels.getLast().getCmd();
+//			CmdTreeSeq ctsnode = (CmdTreeSeq)ctnode;
+//			if ( ctsnode.type==NODE_TYPE.seqText )
+//			{
+//				CmdTreeSeqText ctstnode = (CmdTreeSeqText)ctnode;
+//				if ( cmd.startsWith( ctstnode.getFullText() )==true )
+//				{
+//					String cmd2 = cmd.substring( ctstnode.getFullText().length() );
+//					addNewLevelWithPartialMatch( cmd2,ctstnode );
+//					bResult = true;
+//				}
+//				else if ( cmd.startsWith( ctstnode.getFixPart() )==true )
+//				{
+//					String cmd2 = cmd.substring( ctstnode.getFixPart().length() );
+//					addNewLevelWithPartialMatch( cmd2,ctstnode );
+//					cmd = cmd2;
+//					bResult = true;
+//				}
+//			}
+//			else if ( ctsnode.type==NODE_TYPE.seqSub )
+//			{
+//				CmdTreeSeqSub ctssnode = (CmdTreeSeqSub)ctnode;
+//				CmdTreeParsePosition levelChild = addNewLevel( cmd,ctssnode );
+//				if ( levelChild==null )
+//					throw new RuntimeException( "invalid xml:seqSub with no children" );
+//				cmd = listPositionsLevels.getLast().getCmd();
+//				bResult = levelChild.isbPartialMatch();
+//			}
+//			else if ( ctsnode.type==NODE_TYPE.seqList )
+//			{
+//				CmdTreeSeqList ctslnode = (CmdTreeSeqList)ctnode;
+//				String strFound = null;
+//				for ( String value : ctslnode.getListValues() )
+//				{
+//					if ( cmd.equalsIgnoreCase( value )==true )
+//					{
+//						strFound = value;
+//						break;
+//					}
+//				}
+//				if ( strFound!=null )
+//				{
+//					String cmd2 = cmd.substring( strFound.length() );
+//					addNewLevelWithPartialMatch( cmd2,ctslnode );
+//					bResult = true;
+//				}
+//			}
+//
+//			if ( ctsnode.getbCanBeEmpty()==false )
+//				break;
+//		}
+//		return bResult;
+//	}
 
-	private static CmdTreeParsePosition addNewLevelWithPartialMatch( String cmd2,CmdTreeNode ctnode )
-	{
-		return addNewLevel( cmd2,ctnode,true );
-	}
+//	private static boolean iterateOnChoices( List<CmdTreeNode> list )
+//	{
+//		boolean bResult = false;
+//		CmdTreeParsePosition level = listPositionsLevels.getLast();
+//		String cmd = level.getCmd();
+//		for ( CmdTreeNode ctnode : list )
+//		{
+////			- FullText-ig egyezik, ekkor a fulltext utáni első karaktertől adom vissza a string-et, plusz ezt a node-ot találtnak veszem 
+////			- különben
+////				- ha FixPart-ig egyezik, ekkor a FixPart utáni első karaktertől adom vissza a string-et, plusz ezt a node-ot találtnak veszem
+////				- különben ez node nem jó
+//			CmdTreeChoice ctcnode = (CmdTreeChoice)ctnode;
+//			if ( cmd.startsWith( ctcnode.getFullText() )==true )
+//			{
+//				String cmd2 = cmd.substring( ctcnode.getFullText().length() );
+//				addNewLevelWithPartialMatch( cmd2,ctcnode );
+//				bResult = true;
+//				break;
+//			}
+//			else if ( cmd.startsWith( ctcnode.getFixPart() )==true )
+//			{
+//				String cmd2 = cmd.substring( ctcnode.getFixPart().length() );
+//				addNewLevelWithPartialMatch( cmd2,ctcnode );
+//				bResult = true;
+//				break;
+//			}
+//		}
+//		return bResult;
+//	}
 
-	private static CmdTreeParsePosition addNewLevel( String cmd2,CmdTreeNode ctnode,boolean bPartialMatch )
-	{
-		String cmd3 = skipFirstSpaces( cmd2 );
-		CmdTreeParsePosition levelChild = new CmdTreeParsePosition( cmd3,ctnode,ctnode.listSubNodes );
-		levelChild.setbPartialMatch( bPartialMatch );
-		listLevels.add( levelChild );
-		if ( cmd3.isEmpty()==false && ctnode.listSubNodes.isEmpty()==false )
-			iterateOnLevel();
-		return levelChild;
-	}
+//	private static void checkCTNode( String cmd,CmdTreeNode ctnode,CmdTreeNode nextSiblingCTNode )
+//	{
+//		String cmdResult = nextSiblingCTNode.checkCTNode( cmd );
+//		if ( cmdResult==null )
+//		{
+//			if ( nextSiblingCTNode instanceof CmdTreeSeq )
+//			{
+//				CmdTreeSeq ctsNode = (CmdTreeSeq)nextSiblingCTNode;
+//				if ( ctsNode.getbCanBeEmpty()==true )
+//				{
+//					CmdTreeParsePosition nextPos = new CmdTreeParsePosition( cmd,nextSiblingCTNode );
+//					listPositions.add( nextPos );
+//					iterateOnLevel();
+//				}
+//			}
+//			else if ( nextSiblingCTNode instanceof CmdTreeChoice )
+//			{
+//				CmdTreeParsePosition nextPos = new CmdTreeParsePosition( cmd,nextSiblingCTNode );
+//				listPositions.add( nextPos );
+//				iterateOnLevel();
+//			}
+//		}
+//		else
+//		{
+//			CmdTreeParsePosition nextPos = new CmdTreeParsePosition( cmdResult,nextSiblingCTNode );
+//			listPositions.add( nextPos );
+//			iterateOnLevel();
+//		}
+//	}
 
-	private static String skipFirstSpaces( String cmd )
+//	private static CmdTreeParsePosition addNewLevel( String cmd2,CmdTreeNode ctnode )
+//	{
+//		return addNewLevel( cmd2,ctnode,false );
+//	}
+//
+//	private static CmdTreeParsePosition addNewLevelWithPartialMatch( String cmd2,CmdTreeNode ctnode )
+//	{
+//		return addNewLevel( cmd2,ctnode,true );
+//	}
+//
+//	private static CmdTreeParsePosition addNewLevel( String cmd2,CmdTreeNode ctnode,boolean bPartialMatch )
+//	{
+////		String cmd3 = skipFirstSpaces( cmd2 );
+////		CmdTreeParsePosition levelChild = new CmdTreeParsePosition( cmd3,ctnode,ctnode.listSubNodes );
+////		levelChild.setbPartialMatch( bPartialMatch );
+////		listLevels.add( levelChild );
+////		if ( cmd3.isEmpty()==false && ctnode.listSubNodes.isEmpty()==false )
+////			iterateOnLevel();
+////		return levelChild;
+//		return null;
+//	}
+
+	public static String skipFirstSpaces( String cmd )
 	{
 		int ic;
-		for ( ic=0; Character.isWhitespace( cmd.charAt( ic ) )==true && ic<cmd.length(); ic++ );
+		for ( ic=0; ic<cmd.length() && Character.isWhitespace( cmd.charAt( ic ) )==true; ic++ );
 		return cmd.substring( ic );
 	}
 
@@ -348,8 +423,8 @@ public class MainCheck
 //		return cmd2;
 //	}
 
-	private static void handleTab( String cmd )
-	{
-		// TODO Auto-generated method stub
-	}
+//	private static void handleTab( String cmd )
+//	{
+//		// TODO Auto-generated method stub
+//	}
 }

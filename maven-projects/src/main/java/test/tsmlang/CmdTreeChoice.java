@@ -8,14 +8,29 @@ public class CmdTreeChoice extends CmdTreeNode
 	private final String fixPart;
 	private final String fullText;
 
-	public CmdTreeChoice( Node node )
+	public CmdTreeChoice( Node node,CmdTreeNode parentCTNode,CmdTreeNode prevSiblingCTNode )
 	{
-		super( node,NODE_TYPE.choice );
+		super( node,NODE_TYPE.choice,parentCTNode,prevSiblingCTNode );
 		NamedNodeMap attributes = node.getAttributes();
 		this.fixPart = setTextValue( attributes.getNamedItem( "fixPart" ) );
 		this.fullText = setTextValue( attributes.getNamedItem( "fullText" ) );
 
 		addChildNodes();
+	}
+
+	@Override
+	protected String checkCTNode( String cmd )
+	{
+		String result = null;
+		if ( cmd.startsWith( fullText )==true )
+		{
+			result = cmd.substring( fullText.length() );
+		}
+		else if ( cmd.startsWith( fixPart )==true )
+		{
+			result = cmd.substring( fixPart.length() );
+		}
+		return result;
 	}
 
 	public String getFixPart()
@@ -31,16 +46,14 @@ public class CmdTreeChoice extends CmdTreeNode
 	public String toString()
 	{
 		StringBuilder builder = new StringBuilder();
-		builder.append( "CmdTreeChoice [hashCode=" );
-		builder.append( node.hashCode() );
-		builder.append( ", fixPart=" );
+		builder.append( "CmdTreeChoice [fixPart=" );
 		builder.append( fixPart );
 		builder.append( ", fullText=" );
 		builder.append( fullText );
+		builder.append( ", indexNode=" );
+		builder.append( indexNode );
 		builder.append( ", type=" );
 		builder.append( type );
-		builder.append( ", listSubNodes=" );
-		builder.append( listSubNodes );
 		builder.append( "]" );
 		return builder.toString();
 	}

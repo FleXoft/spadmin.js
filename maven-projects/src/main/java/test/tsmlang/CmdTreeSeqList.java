@@ -9,13 +9,28 @@ public class CmdTreeSeqList extends CmdTreeSeq
 {
 	private final List<String> listValues;
 
-	public CmdTreeSeqList( Node node )
+	public CmdTreeSeqList( Node node,CmdTreeNode parentCTNode,CmdTreeNode prevSiblingCTNode )
 	{
-		super( node,NODE_TYPE.seqList );
+		super( node,NODE_TYPE.seqList,parentCTNode,prevSiblingCTNode );
 		NamedNodeMap attributes = node.getAttributes();
 		this.listValues = setListValues( attributes.getNamedItem( "list" ),"," );
 
 		addChildNodes();
+	}
+
+	@Override
+	protected String checkCTNode( String cmd )
+	{
+		String result = null;
+		for ( String value : listValues )
+		{
+			if ( cmd.startsWith( value )==true )
+			{
+				result = cmd.substring( value.length() );
+				break;
+			}
+		}
+		return result;
 	}
 
 	public List<String> getListValues()
@@ -29,14 +44,12 @@ public class CmdTreeSeqList extends CmdTreeSeq
 		StringBuilder builder = new StringBuilder();
 		builder.append( "CmdTreeSeq [bCanBeEmpty=" );
 		builder.append( getbCanBeEmpty() );
+		builder.append( ", indexNode=" );
+		builder.append( indexNode );
 		builder.append( ", listValues=" );
 		builder.append( listValues );
-		builder.append( ", node=" );
-		builder.append( node.hashCode() );
 		builder.append( ", type=" );
 		builder.append( type );
-		builder.append( ", listSubNodes=" );
-		builder.append( listSubNodes );
 		builder.append( "]" );
 		return builder.toString();
 	}

@@ -1,36 +1,103 @@
 package test.tsmlang;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 public abstract class CmdTreeNode
 {
-	public enum NODE_TYPE { root,choice,seqText,seqSub,seqList,seqListSep };
+	public enum NODE_TYPE { root,levelStart,choice,seqText,seqSub,seqList,seqListSep };
 
 	protected final int indexNode;
 	protected final Node xmlNode;
 	protected final NODE_TYPE type;
 	protected final CmdTreeNode parentCTNode;
 	protected CmdTreeNode childCTNode = null;
-	protected CmdTreeNode nextSeqCTNode = null;
+	protected CmdTreeNode nextSiblingCTNode = null;
+
+	protected abstract String checkCTNode( String cmd );
 
 
-	public CmdTreeNode( Node xmlNode,NODE_TYPE type,CmdTreeNode parentCTNode )
+	public CmdTreeNode( Node xmlNode,NODE_TYPE type,CmdTreeNode parentCTNode,CmdTreeNode prevSiblingCTNode )
 	{
+		CmdTreeNode ctnodeLevelStart = null;
+		if ( prevSiblingCTNode==null && parentCTNode!=null )
+		{
+			if ( type.equals( NODE_TYPE.levelStart )==false )
+			{
+				ctnodeLevelStart = new CmdTreeLevelStart( parentCTNode );
+				parentCTNode.setChildCTNode( ctnodeLevelStart );
+			}
+		}
+
 		this.indexNode = MainCheck.indexNode++;
 		this.xmlNode = xmlNode;
 		this.type = type;
 		this.parentCTNode = parentCTNode;
+
+		if ( ctnodeLevelStart!=null )
+			ctnodeLevelStart.setNextSiblingCTNode( this );
+
+		if ( prevSiblingCTNode!=null )
+		{
+			prevSiblingCTNode.setNextSiblingCTNode( this );
+			if ( similar( prevSiblingCTNode )!=true )
+				throw new RuntimeException( String.format( "siblings' types are not equal(%s,%s)(%02d)",type,prevSiblingCTNode.type,this.indexNode ) );
+		}
+
 		System.out.println( String.format( "new CmdTreeNode (%02d)",indexNode ) );
+	}
+
+	private boolean similar( CmdTreeNode prevSiblingCTNode )
+	{
+		if ( prevSiblingCTNode.type==NODE_TYPE.choice && type==NODE_TYPE.choice )
+			return true;
+		if ( (prevSiblingCTNode instanceof CmdTreeSeq)==true && (this instanceof CmdTreeSeq)==true )
+			return true;
+		return false;
+	}
+
+	public static CmdTreeNode createNode( Node xmlNode,CmdTreeNode parentCTNode,CmdTreeNode prevSiblingCTNode )
+	{
+		CmdTreeNode result;
+		String nodeName = xmlNode.getNodeName();
+		NODE_TYPE tmpType = NODE_TYPE.valueOf( nodeName );
+		if ( tmpType==NODE_TYPE.root )
+		{
+			result = new CmdTreeRootNode( xmlNode );
+		}
+		else if ( tmpType==NODE_TYPE.choice )
+		{
+			result = new CmdTreeChoice( xmlNode,parentCTNode,prevSiblingCTNode );
+		}
+		else if ( tmpType==NODE_TYPE.seqList )
+		{
+			result = new CmdTreeSeqList( xmlNode,parentCTNode,prevSiblingCTNode );
+		}
+		else if ( tmpType==NODE_TYPE.seqListSep )
+		{
+			result = new CmdTreeSeqListSep( xmlNode,parentCTNode,prevSiblingCTNode );
+		}
+		else if ( tmpType==NODE_TYPE.seqSub )
+		{
+			result = new CmdTreeSeqSub( xmlNode,parentCTNode,prevSiblingCTNode );
+		}
+		else if ( tmpType==NODE_TYPE.seqText )
+		{
+			result = new CmdTreeSeqText( xmlNode,parentCTNode,prevSiblingCTNode );
+		}
+		else
+			throw new RuntimeException( String.format( "nodeName(%s)",nodeName ) );
+
+		System.out.println( String.format( "createNode(%s)",result.toString() ) );
+
+		return result;
 	}
 
 	protected void addChildNodes()
 	{
 		System.out.println( String.format( "addChildNodes start (%d)",xmlNode.hashCode() ) );
 		NodeList nodeList1 = xmlNode.getChildNodes();
+		CmdTreeNode prevSiblingCTNode = null;
 		for ( int ic=0; ic<nodeList1.getLength(); ic++ )
 		{
 			System.out.println( String.format( "addChildNodes(%d) (%d)",xmlNode.hashCode(),ic ) );
@@ -38,7 +105,7 @@ public abstract class CmdTreeNode
 			short nodeType = node1.getNodeType();
 			if ( nodeType==Node.ELEMENT_NODE )
 			{
-				listSubNodes.add( CmdTreeNode.createNode( node1 ) );
+				prevSiblingCTNode = CmdTreeNode.createNode( node1,this,prevSiblingCTNode );
 			}
 			else
 			{
@@ -68,39 +135,6 @@ public abstract class CmdTreeNode
 		return result;
 	}
 
-	public static CmdTreeNode createNode( Node node )
-	{
-		CmdTreeNode result;
-		String nodeName = node.getNodeName();
-		NODE_TYPE tmpType = NODE_TYPE.valueOf( nodeName );
-		if ( tmpType==NODE_TYPE.choice )
-		{
-			result = new CmdTreeChoice( node );
-		}
-		else if ( tmpType==NODE_TYPE.seqList )
-		{
-			result = new CmdTreeSeqList( node );
-		}
-		else if ( tmpType==NODE_TYPE.seqListSep )
-		{
-			result = new CmdTreeSeqListSep( node );
-		}
-		else if ( tmpType==NODE_TYPE.seqSub )
-		{
-			result = new CmdTreeSeqSub( node );
-		}
-		else if ( tmpType==NODE_TYPE.seqText )
-		{
-			result = new CmdTreeSeqText( node );
-		}
-		else
-			throw new RuntimeException( String.format( "nodeName(%s)",nodeName ) );
-
-		System.out.println( String.format( "createNode(%s)",result.toString() ) );
-
-		return result;
-	}
-
 	public int getIndexNode()
 	{
 		return indexNode;
@@ -113,13 +147,13 @@ public abstract class CmdTreeNode
 	{
 		this.childCTNode = childCTNode;
 	}
-	public CmdTreeNode getNextSeqCTNode()
+	public CmdTreeNode getNextSiblingCTNode()
 	{
-		return nextSeqCTNode;
+		return nextSiblingCTNode;
 	}
-	public void setNextSeqCTNode( CmdTreeNode nextSeqCTNode )
+	public void setNextSiblingCTNode( CmdTreeNode nextSiblingCTNode )
 	{
-		this.nextSeqCTNode = nextSeqCTNode;
+		this.nextSiblingCTNode = nextSiblingCTNode;
 	}
 	public Node getXmlNode()
 	{

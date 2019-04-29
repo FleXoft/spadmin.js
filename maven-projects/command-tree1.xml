@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
-<cmdtree>
+<root>
 	<choice fixPart="q" fullText="query">
 		<choice fixPart="n" fullText="node">
 			<seqList canbeempty="true" list="node1,node2" />
@@ -40,4 +40,4 @@
 	</choice>
 	<choice fixPart="d" fullText="dir">
 	</choice>
-</cmdtree>
+</root>
