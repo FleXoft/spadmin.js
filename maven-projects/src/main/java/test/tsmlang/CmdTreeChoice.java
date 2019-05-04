@@ -1,5 +1,7 @@
 package test.tsmlang;
 
+import java.util.List;
+
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
@@ -12,25 +14,23 @@ public class CmdTreeChoice extends CmdTreeNode
 	{
 		super( node,NODE_TYPE.choice,parentCTNode,prevSiblingCTNode );
 		NamedNodeMap attributes = node.getAttributes();
-		this.fixPart = setTextValue( attributes.getNamedItem( "fixPart" ) );
-		this.fullText = setTextValue( attributes.getNamedItem( "fullText" ) );
+		String keyWord = setTextValue( attributes.getNamedItem( "keyWord" ) );
+		this.fixPart = getFixPart( keyWord );
+		this.fullText = getFullText( keyWord );
 
 		addChildNodes();
 	}
 
 	@Override
-	protected String checkCTNode( String cmd )
+	protected List<String> addTabChoices( String cmd )
 	{
-		String result = null;
-		if ( cmd.startsWith( fullText )==true )
-		{
-			result = cmd.substring( fullText.length() );
-		}
-		else if ( cmd.startsWith( fixPart )==true )
-		{
-			result = cmd.substring( fixPart.length() );
-		}
-		return result;
+		return addTabChoicesForText( cmd,fixPart,fullText );
+	}
+
+	@Override
+	protected ObjectCTNodeMatch checkCTNode( String cmd )
+	{
+		return super.checkCTNodeForText1( cmd,fixPart,fullText );
 	}
 
 	public String getFixPart()

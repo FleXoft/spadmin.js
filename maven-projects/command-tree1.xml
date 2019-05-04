@@ -1,43 +1,45 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <root>
-	<choice fixPart="q" fullText="query">
-		<choice fixPart="n" fullText="node">
-			<seqList canbeempty="true" list="node1,node2" />
-			<seqSub canbeempty="true" subnode="domains" >
-				<seqText canbeempty="false" fixPart="do" fullText="DOmain" />
-				<seqText canbeempty="false" fixPart="=" fullText="=" />
-				<seqListSep canbeempty="false" listSeparator="," list="domain1,domain2" />
+	<choice keyWord="Query">
+		<choice keyWord="Node">
+			<seqList canBeEmpty="true" list="node1,node2" />
+			<seqSub canBeEmpty="true" subnode="domains" >
+				<seqText canBeEmpty="false" keyWord="DOmain" />
+				<seqText canBeEmpty="false" keyWord="=" />
+				<seqListSep canBeEmpty="false" listSeparator="," list="domain1,domain2" />
 			</seqSub>
-			<seqSub canbeempty="true" subnode="format" >
-				<seqText canbeempty="false" fixPart="f" fullText="Format" />
-				<seqText canbeempty="false" fixPart="=" fullText="=" />
-				<seqSub canbeempty="false" subnode="formatlist" >
-					<choice fixPart="s" fullText="Standard" />
-					<choice fixPart="d" fullText="Detailed" />
+			<seqSub canBeEmpty="true" subnode="format" >
+				<seqText canBeEmpty="false" keyWord="Format" />
+				<seqText canBeEmpty="false" keyWord="=" />
+				<seqSub canBeEmpty="false" subnode="formatlist" >
+					<choice keyWord="Standard" />
+					<choice keyWord="Detailed" />
 				</seqSub>
 			</seqSub>
-			<seqSub canbeempty="true" subnode="auth" >
-				<seqText canbeempty="false" fixPart="auth" fullText="AUTHentication" />
-				<seqText canbeempty="false" fixPart="=" fullText="=" />
-				<seqSub canbeempty="false" subnode="formatlist" >
-					<choice fixPart="lo" fullText="local" />
-					<choice fixPart="ld" fullText="ldap" />
+			<seqSub canBeEmpty="true" subnode="auth" >
+				<seqText canBeEmpty="false" keyWord="AUTHentication" />
+				<seqText canBeEmpty="false" keyWord="=" />
+				<seqSub canBeEmpty="false" subnode="formatlist" >
+					<choice keyWord="LOcal" />
+					<choice keyWord="LDap" />
 				</seqSub>
 			</seqSub>
-			<seqSub canbeempty="true" subnode="Type" >
-				<seqText canbeempty="false" fixPart="t" fullText="Type" />
-				<seqText canbeempty="false" fixPart="=" fullText="=" />
-				<seqSub canbeempty="false" subnode="TypeList" >
-					<choice fixPart="c" fullText="Client" />
-					<choice fixPart="nas" fullText="NAS" />
-					<choice fixPart="s" fullText="Server" />
-					<choice fixPart="a" fullText="Any" />
+			<seqSub canBeEmpty="true" subnode="Type" >
+				<seqText canBeEmpty="false" keyWord="Type" />
+				<seqText canBeEmpty="false" keyWord="=" />
+				<seqSub canBeEmpty="false" subnode="TypeList" >
+					<choice keyWord="Client" />
+					<choice keyWord="NAS" />
+					<choice keyWord="Server" />
+					<choice keyWord="Any" />
 				</seqSub>
 			</seqSub>
 		</choice>
-		<choice fixPart="ac" fullText="actlog">
+		<choice keyWord="ACtlog">
+		</choice>
+		<choice keyWord="XX123">
 		</choice>
 	</choice>
-	<choice fixPart="d" fullText="dir">
+	<choice keyWord="Dir">
 	</choice>
 </root>

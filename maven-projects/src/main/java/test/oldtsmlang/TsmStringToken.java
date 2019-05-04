@@ -1,17 +1,18 @@
-package test.tsmlang;
+package test.oldtsmlang;
 
 import java.util.List;
 
-public class TsmItemFromFixList extends TsmCommandItem
+public class TsmStringToken extends TsmCommandItem
 {
-	public String selectedItem = null;
-	public final List<String> listFixItems;
+	public final String fixPart;
+	public final String fullText;
 
 
-	public TsmItemFromFixList( int index,List<String> listFixItems )
+	public TsmStringToken( int index,String fixPart,String fullText )
 	{
 		super( index );
-		this.listFixItems = listFixItems;
+		this.fixPart = fixPart;
+		this.fullText = fullText;
 	}
 
 	@Override

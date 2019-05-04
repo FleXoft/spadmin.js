@@ -1,18 +1,17 @@
-package test.tsmlang;
+package test.oldtsmlang;
 
 import java.util.List;
 
-public class TsmChoice extends TsmCommandItem
+public class TsmItemFromFixList extends TsmCommandItem
 {
-	public final boolean bCanBeEmpty;
-	public final TsmCommandItemSequence seq;
+	public String selectedItem = null;
+	public final List<String> listFixItems;
 
 
-	public TsmChoice( int index,boolean bCanBeEmpty,TsmCommandItemSequence seq )
+	public TsmItemFromFixList( int index,List<String> listFixItems )
 	{
 		super( index );
-		this.bCanBeEmpty = bCanBeEmpty;
-		this.seq = seq;
+		this.listFixItems = listFixItems;
 	}
 
 	@Override
@@ -28,5 +27,4 @@ public class TsmChoice extends TsmCommandItem
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 }

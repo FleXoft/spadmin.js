@@ -1,4 +1,4 @@
-package test.tsmlang;
+package test.oldtsmlang;
 
 import java.util.LinkedList;
 import java.util.List;

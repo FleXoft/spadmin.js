@@ -1,7 +1,11 @@
 package test.tsmlang;
 
+import java.util.List;
+
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
+
+import test.tsmlang.CmdTreeParsePosition.TYPE_MATCH;
 
 public class CmdTreeSeqSub extends CmdTreeSeq
 {
@@ -11,15 +15,21 @@ public class CmdTreeSeqSub extends CmdTreeSeq
 	{
 		super( node,NODE_TYPE.seqSub,parentCTNode,prevSiblingCTNode );
 		NamedNodeMap attributes = node.getAttributes();
-		this.subNodeName = setTextValue( attributes.getNamedItem( "subnode" ) );
+		this.subNodeName = setTextValue( attributes.getNamedItem( ATTRNAME_SUBNODE ) );
 
 		addChildNodes();
 	}
 
 	@Override
-	protected String checkCTNode( String cmd )
+	protected List<String> addTabChoices( String cmd )
 	{
-		return cmd;
+		return null;
+	}
+
+	@Override
+	protected ObjectCTNodeMatch checkCTNode( String cmd )
+	{
+		return new ObjectCTNodeMatch( cmd,TYPE_MATCH.subNode );
 	}
 
 	public String getSubNodeName()

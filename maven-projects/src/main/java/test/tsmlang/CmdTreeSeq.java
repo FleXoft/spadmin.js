@@ -14,7 +14,7 @@ public abstract class CmdTreeSeq extends CmdTreeNode
 	{
 		super( node,type,parentCTNode,prevSiblingCTNode );
 		NamedNodeMap attributes = node.getAttributes();
-		this.bCanBeEmpty = setBooleanValue( attributes.getNamedItem( "canbeempty" ) );
+		this.bCanBeEmpty = setBooleanValue( attributes.getNamedItem( ATTRNAME_CAN_BE_EMPTY ) );
 	}
 
 	public Boolean getbCanBeEmpty()

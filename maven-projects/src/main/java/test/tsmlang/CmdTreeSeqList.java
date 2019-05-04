@@ -13,24 +13,21 @@ public class CmdTreeSeqList extends CmdTreeSeq
 	{
 		super( node,NODE_TYPE.seqList,parentCTNode,prevSiblingCTNode );
 		NamedNodeMap attributes = node.getAttributes();
-		this.listValues = setListValues( attributes.getNamedItem( "list" ),"," );
+		this.listValues = setListValues( attributes.getNamedItem( ATTRNAME_LIST ),"," );
 
 		addChildNodes();
 	}
 
 	@Override
-	protected String checkCTNode( String cmd )
+	protected List<String> addTabChoices( String cmd )
 	{
-		String result = null;
-		for ( String value : listValues )
-		{
-			if ( cmd.startsWith( value )==true )
-			{
-				result = cmd.substring( value.length() );
-				break;
-			}
-		}
-		return result;
+		return super.addTabChoicesForList( cmd,listValues );
+	}
+
+	@Override
+	protected ObjectCTNodeMatch checkCTNode( String cmd )
+	{
+		return super.checkCTNodeForList1( cmd,listValues );
 	}
 
 	public List<String> getListValues()

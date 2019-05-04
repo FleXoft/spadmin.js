@@ -14,25 +14,22 @@ public class CmdTreeSeqListSep extends CmdTreeSeq
 	{
 		super( node,NODE_TYPE.seqListSep,parentCTNode,prevSiblingCTNode );
 		NamedNodeMap attributes = node.getAttributes();
-		this.listSeparator = setTextValue( attributes.getNamedItem( "listSeparator" ) );
-		this.listValues = setListValues( attributes.getNamedItem( "list" ),"," );
+		this.listSeparator = setTextValue( attributes.getNamedItem( ATTRNAME_LIST_SEPARATOR ) );
+		this.listValues = setListValues( attributes.getNamedItem( ATTRNAME_LIST ),this.listSeparator );
 
 		addChildNodes();
 	}
 
 	@Override
-	protected String checkCTNode( String cmd )
+	protected List<String> addTabChoices( String cmd )
 	{
-		String result = null;
-		for ( String value : listValues )
-		{
-			if ( cmd.startsWith( value )==true )
-			{
-				result = cmd.substring( value.length() );
-				break;
-			}
-		}
-		return result;
+		return super.addTabChoicesForList( cmd,listValues );
+	}
+
+	@Override
+	protected ObjectCTNodeMatch checkCTNode( String cmd )
+	{
+		return super.checkCTNodeForList1( cmd,listValues );
 	}
 
 	public String getListSeparator()

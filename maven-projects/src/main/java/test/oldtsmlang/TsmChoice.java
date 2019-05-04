@@ -1,18 +1,18 @@
-package test.tsmlang;
+package test.oldtsmlang;
 
 import java.util.List;
 
-public class TsmStringToken extends TsmCommandItem
+public class TsmChoice extends TsmCommandItem
 {
-	public final String fixPart;
-	public final String fullText;
+	public final boolean bCanBeEmpty;
+	public final TsmCommandItemSequence seq;
 
 
-	public TsmStringToken( int index,String fixPart,String fullText )
+	public TsmChoice( int index,boolean bCanBeEmpty,TsmCommandItemSequence seq )
 	{
 		super( index );
-		this.fixPart = fixPart;
-		this.fullText = fullText;
+		this.bCanBeEmpty = bCanBeEmpty;
+		this.seq = seq;
 	}
 
 	@Override
@@ -28,4 +28,5 @@ public class TsmStringToken extends TsmCommandItem
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 }

@@ -2,17 +2,19 @@ package test.tsmlang;
 
 public class CmdTreeParsePosition
 {
+	public enum TYPE_MATCH { noMatch,subNode,partial,full };
+
 	private final String cmd;
 	private final CmdTreeNode ctnode;
-	private final Boolean bMatch;
+	private final TYPE_MATCH match;
 //	private final NODE_TYPE levelNodeType;
 //	private boolean bPartialMatch = false;
 
-	public CmdTreeParsePosition( String cmd,CmdTreeNode ctnode,Boolean bMatch )
+	public CmdTreeParsePosition( String cmd,CmdTreeNode ctnode,TYPE_MATCH match )
 	{
 		this.cmd = MainCheck.skipFirstSpaces( cmd );
 		this.ctnode = ctnode;
-		this.bMatch = bMatch;
+		this.match = match;
 //		this.levelNodeType = null;
 //		this.cmdTree = parentNode.listSubNodes;
 //		if ( cmdTree!=null && cmdTree.isEmpty()==false )
@@ -35,9 +37,9 @@ public class CmdTreeParsePosition
 	{
 		return ctnode;
 	}
-	public Boolean isbMatch()
+	public TYPE_MATCH getMatch()
 	{
-		return bMatch;
+		return match;
 	}
 //	public NODE_TYPE getLevelNodeType()
 //	{
