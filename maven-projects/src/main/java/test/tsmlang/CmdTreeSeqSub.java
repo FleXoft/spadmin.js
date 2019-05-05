@@ -13,7 +13,7 @@ public class CmdTreeSeqSub extends CmdTreeSeq
 
 	public CmdTreeSeqSub( Node node,CmdTreeNode parentCTNode,CmdTreeNode prevSiblingCTNode )
 	{
-		super( node,NODE_TYPE.seqSub,parentCTNode,prevSiblingCTNode );
+		super( node,NODE_TYPE.seqSub,parentCTNode,prevSiblingCTNode,false );
 		NamedNodeMap attributes = node.getAttributes();
 		this.subNodeName = setTextValue( attributes.getNamedItem( ATTRNAME_SUBNODE ) );
 

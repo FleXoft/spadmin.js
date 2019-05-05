@@ -6,7 +6,7 @@ public class CmdTreeLevelStart extends CmdTreeNode
 {
 	public CmdTreeLevelStart( CmdTreeNode parentCTNode )
 	{
-		super( null,NODE_TYPE.levelStart,parentCTNode,null );
+		super( null,NODE_TYPE.levelStart,parentCTNode,null,false );
 	}
 
 	@Override

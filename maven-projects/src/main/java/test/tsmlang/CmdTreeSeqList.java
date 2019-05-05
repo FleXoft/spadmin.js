@@ -11,7 +11,7 @@ public class CmdTreeSeqList extends CmdTreeSeq
 
 	public CmdTreeSeqList( Node node,CmdTreeNode parentCTNode,CmdTreeNode prevSiblingCTNode )
 	{
-		super( node,NODE_TYPE.seqList,parentCTNode,prevSiblingCTNode );
+		super( node,NODE_TYPE.seqList,parentCTNode,prevSiblingCTNode,true );
 		NamedNodeMap attributes = node.getAttributes();
 		this.listValues = setListValues( attributes.getNamedItem( ATTRNAME_LIST ),"," );
 

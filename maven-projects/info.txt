@@ -88,3 +88,8 @@
 	- Flex kérésére fixPart és fullText-ből 1 db attr lett, keyWord, amelyben 2 info van, az első nagybetűk azt jelzik, hogy mely karakterek után már keyWord egyezést feltételezünk
 		- így átalakítom a prg-t
 	- ez kész, de a tab kezelés nagyon bonyi...
+
+20190505:
+	- kitaláltam, hogy a tab-ra hogy legyen a következő szó
+		- minden node-hoz tárolok egy cmdSample mezőt, ebben ' '-el elválasztva benne van, hogy milyen node-ok elérése után lehet ez a node, indexek vannak benne
+			- itt számolom ki: recursiveSetCmdSample

@@ -12,7 +12,7 @@ public class CmdTreeSeqText extends CmdTreeSeq
 
 	public CmdTreeSeqText( Node node,CmdTreeNode parentCTNode,CmdTreeNode prevSiblingCTNode )
 	{
-		super( node,NODE_TYPE.seqText,parentCTNode,prevSiblingCTNode );
+		super( node,NODE_TYPE.seqText,parentCTNode,prevSiblingCTNode,true );
 		NamedNodeMap attributes = node.getAttributes();
 		String keyWord = setTextValue( attributes.getNamedItem( ATTRNAME_KEYWORD ) );
 		this.fixPart = getFixPart( keyWord );

@@ -24,6 +24,9 @@ public abstract class CmdTreeNode
 	protected final Node xmlNode;
 	protected final NODE_TYPE type;
 	protected final CmdTreeNode parentCTNode;
+	protected final int level;
+	protected final boolean bHasWord;
+	protected final String cmdSample;
 	protected CmdTreeNode childCTNode = null;
 	protected CmdTreeNode nextSiblingCTNode = null;
 
@@ -31,7 +34,7 @@ public abstract class CmdTreeNode
 	protected abstract List<String> addTabChoices( String cmd );
 
 
-	public CmdTreeNode( Node xmlNode,NODE_TYPE type,CmdTreeNode parentCTNode,CmdTreeNode prevSiblingCTNode )
+	public CmdTreeNode( Node xmlNode,NODE_TYPE type,CmdTreeNode parentCTNode,CmdTreeNode prevSiblingCTNode,boolean bHasWord )
 	{
 		CmdTreeNode ctnodeLevelStart = null;
 		if ( prevSiblingCTNode==null && parentCTNode!=null )
@@ -47,6 +50,22 @@ public abstract class CmdTreeNode
 		this.xmlNode = xmlNode;
 		this.type = type;
 		this.parentCTNode = parentCTNode;
+		this.bHasWord = bHasWord;
+		this.level = ( this.parentCTNode==null ) ? 1 : this.parentCTNode.level + 1;
+		if ( bHasWord==true )
+		{
+			if ( this.parentCTNode==null )
+				this.cmdSample = String.format( "%02d",this.indexNode ); 
+			else
+				this.cmdSample = String.format( "%s %02d",this.parentCTNode.cmdSample,this.indexNode );
+		}
+		else
+		{
+			if ( this.parentCTNode==null )
+				this.cmdSample = String.format( "" ); 
+			else
+				this.cmdSample = this.parentCTNode.cmdSample;
+		}
 
 		if ( ctnodeLevelStart!=null )
 			ctnodeLevelStart.setNextSiblingCTNode( this );
@@ -306,5 +325,17 @@ public abstract class CmdTreeNode
 	public CmdTreeNode getParentCTNode()
 	{
 		return parentCTNode;
+	}
+	public int getLevel()
+	{
+		return level;
+	}
+	public boolean getbHasWord()
+	{
+		return bHasWord;
+	}
+	public String getCmdSample()
+	{
+		return cmdSample;
 	}
 }

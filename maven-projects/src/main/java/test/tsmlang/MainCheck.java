@@ -26,7 +26,7 @@ public class MainCheck
 
 		recursivePrintCmdTreeNode( nodeRoot,"" );
 
-		checkInput( nodeRoot,"  quer   node no" );
+		checkInput( nodeRoot,"  quer   node" );
 //		checkInput( nodeRoot,"  q   n do=domain1" );
 //		checkInput( nodeRoot,"  q   n node1 auth=ld t=" );
 //		checkInput( nodeRoot,"  dir" );
@@ -75,6 +75,8 @@ public class MainCheck
 	private static LinkedList<CmdTreeParsePosition> listPositions = null;
 	private static LinkedList<CmdTreeParsePosition> listTabPositions = null;
 	private static List<CmdTreeParseTabChoices> listTabChoices = null;
+	private static List<CmdTreeNode> listPossibleNextWords = null;
+	private static CmdTreeParsePosition lastMatchingPos = null;
 	private static void checkInput( CmdTreeRootNode nodeRoot,String cmd )
 	{
 //		be kell járni a fát úgy, hogy nézni kell, mikor hova mehetek
@@ -92,16 +94,31 @@ public class MainCheck
 //				- ha megfelelő, akkor a következő szintre lépek
 //			- ha nincs találat, akkor visszamegyek az utolsó olyan szintre, ami még egyezett
 
-		listPositions = new LinkedList<CmdTreeParsePosition>();
-		CmdTreeParsePosition level = new CmdTreeParsePosition( cmd.toLowerCase(),nodeRoot,TYPE_MATCH.full );
-		listPositions.add( level );
-
 		listTabChoices = new ArrayList<CmdTreeParseTabChoices>();
 		listTabPositions = new LinkedList<CmdTreeParsePosition>();
+		listPossibleNextWords = new ArrayList<CmdTreeNode>();
 
-		recursiveIterateOnLevel( "" );
+		{
+			listPositions = new LinkedList<CmdTreeParsePosition>();
+			CmdTreeParsePosition level = new CmdTreeParsePosition( cmd.toLowerCase(),nodeRoot,TYPE_MATCH.full );
+			listPositions.add( level );
+			recursiveSearchCmdTreeForMatch( "" );
+		}
 
-		addTabChoicesForLastMathcingPosition();
+		lastMatchingPos = getLastMathcingPosition();
+		if ( lastMatchingPos!=null )
+		{
+			if ( lastMatchingPos.getMatch()==TYPE_MATCH.partial )
+			{
+				addTabChoices( lastMatchingPos.getCTNode(),lastMatchingPos.getCmd() );
+			}
+			else
+			{
+				recursiveSearchCmdTreeForNextWord( nodeRoot,"" );
+				for ( CmdTreeNode ctnode : listPossibleNextWords )
+					addTabChoices( ctnode,lastMatchingPos.getCmd() );
+			}
+		}
 
 		System.out.println( "---------result" );
 		for ( CmdTreeParsePosition pos : listPositions )
@@ -121,7 +138,7 @@ public class MainCheck
 		}
 	}
 
-	private static void addTabChoicesForLastMathcingPosition()
+	private static CmdTreeParsePosition getLastMathcingPosition()
 	{
 		CmdTreeParsePosition lastMatchingPos = null;
 		for ( CmdTreeParsePosition pos : listPositions )
@@ -129,15 +146,79 @@ public class MainCheck
 			if ( pos.getMatch()==TYPE_MATCH.full || pos.getMatch()==TYPE_MATCH.partial )
 				lastMatchingPos = pos;
 		}
-		if ( lastMatchingPos!=null )
+		return lastMatchingPos;
+	}
+
+	private static boolean bEndSignSearchCmdTreeForNextWord = false;
+	private static void recursiveSearchCmdTreeForNextWord( CmdTreeNode ctNode,String prefix )
+	{
+		if ( bEndSignSearchCmdTreeForNextWord==true )
+			return;
+
+//		mélységi bejárás szinteket jelző prefix kezeléssel
+		System.out.println( String.format( "%snode(%s)",prefix,ctNode ) );
+		boolean bSearchForNextWord = ( ctNode.indexNode>lastMatchingPos.getCTNode().indexNode );
+
+		if ( bSearchForNextWord==true )
 		{
-			if ( lastMatchingPos.getMatch()==TYPE_MATCH.partial )
+			if ( checkNextWord( ctNode )==true )
+				listPossibleNextWords.add( ctNode );
+		}
+
+		if ( ctNode.getChildCTNode()!=null )
+			recursiveSearchCmdTreeForNextWord( ctNode.getChildCTNode(),prefix + " " );
+
+		if ( ctNode.getNextSiblingCTNode()!=null )
+			recursiveSearchCmdTreeForNextWord( ctNode.getNextSiblingCTNode(),prefix );
+	}
+
+	private static boolean checkNextWord( CmdTreeNode ctNode )
+	{
+		String cmdSampleBase = lastMatchingPos.getCTNode().getCmdSample();
+		String cmdSample = ctNode.getCmdSample();
+		if ( cmdSample.startsWith( cmdSampleBase )==true )
+		{
+			int wordCountDiff = ( cmdSample.split( " " ).length - cmdSampleBase.split( " " ).length );
+			if ( wordCountDiff==1 )
+				return true;
+		}
+		return false;
+	}
+
+	private static void recursiveSetCmdSample( CmdTreeNode ctNode,String prefix )
+	{
+		System.out.println( String.format( "%srecursiveSetCmdSample (%02d)",prefix,ctNode.indexNode ) );
+
+//		if ( posLast.getCTNode().indexNode>=2 )
+//			System.out.println( "X" );
+		CmdTreeNode childCTNode = ctNode.getChildCTNode();
+		if ( childCTNode!=null )
+		{
+			ctNode = childCTNode;
+			boolean bPrevNodeMatch = false;
+			while ( true )
 			{
-				addTabChoices( lastMatchingPos.getCTNode(),lastMatchingPos.getCmd() );
-			}
-			else
-			{
-				addNextTabChoices( lastMatchingPos.getCTNode(),lastMatchingPos.getCmd() );
+				CmdTreeNode nextSiblingCTNode = ctNode.getNextSiblingCTNode();
+				if ( nextSiblingCTNode==null )
+					break;
+
+				CmdTreeParsePosition nextPos = new CmdTreeParsePosition( matchResult.nextCmd,nextSiblingCTNode,matchResult.match );
+				listPositions.add( nextPos );
+				recursiveSetCmdSample( prefix + " " );
+
+				if ( nextSiblingCTNode instanceof CmdTreeSeq )
+				{
+					CmdTreeSeq ctsNode = (CmdTreeSeq)nextSiblingCTNode;
+					if ( ctsNode.getbCanBeEmpty()==false )
+						break;
+				}
+				else if ( nextSiblingCTNode instanceof CmdTreeChoice )
+				{
+					if ( bPrevNodeMatch==true )
+						break;
+				}
+				ctNode = nextSiblingCTNode;
+				bPrevNodeMatch = ( matchResult.match!=TYPE_MATCH.noMatch );
 			}
 		}
 	}
@@ -145,45 +226,31 @@ public class MainCheck
 	private static void addNextTabChoices( CmdTreeNode ctNode,String cmd )
 	{
 //		azokat a szavakat kell összeszedni, amelyekkel folytatható lenne a cmd
+//		indítok egy standard bejárást, amíg el nem érek a megadott node-ig.
+//		ezután már keresem azokat a szavakat, amelyekkel folytatható lenne a cmd
+
 //		a következő szó a cmdTree-ben a következő indexű node-on lehet
 //		egészen addig vizsgálom a "következő indexű node"-okat, amíg menni tudok a következő szabályok szerint
-//		ha 
+//		egy ciklusban megyek a standard bejárás szerint (mélységi), ugyanis ez alapján vannak a node indexek is
+//		ha nem tudok tovább menni, akkor megkeresem 
 //		ez tuti nehéz: több eset van
 //		- ha choice, akkor csak a child-ot járom be, amíg noMatch-ot kapok
 //		ha seqText, akkor csak a nextSibling-et járom be, amíg noMatch-ot kapok
 	}
 
-	private static void recursiveIterateOnLevel( String prefix )
+	private static void recursiveSearchCmdTreeForMatch( String prefix )
 	{
 //		a listPositions utolsó eleméig megfelelő a parse tesz
 //		a printCmdTreeNode mélységi bejárás szerint vizsgálom tovább a fát
 //			először a child-okat vizsgálom, majd a testvéreket
 		CmdTreeParsePosition posLast = listPositions.getLast();
 		CmdTreeNode ctNode = posLast.getCTNode();
-		System.out.println( String.format( "%siterateOnLevel (%02d,%s)",prefix,ctNode.indexNode,posLast.getCmd() ) );
+		System.out.println( String.format( "%srecursiveSearchCmdTreeForMatch (%02d,%s)",prefix,ctNode.indexNode,posLast.getCmd() ) );
 
 //		if ( posLast.getCTNode().indexNode>=2 )
 //			System.out.println( "X" );
 
-		if ( posLast.getCmd().isEmpty()==true )
-		{
-//			CmdTreeNode childCTNode = ctNode.getChildCTNode();
-//			if ( childCTNode!=null )
-//			{
-//				ctNode = childCTNode;
-//				while ( true )
-//				{
-//					CmdTreeNode nextSiblingCTNode = ctNode.getNextSiblingCTNode();
-//					if ( nextSiblingCTNode==null )
-//						break;
-//					addTabChoices( nextSiblingCTNode,"" );
-//					ctNode = nextSiblingCTNode;
-//				}
-//			}
-//			else
-//				addTabChoices( ctNode,"" );
-		}
-		else
+		if ( posLast.getCmd().isEmpty()==false )
 		{
 			CmdTreeNode childCTNode = ctNode.getChildCTNode();
 			if ( childCTNode!=null )
@@ -203,11 +270,6 @@ public class MainCheck
 					{
 						if ( nextSiblingCTNode instanceof CmdTreeSeq )
 						{
-//							CmdTreeParsePosition tabPos = new CmdTreeParsePosition( "",nextSiblingCTNode,matchResult.match );
-//							listTabPositions.add( tabPos );
-//
-//							addTabChoices( nextSiblingCTNode,cmd );
-
 							CmdTreeSeq ctsNode = (CmdTreeSeq)nextSiblingCTNode;
 							if ( ctsNode.getbCanBeEmpty()==false )
 								break;
@@ -217,14 +279,12 @@ public class MainCheck
 							if ( bPrevNodeMatch==true )
 								break;
 						}
-
-//						addTabChoices( nextSiblingCTNode,cmd );
 					}
 					else
 					{
 						CmdTreeParsePosition nextPos = new CmdTreeParsePosition( matchResult.nextCmd,nextSiblingCTNode,matchResult.match );
 						listPositions.add( nextPos );
-						recursiveIterateOnLevel( prefix + " " );
+						recursiveSearchCmdTreeForMatch( prefix + " " );
 					}
 					ctNode = nextSiblingCTNode;
 					bPrevNodeMatch = ( matchResult.match!=TYPE_MATCH.noMatch );

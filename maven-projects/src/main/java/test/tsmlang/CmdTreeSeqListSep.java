@@ -12,7 +12,7 @@ public class CmdTreeSeqListSep extends CmdTreeSeq
 
 	public CmdTreeSeqListSep( Node node,CmdTreeNode parentCTNode,CmdTreeNode prevSiblingCTNode )
 	{
-		super( node,NODE_TYPE.seqListSep,parentCTNode,prevSiblingCTNode );
+		super( node,NODE_TYPE.seqListSep,parentCTNode,prevSiblingCTNode,true );
 		NamedNodeMap attributes = node.getAttributes();
 		this.listSeparator = setTextValue( attributes.getNamedItem( ATTRNAME_LIST_SEPARATOR ) );
 		this.listValues = setListValues( attributes.getNamedItem( ATTRNAME_LIST ),this.listSeparator );

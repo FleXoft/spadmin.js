@@ -8,7 +8,7 @@ public class CmdTreeRootNode extends CmdTreeNode
 {
 	public CmdTreeRootNode( Node xmlNode )
 	{
-		super( xmlNode,NODE_TYPE.root,null,null );
+		super( xmlNode,NODE_TYPE.root,null,null,true );
 
 		addChildNodes();
 	}

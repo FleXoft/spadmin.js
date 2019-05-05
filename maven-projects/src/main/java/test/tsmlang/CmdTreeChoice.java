@@ -12,7 +12,7 @@ public class CmdTreeChoice extends CmdTreeNode
 
 	public CmdTreeChoice( Node node,CmdTreeNode parentCTNode,CmdTreeNode prevSiblingCTNode )
 	{
-		super( node,NODE_TYPE.choice,parentCTNode,prevSiblingCTNode );
+		super( node,NODE_TYPE.choice,parentCTNode,prevSiblingCTNode,true );
 		NamedNodeMap attributes = node.getAttributes();
 		String keyWord = setTextValue( attributes.getNamedItem( "keyWord" ) );
 		this.fixPart = getFixPart( keyWord );
