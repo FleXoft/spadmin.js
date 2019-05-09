@@ -93,3 +93,6 @@
 	- kitaláltam, hogy a tab-ra hogy legyen a következő szó
 		- minden node-hoz tárolok egy cmdSample mezőt, ebben ' '-el elválasztva benne van, hogy milyen node-ok elérése után lehet ez a node, indexek vannak benne
 			- itt számolom ki: recursiveSetCmdSample
+
+20190509:
+	- haladtam a tab-os dologgal

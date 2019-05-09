@@ -46,7 +46,8 @@ public abstract class CmdTreeNode
 			}
 		}
 
-		this.indexNode = MainCheck.indexNode++;
+		this.indexNode = LoadCmdTreeXml.indexNode++;
+		MainCheck.addNextCmdTreeNode( this );
 		this.xmlNode = xmlNode;
 		this.type = type;
 		this.parentCTNode = parentCTNode;
