@@ -19,7 +19,7 @@
 			<seqSub canBeEmpty="true" subnode="auth" >
 				<seqText canBeEmpty="false" keyWord="AUTHentication" />
 				<seqText canBeEmpty="false" keyWord="=" />
-				<seqSub canBeEmpty="false" subnode="formatlist" >
+				<seqSub canBeEmpty="false" subnode="authlist" >
 					<choice keyWord="LOcal" />
 					<choice keyWord="LDap" />
 				</seqSub>

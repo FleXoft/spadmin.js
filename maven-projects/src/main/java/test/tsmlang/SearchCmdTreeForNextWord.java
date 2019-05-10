@@ -23,23 +23,33 @@ public class SearchCmdTreeForNextWord
 		listTabPositions = new LinkedList<CmdTreeParsePosition>();
 		listPossibleNextWords = new ArrayList<CmdTreeNode>();
 
-		CmdTreeNode lastMatchingNode = lastMatchingPos.getCTNode();
-		ListIterator<CmdTreeNode> listIterator = MainCheck.listCmdTreeNodes.listIterator( lastMatchingPos.getCTNode().indexNode );
-		while ( listIterator.hasNext()==true )
-		{
-			CmdTreeNode ctNode = listIterator.next();
-			if ( lastMatchingNode.getType()==NODE_TYPE.choice )
-				continue;
-			else if ( lastMatchingNode instanceof CmdTreeSeq )
-			{
-				CmdTreeSeq ctNodeSeq = (CmdTreeSeq)ctNode;
-				if ( ctNodeSeq.getbCanBeEmpty()==false )
-				{
-					getNextWordOnly( ctNodeSeq );
-					break;
-				}
-			}
-		}
+//		CmdTreeNode lastMatchingNode = lastMatchingPos.getCTNode();
+//		if ( lastMatchingNode.childCTNode!=null )
+//			getNextWordOnly( lastMatchingNode.childCTNode );
+//
+//		if ( lastMatchingNode instanceof CmdTreeSeq )
+//		{
+//			CmdTreeSeq ctNodeSeq = (CmdTreeSeq)lastMatchingNode;
+//			getNextWordOnly( ctNodeSeq );
+//			if ( ctNodeSeq.getbCanBeEmpty()==false )
+//			{
+//				break;
+//			}
+//		}
+//		ListIterator<CmdTreeNode> listIterator = MainCheck.listCmdTreeNodes.listIterator( lastMatchingPos.getCTNode().indexNode );
+//		if ( listIterator.hasNext()==true )
+//		{
+//			CmdTreeNode ctNode = listIterator.next();
+//			if ( lastMatchingNode instanceof CmdTreeSeq )
+//			{
+//				CmdTreeSeq ctNodeSeq = (CmdTreeSeq)ctNode;
+//				getNextWordOnly( ctNodeSeq );
+//				if ( ctNodeSeq.getbCanBeEmpty()==false )
+//				{
+//					break;
+//				}
+//			}
+//		}
 
 		for ( CmdTreeNode ctnode : SearchCmdTreeForNextWord.listPossibleNextWords )
 			addTabChoices( ctnode,lastMatchingPos.getCmd() );
