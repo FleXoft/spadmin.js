@@ -32,8 +32,14 @@ public class MainCheck
 
 		PrintCmdTree.recursivePrintCmdTreeNode( nodeRoot,"" );
 
-//		checkInput( nodeRoot,"  quer   node" );
-		checkInput( nodeRoot,"  q   n do=domain1" );
+		System.out.println( "---------listCmdTreeNodes" );
+		for ( CmdTreeNode ctNode : listCmdTreeNodes )
+		{
+			System.out.println( String.format( "node(%02d)(%s)",ctNode.indexNode,ctNode.cmdSample ) );
+		}
+
+		checkInput( nodeRoot,"  quer   node" );
+//		checkInput( nodeRoot,"  q   n do=domain1" );
 //		checkInput( nodeRoot,"  q   n node1 auth=ld t=" );
 //		checkInput( nodeRoot,"  dir" );
 //		checkInput( nodeRoot,"  q  ac" );

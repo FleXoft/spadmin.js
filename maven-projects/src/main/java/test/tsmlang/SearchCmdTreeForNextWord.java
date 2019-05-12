@@ -9,10 +9,13 @@ import test.tsmlang.CmdTreeNode.NODE_TYPE;
 
 public class SearchCmdTreeForNextWord
 {
+	public enum TYPE_RECURSION { writeContentThenTreeWalk };
+	
 	private static LinkedList<CmdTreeParsePosition> listTabPositions = null;
 	private static List<CmdTreeParseTabChoices> listTabChoices = null;
-	private static List<CmdTreeNode> listPossibleNextWords = null;
+	private static LinkedList<CmdTreeNode> listPossibleNextWords = null;
 	private static CmdTreeParsePosition lastMatchingPos = null;
+	private static CmdTreeNode currentCTNode = null;
 
 
 	public static void search( CmdTreeParsePosition lastMatchingPos )
@@ -21,114 +24,134 @@ public class SearchCmdTreeForNextWord
 
 		listTabChoices = new ArrayList<CmdTreeParseTabChoices>();
 		listTabPositions = new LinkedList<CmdTreeParsePosition>();
-		listPossibleNextWords = new ArrayList<CmdTreeNode>();
+		listPossibleNextWords = new LinkedList<CmdTreeNode>();
 
-//		- akármi volt az utolsó node, ha van child-ja, akkor bejárom a következő word-ért
-//		- van olyan, hogy egy adott szinten már megvan a következő word, így nem lehet tovább nézni
-//			- ilyenkor azért még feljebb kell menni egy szinttel és folytatni a lehetséges sibling-el
-//		- megnézem, mi volt az utolsó node
-//			- ha choice, akkor az azonos szinten levő choice-ok közül semmit nem nézek
-//			- ha seq, végignézem az összes sibling-et, amely canBeEmpty="true"
-//				- ha canBeEmpty="false", akkor ezen a szinten ezt a node-ot még megnézem(bejárom), de tovább nem megyek
+//		végigmegyek az utsó matching node utáni node-tól a végéig
+//		megnézem, hogyan tudok eljutni az aktuáis node-ból az utsó matching node-ig
+//		ezt az utat vizsgálom meg, ez alapján döntök, hogy tab choice-e
 
 		CmdTreeNode ctNode = lastMatchingPos.getCTNode();
 
-		while ( true )
+		ListIterator<CmdTreeNode> listIterator = MainCheck.listCmdTreeNodes.listIterator( ctNode.indexNode );
+		CmdTreeNode ctNode2 = listIterator.next();
+
+		while ( listIterator.hasNext()==true )
 		{
-			if ( ctNode.childCTNode!=null )
-				getNextWordOnly( 1,ctNode.childCTNode );
-
-			if ( ctNode.getType()==NODE_TYPE.choice )
+			ctNode2 = listIterator.next();
+			if ( ctNode2.bHasWord==false )
 			{
-				// nem nézem tovább
+//				listPossibleNextWords.add( ctNode2 );
+				continue;
 			}
-			else if ( ctNode instanceof CmdTreeSeq )
-			{
-				CmdTreeSeq ctNodeSeq = (CmdTreeSeq)ctNode;
-				while ( true )
-				{
-					ctNodeSeq = (CmdTreeSeq)ctNodeSeq.nextSiblingCTNode;
-					if ( ctNodeSeq==null )
-						break;
 
-					getNextWordOnly( 2,ctNodeSeq );
-					if ( ctNodeSeq.getbCanBeEmpty()==false )
-						break;
+			if ( listPossibleNextWords.isEmpty()==true )
+			{
+				listPossibleNextWords.add( ctNode2 );
+			}
+			else
+			{
+				CmdTreeNode ctNodeLast = listPossibleNextWords.getLast();
+				if ( ctNodeLast.nextSiblingCTNode.indexNode==ctNode2.indexNode )
+				{
+					if ( ctNodeLast.getType()==NODE_TYPE.choice &&
+						ctNode2.getType()==NODE_TYPE.choice )
+					{
+						listPossibleNextWords.add( ctNode2 );
+					}
+					if ( ctNodeLast instanceof CmdTreeSeq &&
+						ctNode2 instanceof CmdTreeSeq )
+					{
+						CmdTreeSeq ctNodeLastSeq = (CmdTreeSeq)ctNodeLast;
+						if ( ctNodeLastSeq.getbCanBeEmpty()==true )
+							listPossibleNextWords.add( ctNode2 );
+					}
 				}
 			}
-
-			while ( true )
-			{
-				ctNode = ctNode.parentCTNode;
-				if ( ctNode==null )
-					break;
-				if ( ctNode.nextSiblingCTNode!=null )
-				{
-					ctNode = ctNode.nextSiblingCTNode;
-					break;
-				}
-			}
-			if ( ctNode==null )
-				break;
 		}
-
-//		ListIterator<CmdTreeNode> listIterator = MainCheck.listCmdTreeNodes.listIterator( lastMatchingPos.getCTNode().indexNode );
-//		if ( listIterator.hasNext()==true )
-//		{
-//			CmdTreeNode ctNode = listIterator.next();
-//			if ( lastMatchingNode instanceof CmdTreeSeq )
-//			{
-//				CmdTreeSeq ctNodeSeq = (CmdTreeSeq)ctNode;
-//				getNextWordOnly( ctNodeSeq );
-//				if ( ctNodeSeq.getbCanBeEmpty()==false )
-//				{
-//					break;
-//				}
-//			}
-//		}
 
 		for ( CmdTreeNode ctnode : SearchCmdTreeForNextWord.listPossibleNextWords )
 			addTabChoices( ctnode,lastMatchingPos.getCmd() );
 	}
 
-	private static void getNextWordOnly( int callIndex,CmdTreeNode ctNode )
-	{
-		System.out.println( String.format( "---getNextWordOnly(%d) called on node(%02d)",callIndex,ctNode.indexNode ) );
-		for ( CmdTreeNode ctn : SearchCmdTreeForNextWord.listPossibleNextWords )
-			System.out.println( String.format( "   listPossibleNextWords node(%02d)",ctn.indexNode ) );
+//	private static void level0()
+//	{
+//		while ( true )
+//		{
+//			if ( ctNode.childCTNode!=null )
+//			{
+//				currentCTNode = ctNode.childCTNode;
+//				listPossibleNextWords.add( currentCTNode );
+//				getNextWordOnly( 1,currentCTNode );
+//			}
+//
+//			if ( ctNode.getType()==NODE_TYPE.choice )
+//			{
+//				// nem nézem tovább
+//			}
+//			else if ( ctNode instanceof CmdTreeSeq )
+//			{
+//				CmdTreeSeq ctNodeSeq = (CmdTreeSeq)ctNode;
+//				ctNodeSeq = (CmdTreeSeq)ctNodeSeq.nextSiblingCTNode;
+//				if ( ctNodeSeq!=null )
+//					getNextWordOnly( 2,ctNodeSeq );
+////				if ( ctNodeSeq.getbCanBeEmpty()==false )
+////					break;
+//			}
+//
+//			while ( true )
+//			{
+//				ctNode = ctNode.parentCTNode;
+//				if ( ctNode==null )
+//					break;
+//				if ( ctNode.nextSiblingCTNode!=null )
+//				{
+//					ctNode = ctNode.nextSiblingCTNode;
+//					break;
+//				}
+//			}
+//			if ( ctNode==null )
+//				break;
+//		}
+//	}
 
-		if ( ctNode.getType()==NODE_TYPE.levelStart )
-			ctNode = ctNode.nextSiblingCTNode;
-
-		if ( ctNode.getType()==NODE_TYPE.choice )
-		{
-			if ( ctNode.childCTNode!=null )
-				getNextWordOnly( 3,ctNode.childCTNode );
-
-			while ( ctNode!=null )
-			{
-				listPossibleNextWords.add( ctNode );
-				ctNode = ctNode.nextSiblingCTNode;
-			}
-		}
-		else if ( ctNode instanceof CmdTreeSeq )
-		{
-			CmdTreeSeq ctNodeSeq = (CmdTreeSeq)ctNode;
-			while ( true )
-			{
-				if ( ctNodeSeq.getbHasWord()==true )
-					listPossibleNextWords.add( ctNode );
-				else if ( ctNodeSeq instanceof CmdTreeSeqSub )
-					getNextWordOnly( 4,ctNodeSeq.childCTNode );
-				if ( ctNodeSeq.getbCanBeEmpty()==false )
-					break;
-
-				ctNodeSeq = (CmdTreeSeq)ctNodeSeq.nextSiblingCTNode;
-				if ( ctNodeSeq==null )
-					break;
-			}
-		}
-	}
+//	private static void getNextWordOnly( int callIndex,CmdTreeNode ctNode )
+//	{
+//		System.out.println( String.format( "---getNextWordOnly(%d) called on node(%02d)",callIndex,ctNode.indexNode ) );
+//		for ( CmdTreeNode ctn : SearchCmdTreeForNextWord.listPossibleNextWords )
+//			System.out.println( String.format( "   listPossibleNextWords node(%02d)",ctn.indexNode ) );
+//
+//		if ( ctNode.getType()==NODE_TYPE.levelStart )
+//			ctNode = ctNode.nextSiblingCTNode;
+//
+//		if ( ctNode.getType()==NODE_TYPE.choice )
+//		{
+//			if ( ctNode.childCTNode!=null )
+//				getNextWordOnly( 3,ctNode.childCTNode );
+//
+//			while ( ctNode!=null )
+//			{
+//				listPossibleNextWords.add( ctNode );
+//				ctNode = ctNode.nextSiblingCTNode;
+//			}
+//		}
+//		else if ( ctNode instanceof CmdTreeSeq )
+//		{
+//			CmdTreeSeq ctNodeSeq = (CmdTreeSeq)ctNode;
+//			while ( true )
+//			{
+//				if ( ctNodeSeq.getbHasWord()==true )
+//					listPossibleNextWords.add( ctNode );
+//				if ( ctNodeSeq instanceof CmdTreeSeqSub )
+//					getNextWordOnly( 4,ctNodeSeq.childCTNode );
+//				if ( ctNodeSeq.getbCanBeEmpty()==false )
+//					break;
+//
+//				ctNodeSeq = (CmdTreeSeq)ctNodeSeq.nextSiblingCTNode;
+//				if ( ctNodeSeq==null )
+//					break;
+//			}
+//		}
+//	}
 
 	private static void addNextTabChoices( CmdTreeNode ctNode,String cmd )
 	{

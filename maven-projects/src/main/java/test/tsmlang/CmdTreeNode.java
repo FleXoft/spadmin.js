@@ -58,14 +58,24 @@ public abstract class CmdTreeNode
 			if ( this.parentCTNode==null )
 				this.cmdSample = String.format( "%02d",this.indexNode ); 
 			else
-				this.cmdSample = String.format( "%s %02d",this.parentCTNode.cmdSample,this.indexNode );
+			{
+				if ( prevSiblingCTNode==null )
+					this.cmdSample = String.format( "%s %02d",this.parentCTNode.cmdSample,this.indexNode );
+				else
+					this.cmdSample = String.format( "%s %02d",prevSiblingCTNode.cmdSample,this.indexNode );
+			}
 		}
 		else
 		{
 			if ( this.parentCTNode==null )
 				this.cmdSample = String.format( "" ); 
 			else
-				this.cmdSample = this.parentCTNode.cmdSample;
+			{
+				if ( prevSiblingCTNode==null )
+					this.cmdSample = this.parentCTNode.cmdSample;
+				else
+					this.cmdSample = prevSiblingCTNode.cmdSample;
+			}
 		}
 
 		if ( ctnodeLevelStart!=null )
@@ -338,5 +348,23 @@ public abstract class CmdTreeNode
 	public String getCmdSample()
 	{
 		return cmdSample;
+	}
+
+	@Override
+	public String toString()
+	{
+		StringBuilder builder = new StringBuilder();
+		builder.append( "CmdTreeNode [indexNode=" );
+		builder.append( indexNode );
+		builder.append( ", type=" );
+		builder.append( type );
+		builder.append( ", level=" );
+		builder.append( level );
+		builder.append( ", bHasWord=" );
+		builder.append( bHasWord );
+		builder.append( ", cmdSample=" );
+		builder.append( cmdSample );
+		builder.append( "]" );
+		return builder.toString();
 	}
 }

@@ -54,6 +54,8 @@ public class CmdTreeChoice extends CmdTreeNode
 		builder.append( indexNode );
 		builder.append( ", type=" );
 		builder.append( type );
+		builder.append( ", level=" );
+		builder.append( level );
 		builder.append( "]" );
 		return builder.toString();
 	}

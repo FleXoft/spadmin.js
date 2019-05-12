@@ -98,3 +98,13 @@
 
 20190509:
 	- haladtam a tab-os dologgal
+
+20190511:
+	- azt találtam ki, hogy simán a lista sorrendje alapján próbálom betenni a tab listába a node-okat
+		- így az előző node alapján tudom szűrni, hogy ok-e a node vagy nem...
+
+20190512:
+	- nem jó az előző, túl bonyi, inkább ez lesz:
+		- végigmegyek az utsó matching node utáni node-tól a végéig
+		- megnézem, hogyan tudok eljutni az aktuáis node-ból az utsó matching node-ig
+		- ezt az utat vizsgálom meg, ez alapján döntök, hogy tab choice-e
