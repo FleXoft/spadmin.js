@@ -32,126 +32,73 @@ public class SearchCmdTreeForNextWord
 
 		CmdTreeNode ctNode = lastMatchingPos.getCTNode();
 
+		System.out.println( String.format( "lastMatchingNode=(%02d)",ctNode.indexNode ) );
 		ListIterator<CmdTreeNode> listIterator = MainCheck.listCmdTreeNodes.listIterator( ctNode.indexNode );
 		CmdTreeNode ctNode2 = listIterator.next();
 
 		while ( listIterator.hasNext()==true )
 		{
 			ctNode2 = listIterator.next();
+			System.out.println( String.format( "nextNode=(%02d)",ctNode2.indexNode ) );
 			if ( ctNode2.bHasWord==false )
 			{
 //				listPossibleNextWords.add( ctNode2 );
-				continue;
+//				continue;
 			}
 
-			if ( listPossibleNextWords.isEmpty()==true )
-			{
-				listPossibleNextWords.add( ctNode2 );
-			}
-			else
-			{
-				CmdTreeNode ctNodeLast = listPossibleNextWords.getLast();
-				if ( ctNodeLast.nextSiblingCTNode.indexNode==ctNode2.indexNode )
-				{
-					if ( ctNodeLast.getType()==NODE_TYPE.choice &&
-						ctNode2.getType()==NODE_TYPE.choice )
-					{
-						listPossibleNextWords.add( ctNode2 );
-					}
-					if ( ctNodeLast instanceof CmdTreeSeq &&
-						ctNode2 instanceof CmdTreeSeq )
-					{
-						CmdTreeSeq ctNodeLastSeq = (CmdTreeSeq)ctNodeLast;
-						if ( ctNodeLastSeq.getbCanBeEmpty()==true )
-							listPossibleNextWords.add( ctNode2 );
-					}
-				}
-			}
+			CmdTreeNode ctNodeCommon = getLastCommonNode( ctNode,ctNode2 );
+			break;
+//			if ( listPossibleNextWords.isEmpty()==true )
+//			{
+//				listPossibleNextWords.add( ctNode2 );
+//			}
+//			else
+//			{
+//				CmdTreeNode ctNodeLast = listPossibleNextWords.getLast();
+//				if ( ctNodeLast.nextSiblingCTNode.indexNode==ctNode2.indexNode )
+//				{
+//					if ( ctNodeLast.getType()==NODE_TYPE.choice &&
+//						ctNode2.getType()==NODE_TYPE.choice )
+//					{
+//						listPossibleNextWords.add( ctNode2 );
+//					}
+//					if ( ctNodeLast instanceof CmdTreeSeq &&
+//						ctNode2 instanceof CmdTreeSeq )
+//					{
+//						CmdTreeSeq ctNodeLastSeq = (CmdTreeSeq)ctNodeLast;
+//						if ( ctNodeLastSeq.getbCanBeEmpty()==true )
+//							listPossibleNextWords.add( ctNode2 );
+//					}
+//				}
+//			}
 		}
 
 		for ( CmdTreeNode ctnode : SearchCmdTreeForNextWord.listPossibleNextWords )
 			addTabChoices( ctnode,lastMatchingPos.getCmd() );
 	}
 
-//	private static void level0()
-//	{
-//		while ( true )
-//		{
-//			if ( ctNode.childCTNode!=null )
-//			{
-//				currentCTNode = ctNode.childCTNode;
-//				listPossibleNextWords.add( currentCTNode );
-//				getNextWordOnly( 1,currentCTNode );
-//			}
-//
-//			if ( ctNode.getType()==NODE_TYPE.choice )
-//			{
-//				// nem nézem tovább
-//			}
-//			else if ( ctNode instanceof CmdTreeSeq )
-//			{
-//				CmdTreeSeq ctNodeSeq = (CmdTreeSeq)ctNode;
-//				ctNodeSeq = (CmdTreeSeq)ctNodeSeq.nextSiblingCTNode;
-//				if ( ctNodeSeq!=null )
-//					getNextWordOnly( 2,ctNodeSeq );
-////				if ( ctNodeSeq.getbCanBeEmpty()==false )
-////					break;
-//			}
-//
-//			while ( true )
-//			{
-//				ctNode = ctNode.parentCTNode;
-//				if ( ctNode==null )
-//					break;
-//				if ( ctNode.nextSiblingCTNode!=null )
-//				{
-//					ctNode = ctNode.nextSiblingCTNode;
-//					break;
-//				}
-//			}
-//			if ( ctNode==null )
-//				break;
-//		}
-//	}
+	private static CmdTreeNode getLastCommonNode( CmdTreeNode ctNode,CmdTreeNode ctNode2 )
+	{
+		int indexFirstDiff = 0;
+		for ( ; true; indexFirstDiff++ )
+		{
+			if ( ctNode.cmdSample.length()<=indexFirstDiff )
+				break;
+			if ( ctNode2.cmdSample.length()<=indexFirstDiff )
+				break;
+			if ( ctNode.cmdSample.charAt( indexFirstDiff )!=ctNode2.cmdSample.charAt( indexFirstDiff ) )
+				break;
+		}
+		String strCommon = ctNode.cmdSample.substring( 0,indexFirstDiff );
+		String[] list = strCommon.split( " " );
+		String strLastCommonIndex = null;
+		if ( list.length>0 )
+			strLastCommonIndex = list[list.length-1];
+		int index = Integer.parseInt( strLastCommonIndex );
 
-//	private static void getNextWordOnly( int callIndex,CmdTreeNode ctNode )
-//	{
-//		System.out.println( String.format( "---getNextWordOnly(%d) called on node(%02d)",callIndex,ctNode.indexNode ) );
-//		for ( CmdTreeNode ctn : SearchCmdTreeForNextWord.listPossibleNextWords )
-//			System.out.println( String.format( "   listPossibleNextWords node(%02d)",ctn.indexNode ) );
-//
-//		if ( ctNode.getType()==NODE_TYPE.levelStart )
-//			ctNode = ctNode.nextSiblingCTNode;
-//
-//		if ( ctNode.getType()==NODE_TYPE.choice )
-//		{
-//			if ( ctNode.childCTNode!=null )
-//				getNextWordOnly( 3,ctNode.childCTNode );
-//
-//			while ( ctNode!=null )
-//			{
-//				listPossibleNextWords.add( ctNode );
-//				ctNode = ctNode.nextSiblingCTNode;
-//			}
-//		}
-//		else if ( ctNode instanceof CmdTreeSeq )
-//		{
-//			CmdTreeSeq ctNodeSeq = (CmdTreeSeq)ctNode;
-//			while ( true )
-//			{
-//				if ( ctNodeSeq.getbHasWord()==true )
-//					listPossibleNextWords.add( ctNode );
-//				if ( ctNodeSeq instanceof CmdTreeSeqSub )
-//					getNextWordOnly( 4,ctNodeSeq.childCTNode );
-//				if ( ctNodeSeq.getbCanBeEmpty()==false )
-//					break;
-//
-//				ctNodeSeq = (CmdTreeSeq)ctNodeSeq.nextSiblingCTNode;
-//				if ( ctNodeSeq==null )
-//					break;
-//			}
-//		}
-//	}
+		System.out.println( String.format( "lastCommonIndex(%02d)",index ) );
+		return null;
+	}
 
 	private static void addNextTabChoices( CmdTreeNode ctNode,String cmd )
 	{
@@ -193,7 +140,102 @@ public class SearchCmdTreeForNextWord
 			System.out.println( String.format( "%s (%d)",item.getStrChoice(),item.getCtnode().indexNode ) );
 		}
 	}
+
+//	public static void main( String[] args )
+//	{
+//		LinkedList<String> ll = new LinkedList<String>();
+//		ll.addLast( "0" );
+//		ll.addLast( "1" );
+//		ll.addLast( "2" );
+//		ll.addLast( "3" );
+//		ListIterator<String> listIterator = ll.listIterator( 2 );
+//		for ( int ic=0; listIterator.hasNext()==true; ic++ )
+//		{
+//			String next = listIterator.next();
+//			System.out.println( String.format( "%d,%s",ic,next ) );
+//		}
+//	}
 }
+//private static void level0()
+//{
+//	while ( true )
+//	{
+//		if ( ctNode.childCTNode!=null )
+//		{
+//			currentCTNode = ctNode.childCTNode;
+//			listPossibleNextWords.add( currentCTNode );
+//			getNextWordOnly( 1,currentCTNode );
+//		}
+//
+//		if ( ctNode.getType()==NODE_TYPE.choice )
+//		{
+//			// nem nézem tovább
+//		}
+//		else if ( ctNode instanceof CmdTreeSeq )
+//		{
+//			CmdTreeSeq ctNodeSeq = (CmdTreeSeq)ctNode;
+//			ctNodeSeq = (CmdTreeSeq)ctNodeSeq.nextSiblingCTNode;
+//			if ( ctNodeSeq!=null )
+//				getNextWordOnly( 2,ctNodeSeq );
+////			if ( ctNodeSeq.getbCanBeEmpty()==false )
+////				break;
+//		}
+//
+//		while ( true )
+//		{
+//			ctNode = ctNode.parentCTNode;
+//			if ( ctNode==null )
+//				break;
+//			if ( ctNode.nextSiblingCTNode!=null )
+//			{
+//				ctNode = ctNode.nextSiblingCTNode;
+//				break;
+//			}
+//		}
+//		if ( ctNode==null )
+//			break;
+//	}
+//}
+
+//private static void getNextWordOnly( int callIndex,CmdTreeNode ctNode )
+//{
+//	System.out.println( String.format( "---getNextWordOnly(%d) called on node(%02d)",callIndex,ctNode.indexNode ) );
+//	for ( CmdTreeNode ctn : SearchCmdTreeForNextWord.listPossibleNextWords )
+//		System.out.println( String.format( "   listPossibleNextWords node(%02d)",ctn.indexNode ) );
+//
+//	if ( ctNode.getType()==NODE_TYPE.levelStart )
+//		ctNode = ctNode.nextSiblingCTNode;
+//
+//	if ( ctNode.getType()==NODE_TYPE.choice )
+//	{
+//		if ( ctNode.childCTNode!=null )
+//			getNextWordOnly( 3,ctNode.childCTNode );
+//
+//		while ( ctNode!=null )
+//		{
+//			listPossibleNextWords.add( ctNode );
+//			ctNode = ctNode.nextSiblingCTNode;
+//		}
+//	}
+//	else if ( ctNode instanceof CmdTreeSeq )
+//	{
+//		CmdTreeSeq ctNodeSeq = (CmdTreeSeq)ctNode;
+//		while ( true )
+//		{
+//			if ( ctNodeSeq.getbHasWord()==true )
+//				listPossibleNextWords.add( ctNode );
+//			if ( ctNodeSeq instanceof CmdTreeSeqSub )
+//				getNextWordOnly( 4,ctNodeSeq.childCTNode );
+//			if ( ctNodeSeq.getbCanBeEmpty()==false )
+//				break;
+//
+//			ctNodeSeq = (CmdTreeSeq)ctNodeSeq.nextSiblingCTNode;
+//			if ( ctNodeSeq==null )
+//				break;
+//		}
+//	}
+//}
+
 //private static boolean bEndSignSearchCmdTreeForNextWord = false;
 //private static void recursiveSearchCmdTreeForNextWord( CmdTreeNode ctNode,String prefix )
 //{

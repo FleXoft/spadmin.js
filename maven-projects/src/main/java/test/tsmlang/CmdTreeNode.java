@@ -43,6 +43,7 @@ public abstract class CmdTreeNode
 			{
 				ctnodeLevelStart = new CmdTreeLevelStart( parentCTNode );
 				parentCTNode.setChildCTNode( ctnodeLevelStart );
+				prevSiblingCTNode = ctnodeLevelStart;
 			}
 		}
 
@@ -53,42 +54,43 @@ public abstract class CmdTreeNode
 		this.parentCTNode = parentCTNode;
 		this.bHasWord = bHasWord;
 		this.level = ( this.parentCTNode==null ) ? 1 : this.parentCTNode.level + 1;
-		if ( bHasWord==true )
-		{
-			if ( this.parentCTNode==null )
-				this.cmdSample = String.format( "%02d",this.indexNode ); 
-			else
-			{
-				if ( prevSiblingCTNode==null )
-					this.cmdSample = String.format( "%s %02d",this.parentCTNode.cmdSample,this.indexNode );
-				else
-					this.cmdSample = String.format( "%s %02d",prevSiblingCTNode.cmdSample,this.indexNode );
-			}
-		}
+		if ( this.parentCTNode==null )
+			this.cmdSample = String.format( "%02d",this.indexNode ); 
 		else
 		{
-			if ( this.parentCTNode==null )
-				this.cmdSample = String.format( "" ); 
+			if ( prevSiblingCTNode==null )
+				this.cmdSample = String.format( "%s %02d",this.parentCTNode.cmdSample,this.indexNode );
 			else
-			{
-				if ( prevSiblingCTNode==null )
-					this.cmdSample = this.parentCTNode.cmdSample;
-				else
-					this.cmdSample = prevSiblingCTNode.cmdSample;
-			}
+				this.cmdSample = String.format( "%s %02d",prevSiblingCTNode.cmdSample,this.indexNode );
 		}
+//		if ( bHasWord==true )
+//		{
+//		}
+//		else
+//		{
+//			if ( this.parentCTNode==null )
+//				this.cmdSample = String.format( "" ); 
+//			else
+//			{
+//				if ( prevSiblingCTNode==null )
+//					this.cmdSample = this.parentCTNode.cmdSample;
+//				else
+//					this.cmdSample = prevSiblingCTNode.cmdSample;
+//			}
+//		}
 
 		if ( ctnodeLevelStart!=null )
+		{
 			ctnodeLevelStart.setNextSiblingCTNode( this );
-
-		if ( prevSiblingCTNode!=null )
+		}
+		else if ( prevSiblingCTNode!=null )
 		{
 			prevSiblingCTNode.setNextSiblingCTNode( this );
 			if ( similar( prevSiblingCTNode )!=true )
 				throw new RuntimeException( String.format( "siblings' types are not equal(%s,%s)(%02d)",type,prevSiblingCTNode.type,this.indexNode ) );
 		}
 
-		System.out.println( String.format( "new CmdTreeNode (%02d)",indexNode ) );
+		System.out.println( String.format( "new CmdTreeNode (%s)",this.toString() ) );
 	}
 
 	private boolean similar( CmdTreeNode prevSiblingCTNode )

@@ -1,18 +1,6 @@
 package test.tsmlang;
 
-import java.io.FileInputStream;
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathFactory;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
 
 import test.tsmlang.CmdTreeParsePosition.TYPE_MATCH;
 
@@ -38,8 +26,8 @@ public class MainCheck
 			System.out.println( String.format( "node(%02d)(%s)",ctNode.indexNode,ctNode.cmdSample ) );
 		}
 
-		checkInput( nodeRoot,"  quer   node" );
-//		checkInput( nodeRoot,"  q   n do=domain1" );
+//		checkInput( nodeRoot,"  quer   node" );
+		checkInput( nodeRoot,"  q   n do=domain1" );
 //		checkInput( nodeRoot,"  q   n node1 auth=ld t=" );
 //		checkInput( nodeRoot,"  dir" );
 //		checkInput( nodeRoot,"  q  ac" );
