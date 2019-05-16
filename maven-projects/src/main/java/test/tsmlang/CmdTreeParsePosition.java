@@ -21,7 +21,7 @@ public class CmdTreeParsePosition
 //			this.levelNodeType = cmdTree.get( 0 ).type;
 //		else
 //			this.levelNodeType = null;
-//		System.out.println( String.format( "new CmdTreeLevel(parent:%02d-%s),count=%02d,type=%s,cmd=(%s)",
+//		logger.debug( String.format( "new CmdTreeLevel(parent:%02d-%s),count=%02d,type=%s,cmd=(%s)",
 //				(this.getParentNode()==null) ? -1 : this.getParentNode().getIndexNode(),
 //				(this.getParentNode()==null) ? null : this.getParentNode().type,
 //				this.cmdTree.size(),

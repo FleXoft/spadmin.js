@@ -1,11 +1,19 @@
 package test.tsmlang;
 
 import java.util.LinkedList;
+import java.util.List;
+
+import org.apache.log4j.Logger;
+import org.apache.log4j.xml.DOMConfigurator;
 
 import test.tsmlang.CmdTreeParsePosition.TYPE_MATCH;
 
 public class MainCheck
 {
+	private static final Logger logger = Logger.getLogger( MainCheck.class );
+
+	public static final String FILENAME_LOG4j_CONFIG = "log4j-config.xml";
+
 	public static final String COMMAND_TREE_XML = "command-tree1.xml";
 
 	public static LinkedList<CmdTreeNode> listCmdTreeNodes = new LinkedList<CmdTreeNode>();
@@ -14,16 +22,16 @@ public class MainCheck
 		listCmdTreeNodes.addLast( cmdTreeNode );
 	}
 
-	public static void main( String[] args ) throws Exception
+	public MainCheck() throws Exception
 	{
 		CmdTreeRootNode nodeRoot = LoadCmdTreeXml.loadXml();
 
 		PrintCmdTree.recursivePrintCmdTreeNode( nodeRoot,"" );
 
-		System.out.println( "---------listCmdTreeNodes" );
+		logger.debug( "---------listCmdTreeNodes" );
 		for ( CmdTreeNode ctNode : listCmdTreeNodes )
 		{
-			System.out.println( String.format( "node(%02d)(%s)",ctNode.indexNode,ctNode.cmdSample ) );
+			logger.debug( String.format( "node(%02d)(%s)",ctNode.indexNode,ctNode.cmdSample ) );
 		}
 
 //		checkInput( nodeRoot,"  quer   node" );
@@ -38,8 +46,27 @@ public class MainCheck
 //		handleTab( args[0] );
 	}
 
-	private static void checkInput( CmdTreeRootNode nodeRoot,String cmd )
+	public static void main( String[] args ) throws Exception
 	{
+		DOMConfigurator.configure( FILENAME_LOG4j_CONFIG );
+		logger.debug( "Start" );
+
+		try
+		{
+			new MainCheck();
+		}
+		catch ( Exception exc )
+		{
+			logger.error( "",exc );
+		}
+
+		logger.debug( "End." );
+	}
+
+	public static List<CmdTreeParseTabChoices> checkInput( CmdTreeRootNode nodeRoot,String cmd )
+	{
+		ObjectTabChoices.listTabChoices.clear();
+
 //		be kell járni a fát úgy, hogy nézni kell, mikor hova mehetek
 //			ha nincs továbbmenési lehetőség, akkor kész a parse-olás
 //		choice ágnál akkor és csak akkor megyek a következő szintre, ha a fix vagy a full part egyezik
@@ -73,6 +100,8 @@ public class MainCheck
 
 		SearchCmdTreeForMatch.printResults( cmd );
 		SearchCmdTreeForNextWord.printResults( cmd );
+
+		return ObjectTabChoices.listTabChoices;
 	}
 
 	public static String skipFirstSpaces( String cmd )
