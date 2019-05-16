@@ -111,3 +111,7 @@
 
 20190516:
 	- már majdnem jó az algó, csak ki kell találni, mikor van vége a listázásnak...
+	- meg kell nézni az utsó node utáni első node-ot
+		- az összes lehetséges következő szónak ez "alatt" kell lennie
+			- azaz a gyökértől ideáig tartó útnak szerepelnie kell az összes megoldásban
+	- KÉSZ!!! tesztelve az eddigi xml alapján!! :)

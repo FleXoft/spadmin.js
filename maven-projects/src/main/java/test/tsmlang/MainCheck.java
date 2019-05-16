@@ -27,10 +27,12 @@ public class MainCheck
 		}
 
 //		checkInput( nodeRoot,"  quer   node" );
-		checkInput( nodeRoot,"  q   n do=domain1" );
+//		checkInput( nodeRoot,"  q   n do=domain1" );
+//		checkInput( nodeRoot,"  q   n node1 auth=" );
 //		checkInput( nodeRoot,"  q   n node1 auth=ld t=" );
 //		checkInput( nodeRoot,"  dir" );
 //		checkInput( nodeRoot,"  q  ac" );
+		checkInput( nodeRoot,"  q  actlog" );
 
 //		checkInput( args[0] );
 //		handleTab( args[0] );
@@ -61,7 +63,7 @@ public class MainCheck
 		{
 			if ( lastMatchingPos.getMatch()==TYPE_MATCH.partial )
 			{
-				SearchCmdTreeForNextWord.addTabChoices( lastMatchingPos.getCTNode(),lastMatchingPos.getCmd() );
+				ObjectTabChoices.addTabChoices( lastMatchingPos.getCTNode(),lastMatchingPos.getCmd() );
 			}
 			else
 			{
