@@ -1,11 +1,12 @@
 package test.tsmlang;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
-
-import test.tsmlang.CmdTreeNode.NODE_TYPE;
+import java.util.Set;
 
 public class SearchCmdTreeForNextWord
 {
@@ -14,6 +15,7 @@ public class SearchCmdTreeForNextWord
 	private static LinkedList<CmdTreeParsePosition> listTabPositions = null;
 	private static List<CmdTreeParseTabChoices> listTabChoices = null;
 	private static LinkedList<CmdTreeNode> listPossibleNextWords = null;
+	private static Set<CmdTreeNode> hsPossibleNextWords = null;
 	private static CmdTreeParsePosition lastMatchingPos = null;
 	private static CmdTreeNode currentCTNode = null;
 
@@ -25,6 +27,7 @@ public class SearchCmdTreeForNextWord
 		listTabChoices = new ArrayList<CmdTreeParseTabChoices>();
 		listTabPositions = new LinkedList<CmdTreeParsePosition>();
 		listPossibleNextWords = new LinkedList<CmdTreeNode>();
+		hsPossibleNextWords = new HashSet<CmdTreeNode>();
 
 //		végigmegyek az utsó matching node utáni node-tól a végéig
 //		megnézem, hogyan tudok eljutni az aktuáis node-ból az utsó matching node-ig
@@ -36,7 +39,8 @@ public class SearchCmdTreeForNextWord
 		ListIterator<CmdTreeNode> listIterator = MainCheck.listCmdTreeNodes.listIterator( ctNode.indexNode );
 		CmdTreeNode ctNode2 = listIterator.next();
 
-		while ( listIterator.hasNext()==true )
+		boolean bFoundFinalWord = false;
+		while ( listIterator.hasNext()==true && bFoundFinalWord==false )
 		{
 			ctNode2 = listIterator.next();
 			System.out.println( String.format( "nextNode=(%02d)",ctNode2.indexNode ) );
@@ -47,7 +51,50 @@ public class SearchCmdTreeForNextWord
 			}
 
 			CmdTreeNode ctNodeCommon = getLastCommonNode( ctNode,ctNode2 );
-			break;
+			List<CmdTreeNode> listCTNodesFromCommonNode = getListCTNodesFromCommonNode( ctNode2,ctNodeCommon );
+			System.out.println( String.format( "listCTNodesFromCommonNode=(%s)",listCTNodesFromCommonNode ) );
+
+//			boolean bListAlreadyHasWord = false;
+			CmdTreeNode lastFoundCTNode = null;
+			for ( CmdTreeNode ctNodeItem : listCTNodesFromCommonNode )
+			{
+				if ( ctNodeItem.bHasWord==false )
+					continue;
+
+				boolean bFoundPossibleNextWord = false;
+				boolean bContains = hsPossibleNextWords.contains( ctNodeItem );
+				if ( bContains==false )
+				{
+					if ( lastFoundCTNode!=null )
+					{
+						if ( lastFoundCTNode instanceof CmdTreeSeq )
+						{
+							CmdTreeSeq ctNodeItemSeq = (CmdTreeSeq)lastFoundCTNode;
+							if ( ctNodeItemSeq.getbCanBeEmpty()==false )
+							{
+//								bFoundFinalWord = true;
+								break;
+							}
+						}
+						if ( ctNodeItem.level>lastFoundCTNode.level )
+							break;
+						bFoundPossibleNextWord = true;
+					}
+					else
+						bFoundPossibleNextWord = true;
+				}
+				else
+				{
+					lastFoundCTNode = ctNodeItem;
+				}
+
+				if ( bFoundPossibleNextWord==true )
+				{
+					hsPossibleNextWords.add( ctNodeItem );
+					listPossibleNextWords.add( ctNodeItem );
+				}
+			}
+
 //			if ( listPossibleNextWords.isEmpty()==true )
 //			{
 //				listPossibleNextWords.add( ctNode2 );
@@ -77,6 +124,28 @@ public class SearchCmdTreeForNextWord
 			addTabChoices( ctnode,lastMatchingPos.getCmd() );
 	}
 
+	private static List<CmdTreeNode> getListCTNodesFromCommonNode( CmdTreeNode ctNode2,CmdTreeNode ctNodeCommon )
+	{
+		List<CmdTreeNode> result = new ArrayList<CmdTreeNode>();
+
+		String[] list = ctNode2.cmdSample.split( " " );
+		boolean bNodeToList = false;
+		for ( String strIndex : list )
+		{
+			int indexNode = Integer.parseInt( strIndex );
+			if ( indexNode==ctNodeCommon.indexNode )
+			{
+				bNodeToList = true;
+			}
+			else
+			{
+				if ( bNodeToList==true )
+					result.add( MainCheck.listCmdTreeNodes.get( indexNode ) );
+			}
+		}
+		return result;
+	}
+
 	private static CmdTreeNode getLastCommonNode( CmdTreeNode ctNode,CmdTreeNode ctNode2 )
 	{
 		int indexFirstDiff = 0;
@@ -97,7 +166,7 @@ public class SearchCmdTreeForNextWord
 		int index = Integer.parseInt( strLastCommonIndex );
 
 		System.out.println( String.format( "lastCommonIndex(%02d)",index ) );
-		return null;
+		return MainCheck.listCmdTreeNodes.get( index );
 	}
 
 	private static void addNextTabChoices( CmdTreeNode ctNode,String cmd )

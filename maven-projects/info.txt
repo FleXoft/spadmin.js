@@ -108,3 +108,6 @@
 		- végigmegyek az utsó matching node utáni node-tól a végéig
 		- megnézem, hogyan tudok eljutni az aktuáis node-ból az utsó matching node-ig
 		- ezt az utat vizsgálom meg, ez alapján döntök, hogy tab choice-e
+
+20190516:
+	- már majdnem jó az algó, csak ki kell találni, mikor van vége a listázásnak...
