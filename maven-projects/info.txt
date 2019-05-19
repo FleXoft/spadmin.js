@@ -108,3 +108,20 @@
 		- végigmegyek az utsó matching node utáni node-tól a végéig
 		- megnézem, hogyan tudok eljutni az aktuáis node-ból az utsó matching node-ig
 		- ezt az utat vizsgálom meg, ez alapján döntök, hogy tab choice-e
+
+20190516:
+	- már majdnem jó az algó, csak ki kell találni, mikor van vége a listázásnak...
+	- meg kell nézni az utsó node utáni első node-ot
+		- az összes lehetséges következő szónak ez "alatt" kell lennie
+			- azaz a gyökértől ideáig tartó útnak szerepelnie kell az összes megoldásban
+	- KÉSZ!!! tesztelve az eddigi xml alapján!! :)
+	- nincs kész...
+	- átalakítottam a prg-t, hogy fájlba logoljon
+	- készítettem egy TestCmd nevű prg-t
+		- ezzel be lehet írni egy string-et, majd kiadja a lehetséges tab eseteket
+		- ha azt írom be, hogy "quit", akkor kilép
+	- hibás esetek eddig:
+		- "query"
+		- "q no no"
+		- "q nod no"
+		- "q node"

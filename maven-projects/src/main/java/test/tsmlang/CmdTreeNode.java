@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -11,6 +12,8 @@ import test.tsmlang.CmdTreeParsePosition.TYPE_MATCH;
 
 public abstract class CmdTreeNode
 {
+	private static final Logger logger = Logger.getLogger( CmdTreeNode.class );
+
 	protected static final String ATTRNAME_KEYWORD = "keyWord";
 	protected static final String ATTRNAME_CAN_BE_EMPTY = "canBeEmpty";
 	protected static final String ATTRNAME_LIST = "list";
@@ -90,7 +93,7 @@ public abstract class CmdTreeNode
 				throw new RuntimeException( String.format( "siblings' types are not equal(%s,%s)(%02d)",type,prevSiblingCTNode.type,this.indexNode ) );
 		}
 
-		System.out.println( String.format( "new CmdTreeNode (%s)",this.toString() ) );
+		logger.debug( String.format( "new CmdTreeNode (%s)",this.toString() ) );
 	}
 
 	private boolean similar( CmdTreeNode prevSiblingCTNode )
@@ -134,19 +137,19 @@ public abstract class CmdTreeNode
 		else
 			throw new RuntimeException( String.format( "nodeName(%s)",nodeName ) );
 
-		System.out.println( String.format( "createNode(%s)",result.toString() ) );
+		logger.debug( String.format( "createNode(%s)",result.toString() ) );
 
 		return result;
 	}
 
 	protected void addChildNodes()
 	{
-		System.out.println( String.format( "addChildNodes start (%d)",xmlNode.hashCode() ) );
+		logger.debug( String.format( "addChildNodes start (%d)",xmlNode.hashCode() ) );
 		NodeList nodeList1 = xmlNode.getChildNodes();
 		CmdTreeNode prevSiblingCTNode = null;
 		for ( int ic=0; ic<nodeList1.getLength(); ic++ )
 		{
-			System.out.println( String.format( "addChildNodes(%d) (%d)",xmlNode.hashCode(),ic ) );
+			logger.debug( String.format( "addChildNodes(%d) (%d)",xmlNode.hashCode(),ic ) );
 			Node node1 = nodeList1.item( ic );
 			short nodeType = node1.getNodeType();
 			if ( nodeType==Node.ELEMENT_NODE )
@@ -155,7 +158,7 @@ public abstract class CmdTreeNode
 			}
 			else
 			{
-				System.out.println( String.format( "node(%s) tpye(%d) nodeValue(%s)",node1.getNodeName(),nodeType,node1.getNodeValue() ) );
+				logger.debug( String.format( "node(%s) tpye(%d) nodeValue(%s)",node1.getNodeName(),nodeType,node1.getNodeValue() ) );
 			}
 		}
 	}
@@ -369,4 +372,27 @@ public abstract class CmdTreeNode
 		builder.append( "]" );
 		return builder.toString();
 	}
+	@Override
+	public int hashCode()
+	{
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + indexNode;
+		return result;
+	}
+	@Override
+	public boolean equals( Object obj )
+	{
+		if ( this == obj )
+			return true;
+		if ( obj == null )
+			return false;
+		if ( !(obj instanceof CmdTreeNode) )
+			return false;
+		CmdTreeNode other = (CmdTreeNode)obj;
+		if ( indexNode != other.indexNode )
+			return false;
+		return true;
+	}
+
 }
