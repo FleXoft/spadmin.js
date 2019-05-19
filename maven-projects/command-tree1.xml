@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <root>
-	<choice keyWord="Query">
-		<choice keyWord="Node">
+	<choiceText keyWord="Query">
+		<choiceText keyWord="Node">
 			<seqList canBeEmpty="true" list="node1,node2" />
 			<seqSub canBeEmpty="true" subnode="domains" >
 				<seqText canBeEmpty="false" keyWord="DOmain" />
@@ -12,34 +12,54 @@
 				<seqText canBeEmpty="false" keyWord="Format" />
 				<seqText canBeEmpty="false" keyWord="=" />
 				<seqSub canBeEmpty="false" subnode="formatlist" >
-					<choice keyWord="Standard" />
-					<choice keyWord="Detailed" />
+					<choiceText keyWord="Standard" />
+					<choiceText keyWord="Detailed" />
 				</seqSub>
 			</seqSub>
 			<seqSub canBeEmpty="true" subnode="auth" >
 				<seqText canBeEmpty="false" keyWord="AUTHentication" />
 				<seqText canBeEmpty="false" keyWord="=" />
 				<seqSub canBeEmpty="false" subnode="authlist" >
-					<choice keyWord="LOcal" />
-					<choice keyWord="LDap" />
+					<choiceText keyWord="LOcal" />
+					<choiceText keyWord="LDap" />
 				</seqSub>
 			</seqSub>
 			<seqSub canBeEmpty="true" subnode="Type" >
 				<seqText canBeEmpty="false" keyWord="Type" />
 				<seqText canBeEmpty="false" keyWord="=" />
 				<seqSub canBeEmpty="false" subnode="TypeList" >
-					<choice keyWord="Client" />
-					<choice keyWord="NAS" />
-					<choice keyWord="Server" />
-					<choice keyWord="Any" />
+					<choiceText keyWord="Client" />
+					<choiceText keyWord="NAS" />
+					<choiceText keyWord="Server" />
+					<choiceText keyWord="Any" />
 				</seqSub>
 			</seqSub>
-		</choice>
-		<choice keyWord="ACtlog">
-		</choice>
-		<choice keyWord="XX123">
-		</choice>
-	</choice>
-	<choice keyWord="Dir">
-	</choice>
+		</choiceText>
+		<choiceText keyWord="ACtlog">
+		</choiceText>
+		<choiceText keyWord="XX123">
+		</choiceText>
+	</choiceText>
+	<choiceText keyWord="AUDit">
+		<choiceText keyWord="CONTainer">
+			<seqSub canBeEmpty="false" subnode="firstsub" >
+				<choiceList list="node1,node2" />
+				<choiceSub subnode="firstsubsub" >
+					<seqText canBeEmpty="false" keyWord="STGpool" />
+					<seqText canBeEmpty="false" keyWord="=" />
+					<seqList canBeEmpty="false" list="pool1,pool2" />
+				</choiceSub>
+				<choiceSub subnode="firstsubsub2" >
+					<seqText canBeEmpty="false" keyWord="STGpool" />
+					<seqText canBeEmpty="false" keyWord="=" />
+					<seqList canBeEmpty="false" list="pool1,pool2" />
+					<seqText canBeEmpty="false" keyWord="STGPOOLDIRectory" />
+					<seqText canBeEmpty="false" keyWord="=" />
+					<seqList canBeEmpty="false" list="dir1,dir2" />
+				</choiceSub>
+			</seqSub>
+		</choiceText>
+	</choiceText>
+	<choiceText keyWord="Dir">
+	</choiceText>
 </root>
