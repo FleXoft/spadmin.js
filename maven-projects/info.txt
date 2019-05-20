@@ -125,3 +125,11 @@
 		- "q no no"
 		- "q nod no"
 		- "q node"
+
+20190519:
+	- Flex-el összehoztuk a távoli tsm elérést
+		- google auth-al, pubkey-el
+	- átalakítottam a cmfTree xmlt
+		- új tag-ek lettek: choiceList,choiceSub
+		- az eddigi choice átnevezve choiceText-nek
+	- prg kódban még nincs átalakítás

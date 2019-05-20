@@ -21,7 +21,7 @@ public abstract class CmdTreeNode
 	protected static final String ATTRNAME_SUBNODE = "subnode";
 
 
-	public enum NODE_TYPE { root,levelStart,choice,seqText,seqSub,seqList,seqListSep };
+	public enum NODE_TYPE { root,levelStart,choiceText,choiceSub,choiceList,seqText,seqSub,seqList,seqListSep };
 
 	protected final int indexNode;
 	protected final Node xmlNode;
@@ -98,7 +98,7 @@ public abstract class CmdTreeNode
 
 	private boolean similar( CmdTreeNode prevSiblingCTNode )
 	{
-		if ( prevSiblingCTNode.type==NODE_TYPE.choice && type==NODE_TYPE.choice )
+		if ( (prevSiblingCTNode instanceof CmdTreeChoice)==true && (this instanceof CmdTreeChoice)==true )
 			return true;
 		if ( (prevSiblingCTNode instanceof CmdTreeSeq)==true && (this instanceof CmdTreeSeq)==true )
 			return true;
@@ -114,9 +114,17 @@ public abstract class CmdTreeNode
 		{
 			result = new CmdTreeRootNode( xmlNode );
 		}
-		else if ( tmpType==NODE_TYPE.choice )
+		else if ( tmpType==NODE_TYPE.choiceText )
 		{
-			result = new CmdTreeChoice( xmlNode,parentCTNode,prevSiblingCTNode );
+			result = new CmdTreeChoiceText( xmlNode,parentCTNode,prevSiblingCTNode );
+		}
+		else if ( tmpType==NODE_TYPE.choiceList )
+		{
+			result = new CmdTreeChoiceList( xmlNode,parentCTNode,prevSiblingCTNode );
+		}
+		else if ( tmpType==NODE_TYPE.choiceSub )
+		{
+			result = new CmdTreeChoiceSub( xmlNode,parentCTNode,prevSiblingCTNode );
 		}
 		else if ( tmpType==NODE_TYPE.seqList )
 		{
@@ -308,6 +316,12 @@ public abstract class CmdTreeNode
 			result = Boolean.parseBoolean( text );
 		}
 		return result;
+	}
+
+	public List<String> setListValues( Node node,String listSeparator )
+	{
+		String nodeValue = node.getNodeValue();
+		return Arrays.asList( nodeValue.split( listSeparator ) );
 	}
 
 	public int getIndexNode()

@@ -44,7 +44,7 @@
 		<choiceText keyWord="CONTainer">
 			<seqSub canBeEmpty="false" subnode="firstsub" >
 				<choiceList list="node1,node2" />
-				<choiceSub subnode="firstsubsub" >
+				<choiceSub subnode="firstsubsub1" >
 					<seqText canBeEmpty="false" keyWord="STGpool" />
 					<seqText canBeEmpty="false" keyWord="=" />
 					<seqList canBeEmpty="false" list="pool1,pool2" />

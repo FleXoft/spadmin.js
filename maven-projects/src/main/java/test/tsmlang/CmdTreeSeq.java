@@ -1,8 +1,5 @@
 package test.tsmlang;
 
-import java.util.Arrays;
-import java.util.List;
-
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
@@ -20,11 +17,5 @@ public abstract class CmdTreeSeq extends CmdTreeNode
 	public Boolean getbCanBeEmpty()
 	{
 		return bCanBeEmpty;
-	}
-
-	public List<String> setListValues( Node node,String listSeparator )
-	{
-		String nodeValue = node.getNodeValue();
-		return Arrays.asList( nodeValue.split( listSeparator ) );
 	}
 }
