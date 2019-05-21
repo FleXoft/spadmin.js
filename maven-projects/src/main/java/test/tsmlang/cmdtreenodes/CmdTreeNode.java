@@ -1,4 +1,4 @@
-package test.tsmlang;
+package test.tsmlang.cmdtreenodes;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,7 +8,19 @@ import org.apache.log4j.Logger;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import test.tsmlang.LoadCmdTreeXml;
+import test.tsmlang.MainCheck;
+import test.tsmlang.ObjectCTNodeMatch;
 import test.tsmlang.CmdTreeParsePosition.TYPE_MATCH;
+import test.tsmlang.cmdtreenodes.choice.CmdTreeChoice;
+import test.tsmlang.cmdtreenodes.choice.CmdTreeChoiceList;
+import test.tsmlang.cmdtreenodes.choice.CmdTreeChoiceSub;
+import test.tsmlang.cmdtreenodes.choice.CmdTreeChoiceText;
+import test.tsmlang.cmdtreenodes.seq.CmdTreeSeq;
+import test.tsmlang.cmdtreenodes.seq.CmdTreeSeqList;
+import test.tsmlang.cmdtreenodes.seq.CmdTreeSeqListSep;
+import test.tsmlang.cmdtreenodes.seq.CmdTreeSeqSub;
+import test.tsmlang.cmdtreenodes.seq.CmdTreeSeqText;
 
 public abstract class CmdTreeNode
 {
@@ -22,6 +34,7 @@ public abstract class CmdTreeNode
 
 
 	public enum NODE_TYPE { root,levelStart,choiceText,choiceSub,choiceList,seqText,seqSub,seqList,seqListSep };
+	public enum WORD_TYPE { noWord,choiceNecessary,seqCanBeEmpty,seqNecessary };
 
 	protected final int indexNode;
 	protected final Node xmlNode;
@@ -32,9 +45,10 @@ public abstract class CmdTreeNode
 	protected final String cmdSample;
 	protected CmdTreeNode childCTNode = null;
 	protected CmdTreeNode nextSiblingCTNode = null;
+	protected WORD_TYPE wordType = WORD_TYPE.noWord;
 
-	protected abstract ObjectCTNodeMatch checkCTNode( String cmd );
-	protected abstract List<String> addTabChoices( String cmd );
+	public abstract ObjectCTNodeMatch checkCTNode( String cmd );
+	public abstract List<String> addTabChoices( String cmd );
 
 
 	public CmdTreeNode( Node xmlNode,NODE_TYPE type,CmdTreeNode parentCTNode,CmdTreeNode prevSiblingCTNode,boolean bHasWord )
@@ -364,6 +378,14 @@ public abstract class CmdTreeNode
 	{
 		return bHasWord;
 	}
+	public WORD_TYPE getWordType()
+	{
+		return wordType;
+	}
+	public void setWordType( WORD_TYPE wordType )
+	{
+		this.wordType = wordType;
+	}
 	public String getCmdSample()
 	{
 		return cmdSample;
@@ -379,8 +401,8 @@ public abstract class CmdTreeNode
 		builder.append( type );
 		builder.append( ", level=" );
 		builder.append( level );
-		builder.append( ", bHasWord=" );
-		builder.append( bHasWord );
+		builder.append( ", wordType=" );
+		builder.append( wordType );
 		builder.append( ", cmdSample=" );
 		builder.append( cmdSample );
 		builder.append( "]" );

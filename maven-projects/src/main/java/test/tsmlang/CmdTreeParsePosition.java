@@ -1,5 +1,7 @@
 package test.tsmlang;
 
+import test.tsmlang.cmdtreenodes.CmdTreeNode;
+
 public class CmdTreeParsePosition
 {
 	public enum TYPE_MATCH { noMatch,subNode,partial,full };

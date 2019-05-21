@@ -6,6 +6,8 @@ import java.util.Scanner;
 import org.apache.log4j.Logger;
 import org.apache.log4j.xml.DOMConfigurator;
 
+import test.tsmlang.cmdtreenodes.CmdTreeRootNode;
+
 public class TestCmd
 {
 	private static final Logger logger = Logger.getLogger( MainCheck.class );
@@ -34,7 +36,7 @@ public class TestCmd
 					{
 						System.out.println( "--------- tab choices:" );
 						for ( CmdTreeParseTabChoices item : listTabChoices )
-							System.out.println( String.format( "%s (%d)",item.getStrChoice(),item.getCtnode().indexNode ) );
+							System.out.println( String.format( "%s (%d)",item.getStrChoice(),item.getCtnode().getIndexNode() ) );
 					}
 					else
 					{

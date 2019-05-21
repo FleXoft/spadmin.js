@@ -1,34 +1,38 @@
-package test.tsmlang;
+package test.tsmlang.cmdtreenodes.seq;
 
 import java.util.List;
 
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
-public class CmdTreeChoiceText extends CmdTreeChoice
+import test.tsmlang.ObjectCTNodeMatch;
+import test.tsmlang.cmdtreenodes.CmdTreeNode;
+
+public class CmdTreeSeqText extends CmdTreeSeq
 {
 	private final String fixPart;
 	private final String fullText;
 
-	public CmdTreeChoiceText( Node node,CmdTreeNode parentCTNode,CmdTreeNode prevSiblingCTNode )
+	public CmdTreeSeqText( Node node,CmdTreeNode parentCTNode,CmdTreeNode prevSiblingCTNode )
 	{
-		super( node,NODE_TYPE.choiceText,parentCTNode,prevSiblingCTNode,true );
+		super( node,NODE_TYPE.seqText,parentCTNode,prevSiblingCTNode,true );
 		NamedNodeMap attributes = node.getAttributes();
-		String keyWord = setTextValue( attributes.getNamedItem( "keyWord" ) );
+		String keyWord = setTextValue( attributes.getNamedItem( ATTRNAME_KEYWORD ) );
 		this.fixPart = getFixPart( keyWord );
 		this.fullText = getFullText( keyWord );
+		setWordType();
 
 		addChildNodes();
 	}
 
 	@Override
-	protected List<String> addTabChoices( String cmd )
+	public List<String> addTabChoices( String cmd )
 	{
 		return addTabChoicesForText( cmd,fixPart,fullText );
 	}
 
 	@Override
-	protected ObjectCTNodeMatch checkCTNode( String cmd )
+	public ObjectCTNodeMatch checkCTNode( String cmd )
 	{
 		return super.checkCTNodeForText1( cmd,fixPart,fullText );
 	}
@@ -46,16 +50,16 @@ public class CmdTreeChoiceText extends CmdTreeChoice
 	public String toString()
 	{
 		StringBuilder builder = new StringBuilder();
-		builder.append( "CmdTreeChoice [fixPart=" );
+		builder.append( "CmdTreeSeq [bCanBeEmpty=" );
+		builder.append( this.getbCanBeEmpty() );
+		builder.append( ", indexNode=" );
+		builder.append( indexNode );
+		builder.append( ", fixPart=" );
 		builder.append( fixPart );
 		builder.append( ", fullText=" );
 		builder.append( fullText );
-		builder.append( ", indexNode=" );
-		builder.append( indexNode );
 		builder.append( ", type=" );
 		builder.append( type );
-		builder.append( ", level=" );
-		builder.append( level );
 		builder.append( "]" );
 		return builder.toString();
 	}

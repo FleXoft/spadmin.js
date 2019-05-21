@@ -5,6 +5,10 @@ import java.util.LinkedList;
 import org.apache.log4j.Logger;
 
 import test.tsmlang.CmdTreeParsePosition.TYPE_MATCH;
+import test.tsmlang.cmdtreenodes.CmdTreeNode;
+import test.tsmlang.cmdtreenodes.CmdTreeRootNode;
+import test.tsmlang.cmdtreenodes.choice.CmdTreeChoice;
+import test.tsmlang.cmdtreenodes.seq.CmdTreeSeq;
 
 public class SearchCmdTreeForMatch
 {
@@ -26,7 +30,7 @@ public class SearchCmdTreeForMatch
 //			először a child-okat vizsgálom, majd a testvéreket
 		CmdTreeParsePosition posLast = listPositions.getLast();
 		CmdTreeNode ctNode = posLast.getCTNode();
-		logger.debug( String.format( "%srecursiveSearchCmdTreeForMatch (%02d,%s)",prefix,ctNode.indexNode,posLast.getCmd() ) );
+		logger.debug( String.format( "%srecursiveSearchCmdTreeForMatch (%02d,%s)",prefix,ctNode.getIndexNode(),posLast.getCmd() ) );
 
 //		if ( posLast.getCTNode().indexNode>=2 )
 //			logger.debug( "X" );
@@ -80,7 +84,7 @@ public class SearchCmdTreeForMatch
 		for ( CmdTreeParsePosition pos : listPositions )
 		{
 			String processedCmd = cmd.substring( 0,cmd.length()-pos.getCmd().length() );
-			logger.debug( String.format( "node(%02d)type(%s)(processedCmd=%s)(remainingCmd=%s)(%s)",pos.getCTNode().indexNode,pos.getCTNode().type,processedCmd,pos.getCmd(),pos.getMatch().name() ) );
+			logger.debug( String.format( "node(%02d)type(%s)(processedCmd=%s)(remainingCmd=%s)(%s)",pos.getCTNode().getIndexNode(),pos.getCTNode().getType(),processedCmd,pos.getCmd(),pos.getMatch().name() ) );
 		}
 	}
 

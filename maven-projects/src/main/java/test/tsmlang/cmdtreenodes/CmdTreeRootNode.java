@@ -1,8 +1,10 @@
-package test.tsmlang;
+package test.tsmlang.cmdtreenodes;
 
 import java.util.List;
 
 import org.w3c.dom.Node;
+
+import test.tsmlang.ObjectCTNodeMatch;
 
 public class CmdTreeRootNode extends CmdTreeNode
 {
@@ -14,13 +16,13 @@ public class CmdTreeRootNode extends CmdTreeNode
 	}
 
 	@Override
-	protected List<String> addTabChoices( String cmd )
+	public List<String> addTabChoices( String cmd )
 	{
 		return null;
 	}
 
 	@Override
-	protected ObjectCTNodeMatch checkCTNode( String cmd )
+	public ObjectCTNodeMatch checkCTNode( String cmd )
 	{
 		throw new RuntimeException( "unimplemented" );
 	}

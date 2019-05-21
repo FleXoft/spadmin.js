@@ -11,6 +11,9 @@ import javax.xml.xpath.XPathFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
+import test.tsmlang.cmdtreenodes.CmdTreeNode;
+import test.tsmlang.cmdtreenodes.CmdTreeRootNode;
+
 public class LoadCmdTreeXml
 {
 	public static int indexNode = 0;

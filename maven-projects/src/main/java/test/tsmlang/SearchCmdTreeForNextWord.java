@@ -1,13 +1,14 @@
 package test.tsmlang;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.List;
-import java.util.ListIterator;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
+
+import test.tsmlang.cmdtreenodes.CmdTreeNode;
+import test.tsmlang.cmdtreenodes.CmdTreeNode.WORD_TYPE;
+import test.tsmlang.cmdtreenodes.seq.CmdTreeSeq;
 
 public class SearchCmdTreeForNextWord
 {
@@ -15,93 +16,95 @@ public class SearchCmdTreeForNextWord
 
 	public enum TYPE_RECURSION { writeContentThenTreeWalk };
 	
-//	private static LinkedList<CmdTreeParsePosition> listTabPositions = null;
 	private static LinkedList<CmdTreeNode> listPossibleNextWords = null;
 	private static Set<CmdTreeNode> hsPossibleNextWords = null;
-//	private static CmdTreeParsePosition lastMatchingPos = null;
-//	private static CmdTreeNode currentCTNode = null;
 
 
 	public static void search( CmdTreeParsePosition lastMatchingPos )
 	{
-//		SearchCmdTreeForNextWord.lastMatchingPos = lastMatchingPos;
-
 		listPossibleNextWords = new LinkedList<CmdTreeNode>();
 		hsPossibleNextWords = new HashSet<CmdTreeNode>();
 
-//		végigmegyek az utsó matching node utáni node-tól a végéig
-//		megnézem, hogyan tudok eljutni az aktuáis node-ból az utsó matching node-ig
-//		ezt az utat vizsgálom meg, ez alapján döntök, hogy tab choice-e
+		CmdTreeNode ctNodeLastMatching = lastMatchingPos.getCTNode();
+		logger.debug( String.format( "lastMatchingNode=(%02d)",ctNodeLastMatching.getIndexNode() ) );
 
-		CmdTreeNode ctNode = lastMatchingPos.getCTNode();
+		CmdTreeNode ctNodeLastMatchingChild = ctNodeLastMatching.getChildCTNode();
+		if ( ctNodeLastMatchingChild!=null ) 
+			logger.debug( String.format( "lastMatchingNode child=(%02d)",ctNodeLastMatchingChild.getIndexNode() ) );
 
-		logger.debug( String.format( "lastMatchingNode=(%02d)",ctNode.indexNode ) );
-		ListIterator<CmdTreeNode> listIterator = MainCheck.listCmdTreeNodes.listIterator( ctNode.indexNode );
-		CmdTreeNode ctNode2 = listIterator.next();
-
-		CmdTreeNode ctNodeBase = null;
-		if ( listIterator.hasNext()==true )
+		int nextIndex = ctNodeLastMatching.getIndexNode()+1;
+		if ( nextIndex<MainCheck.listCmdTreeNodes.size() )
 		{
-			ctNodeBase = listIterator.next();
-			logger.debug( String.format( "ctNodeBase=(%02d)",ctNodeBase.indexNode ) );
+			CmdTreeNode ctNodeBase = MainCheck.listCmdTreeNodes.get( nextIndex );
+			logger.debug( String.format( "ctNodeBase=(%02d)",ctNodeBase.getIndexNode() ) );
 
-			boolean bFoundFinalWord = false;
-			while ( listIterator.hasNext()==true && bFoundFinalWord==false )
+			boolean bContinue = false;
+			if ( (ctNodeLastMatchingChild==null || ctNodeBase.getCmdSample().startsWith( ctNodeLastMatchingChild.getCmdSample() )==false) &&
+				(ctNodeBase instanceof CmdTreeSeq) )
+				bContinue = true;
+			// benne vagyunk-e a ctNodeLastMatching node-ból induló fában
+			if ( (ctNodeLastMatchingChild!=null && ctNodeBase.getCmdSample().startsWith( ctNodeLastMatchingChild.getCmdSample() )==true ) )
+				bContinue = true;
+
+			if ( bContinue==true )
 			{
-				ctNode2 = listIterator.next();
-				logger.debug( String.format( "nextNode=(%02d)",ctNode2.indexNode ) );
-
-				if ( ctNode2.bHasWord==false )
+				CmdTreeNode ctNode = ctNodeBase;
+				while ( true )
 				{
-//					listPossibleNextWords.add( ctNode2 );
-//					continue;
-				}
-
-				CmdTreeNode ctNodeCommon = getLastCommonNode( ctNodeBase,ctNode2 );
-				List<CmdTreeNode> listCTNodesFromCommonNode = getListCTNodesFromCommonNode( ctNode2,ctNodeCommon );
-				logger.debug( String.format( "listCTNodesFromCommonNode=(%s)",listCTNodesFromCommonNode ) );
-
-//				boolean bListAlreadyHasWord = false;
-				CmdTreeNode lastFoundCTNode = null;
-				for ( CmdTreeNode ctNodeItem : listCTNodesFromCommonNode )
-				{
-					if ( ctNodeItem.bHasWord==false )
-						continue;
-
-					if ( ctNodeItem.cmdSample.startsWith( ctNodeBase.cmdSample )==false )
+					// benne vagyunk-e a ctNodeBase node-ból induló fában
+					if ( ctNode.getCmdSample().startsWith( ctNodeBase.getCmdSample() )==false )
 						break;
 
-					boolean bFoundPossibleNextWord = false;
-					boolean bContains = hsPossibleNextWords.contains( ctNodeItem );
-					if ( bContains==false )
+					if ( ctNode.getbHasWord()==true )
 					{
-						if ( lastFoundCTNode!=null )
+						hsPossibleNextWords.add( ctNode );
+						listPossibleNextWords.add( ctNode );
+
+						CmdTreeNode ctNodeNext = null;
+						if ( ctNode.getWordType()==WORD_TYPE.choiceNecessary || 
+							ctNode.getWordType()==WORD_TYPE.seqCanBeEmpty )
 						{
-							if ( lastFoundCTNode instanceof CmdTreeSeq )
+							CmdTreeNode prevParentNode = ctNode;
+							ctNodeNext = ctNode.getNextSiblingCTNode();
+							while ( true )
 							{
-								CmdTreeSeq ctNodeItemSeq = (CmdTreeSeq)lastFoundCTNode;
-								if ( ctNodeItemSeq.getbCanBeEmpty()==false )
-								{
-//									bFoundFinalWord = true;
+								if ( ctNodeNext!=null )
 									break;
-								}
+								CmdTreeNode ctNode2 = prevParentNode.getParentCTNode();
+								if ( ctNode2==null )
+									break;
+								prevParentNode = ctNode2;
+								ctNodeNext = ctNode2.getNextSiblingCTNode();
 							}
-//							if ( ctNodeItem.level>lastFoundCTNode.level )
-//								break;
-							bFoundPossibleNextWord = true;
+						}
+						else if ( ctNode.getWordType()==WORD_TYPE.seqNecessary )
+						{
+							CmdTreeNode prevParentNode = ctNode;
+							while ( true )
+							{
+								CmdTreeNode ctNode2 = prevParentNode.getParentCTNode();
+								if ( ctNode2==null )
+									break;
+								prevParentNode = ctNode2;
+								ctNodeNext = ctNode2.getNextSiblingCTNode();
+								if ( ctNodeNext!=null )
+									break;
+							}
 						}
 						else
-							bFoundPossibleNextWord = true;
+							throw new RuntimeException( "impossible:" + ctNode.getWordType() );
+
+						if ( ctNodeNext==null )
+							break;
+						ctNode = ctNodeNext;
 					}
 					else
 					{
-						lastFoundCTNode = ctNodeItem;
-					}
-
-					if ( bFoundPossibleNextWord==true )
-					{
-						hsPossibleNextWords.add( ctNodeItem );
-						listPossibleNextWords.add( ctNodeItem );
+//						folytatom a mélységi bejárást
+						nextIndex = ctNode.getIndexNode()+1;
+						if ( nextIndex>=MainCheck.listCmdTreeNodes.size() )
+							break;
+						ctNode = MainCheck.listCmdTreeNodes.get( nextIndex );
 					}
 				}
 			}
@@ -110,7 +113,7 @@ public class SearchCmdTreeForNextWord
 		logger.debug( "---------listPossibleNextWords" );
 		for ( CmdTreeNode ctnode : SearchCmdTreeForNextWord.listPossibleNextWords )
 		{
-			logger.debug( String.format( " node(%02d)",ctnode.indexNode ) );
+			logger.debug( String.format( " node(%02d)",ctnode.getIndexNode() ) );
 		}
 		for ( CmdTreeNode ctnode : SearchCmdTreeForNextWord.listPossibleNextWords )
 		{
@@ -118,77 +121,18 @@ public class SearchCmdTreeForNextWord
 		}
 	}
 
-	private static List<CmdTreeNode> getListCTNodesFromCommonNode( CmdTreeNode ctNode2,CmdTreeNode ctNodeCommon )
-	{
-		List<CmdTreeNode> result = new ArrayList<CmdTreeNode>();
-
-		String[] list = ctNode2.cmdSample.split( " " );
-		boolean bNodeToList = false;
-		for ( String strIndex : list )
-		{
-			int indexNode = Integer.parseInt( strIndex );
-			if ( indexNode==ctNodeCommon.indexNode )
-			{
-				bNodeToList = true;
-			}
-			else
-			{
-				if ( bNodeToList==true )
-					result.add( MainCheck.listCmdTreeNodes.get( indexNode ) );
-			}
-		}
-		return result;
-	}
-
-	private static CmdTreeNode getLastCommonNode( CmdTreeNode ctNode,CmdTreeNode ctNode2 )
-	{
-		int indexFirstDiff = 0;
-		for ( ; true; indexFirstDiff++ )
-		{
-			if ( ctNode.cmdSample.length()<=indexFirstDiff )
-				break;
-			if ( ctNode2.cmdSample.length()<=indexFirstDiff )
-				break;
-			if ( ctNode.cmdSample.charAt( indexFirstDiff )!=ctNode2.cmdSample.charAt( indexFirstDiff ) )
-				break;
-		}
-		String strCommon = ctNode.cmdSample.substring( 0,indexFirstDiff );
-		String[] list = strCommon.split( " " );
-		String strLastCommonIndex = null;
-		if ( list.length>0 )
-			strLastCommonIndex = list[list.length-1];
-		int index = Integer.parseInt( strLastCommonIndex );
-
-		logger.debug( String.format( "lastCommonIndex(%02d)",index ) );
-		return MainCheck.listCmdTreeNodes.get( index );
-	}
-
-//	private static void addNextTabChoices( CmdTreeNode ctNode,String cmd )
-//	{
-//		azokat a szavakat kell összeszedni, amelyekkel folytatható lenne a cmd
-//		indítok egy standard bejárást, amíg el nem érek a megadott node-ig.
-//		ezután már keresem azokat a szavakat, amelyekkel folytatható lenne a cmd
-
-//		a következő szó a cmdTree-ben a következő indexű node-on lehet
-//		egészen addig vizsgálom a "következő indexű node"-okat, amíg menni tudok a következő szabályok szerint
-//		egy ciklusban megyek a standard bejárás szerint (mélységi), ugyanis ez alapján vannak a node indexek is
-//		ha nem tudok tovább menni, akkor megkeresem 
-//		ez tuti nehéz: több eset van
-//		- ha choice, akkor csak a child-ot járom be, amíg noMatch-ot kapok
-//		ha seqText, akkor csak a nextSibling-et járom be, amíg noMatch-ot kapok
-//	}
 
 	public static void printResults( String cmd )
 	{
 //		logger.debug( "---------tabPositions" );
 //		for ( CmdTreeParsePosition pos : listTabPositions )
 //		{
-//			logger.debug( String.format( "node(%02d)",pos.getCTNode().indexNode ) );
+//			logger.debug( String.format( "node(%02d)",pos.getCTNode().getIndexNode() ) );
 //		}
 		logger.debug( "---------tab choices" );
 		for ( CmdTreeParseTabChoices item : ObjectTabChoices.listTabChoices )
 		{
-			logger.debug( String.format( "%s (%d)",item.getStrChoice(),item.getCtnode().indexNode ) );
+			logger.debug( String.format( "%s (%d)",item.getStrChoice(),item.getCtnode().getIndexNode() ) );
 		}
 	}
 
@@ -207,156 +151,3 @@ public class SearchCmdTreeForNextWord
 //		}
 //	}
 }
-//private static void level0()
-//{
-//	while ( true )
-//	{
-//		if ( ctNode.childCTNode!=null )
-//		{
-//			currentCTNode = ctNode.childCTNode;
-//			listPossibleNextWords.add( currentCTNode );
-//			getNextWordOnly( 1,currentCTNode );
-//		}
-//
-//		if ( ctNode.getType()==NODE_TYPE.choice )
-//		{
-//			// nem nézem tovább
-//		}
-//		else if ( ctNode instanceof CmdTreeSeq )
-//		{
-//			CmdTreeSeq ctNodeSeq = (CmdTreeSeq)ctNode;
-//			ctNodeSeq = (CmdTreeSeq)ctNodeSeq.nextSiblingCTNode;
-//			if ( ctNodeSeq!=null )
-//				getNextWordOnly( 2,ctNodeSeq );
-////			if ( ctNodeSeq.getbCanBeEmpty()==false )
-////				break;
-//		}
-//
-//		while ( true )
-//		{
-//			ctNode = ctNode.parentCTNode;
-//			if ( ctNode==null )
-//				break;
-//			if ( ctNode.nextSiblingCTNode!=null )
-//			{
-//				ctNode = ctNode.nextSiblingCTNode;
-//				break;
-//			}
-//		}
-//		if ( ctNode==null )
-//			break;
-//	}
-//}
-
-//private static void getNextWordOnly( int callIndex,CmdTreeNode ctNode )
-//{
-//	logger.debug( String.format( "---getNextWordOnly(%d) called on node(%02d)",callIndex,ctNode.indexNode ) );
-//	for ( CmdTreeNode ctn : SearchCmdTreeForNextWord.listPossibleNextWords )
-//		logger.debug( String.format( "   listPossibleNextWords node(%02d)",ctn.indexNode ) );
-//
-//	if ( ctNode.getType()==NODE_TYPE.levelStart )
-//		ctNode = ctNode.nextSiblingCTNode;
-//
-//	if ( ctNode.getType()==NODE_TYPE.choice )
-//	{
-//		if ( ctNode.childCTNode!=null )
-//			getNextWordOnly( 3,ctNode.childCTNode );
-//
-//		while ( ctNode!=null )
-//		{
-//			listPossibleNextWords.add( ctNode );
-//			ctNode = ctNode.nextSiblingCTNode;
-//		}
-//	}
-//	else if ( ctNode instanceof CmdTreeSeq )
-//	{
-//		CmdTreeSeq ctNodeSeq = (CmdTreeSeq)ctNode;
-//		while ( true )
-//		{
-//			if ( ctNodeSeq.getbHasWord()==true )
-//				listPossibleNextWords.add( ctNode );
-//			if ( ctNodeSeq instanceof CmdTreeSeqSub )
-//				getNextWordOnly( 4,ctNodeSeq.childCTNode );
-//			if ( ctNodeSeq.getbCanBeEmpty()==false )
-//				break;
-//
-//			ctNodeSeq = (CmdTreeSeq)ctNodeSeq.nextSiblingCTNode;
-//			if ( ctNodeSeq==null )
-//				break;
-//		}
-//	}
-//}
-
-//private static boolean bEndSignSearchCmdTreeForNextWord = false;
-//private static void recursiveSearchCmdTreeForNextWord( CmdTreeNode ctNode,String prefix )
-//{
-//	if ( bEndSignSearchCmdTreeForNextWord==true )
-//		return;
-//
-////	mélységi bejárás szinteket jelző prefix kezeléssel
-//	logger.debug( String.format( "%snode(%s)",prefix,ctNode ) );
-//	boolean bSearchForNextWord = ( ctNode.indexNode>lastMatchingPos.getCTNode().indexNode );
-//
-//	if ( bSearchForNextWord==true )
-//	{
-//		if ( checkNextWord( ctNode )==true )
-//			listPossibleNextWords.add( ctNode );
-//	}
-//
-//	if ( ctNode.getChildCTNode()!=null )
-//		recursiveSearchCmdTreeForNextWord( ctNode.getChildCTNode(),prefix + " " );
-//
-//	if ( ctNode.getNextSiblingCTNode()!=null )
-//		recursiveSearchCmdTreeForNextWord( ctNode.getNextSiblingCTNode(),prefix );
-//}
-//
-//private static boolean checkNextWord( CmdTreeNode ctNode )
-//{
-//	String cmdSampleBase = lastMatchingPos.getCTNode().getCmdSample();
-//	String cmdSample = ctNode.getCmdSample();
-//	if ( cmdSample.startsWith( cmdSampleBase )==true )
-//	{
-//		int wordCountDiff = ( cmdSample.split( " " ).length - cmdSampleBase.split( " " ).length );
-//		if ( wordCountDiff==1 )
-//			return true;
-//	}
-//	return false;
-//}
-//
-//private static void recursiveSetCmdSample( CmdTreeNode ctNode,String prefix )
-//{
-//	logger.debug( String.format( "%srecursiveSetCmdSample (%02d)",prefix,ctNode.indexNode ) );
-//
-////	if ( posLast.getCTNode().indexNode>=2 )
-////		logger.debug( "X" );
-//	CmdTreeNode childCTNode = ctNode.getChildCTNode();
-//	if ( childCTNode!=null )
-//	{
-//		ctNode = childCTNode;
-//		boolean bPrevNodeMatch = false;
-//		while ( true )
-//		{
-//			CmdTreeNode nextSiblingCTNode = ctNode.getNextSiblingCTNode();
-//			if ( nextSiblingCTNode==null )
-//				break;
-//
-//			CmdTreeParsePosition nextPos = new CmdTreeParsePosition( matchResult.nextCmd,nextSiblingCTNode,matchResult.match );
-//			listPositions.add( nextPos );
-//			recursiveSetCmdSample( prefix + " " );
-//
-//			if ( nextSiblingCTNode instanceof CmdTreeSeq )
-//			{
-//				CmdTreeSeq ctsNode = (CmdTreeSeq)nextSiblingCTNode;
-//				if ( ctsNode.getbCanBeEmpty()==false )
-//					break;
-//			}
-//			else if ( nextSiblingCTNode instanceof CmdTreeChoice )
-//			{
-//				if ( bPrevNodeMatch==true )
-//					break;
-//			}
-//			ctNode = nextSiblingCTNode;
-//			bPrevNodeMatch = ( matchResult.match!=TYPE_MATCH.noMatch );
-//		}
-//	}
-//}

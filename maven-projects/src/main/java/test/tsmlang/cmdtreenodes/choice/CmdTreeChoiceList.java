@@ -1,9 +1,13 @@
-package test.tsmlang;
+package test.tsmlang.cmdtreenodes.choice;
 
 import java.util.List;
 
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
+
+import test.tsmlang.ObjectCTNodeMatch;
+import test.tsmlang.cmdtreenodes.CmdTreeNode;
+import test.tsmlang.cmdtreenodes.CmdTreeNode.WORD_TYPE;
 
 public class CmdTreeChoiceList extends CmdTreeChoice
 {
@@ -14,18 +18,19 @@ public class CmdTreeChoiceList extends CmdTreeChoice
 		super( node,NODE_TYPE.choiceList,parentCTNode,prevSiblingCTNode,true );
 		NamedNodeMap attributes = node.getAttributes();
 		this.listValues = setListValues( attributes.getNamedItem( ATTRNAME_LIST ),"," );
+		setWordType();
 
 		addChildNodes();
 	}
 
 	@Override
-	protected ObjectCTNodeMatch checkCTNode( String cmd )
+	public ObjectCTNodeMatch checkCTNode( String cmd )
 	{
 		return super.checkCTNodeForList1( cmd,listValues );
 	}
 
 	@Override
-	protected List<String> addTabChoices( String cmd )
+	public List<String> addTabChoices( String cmd )
 	{
 		return super.addTabChoicesForList( cmd,listValues );
 	}

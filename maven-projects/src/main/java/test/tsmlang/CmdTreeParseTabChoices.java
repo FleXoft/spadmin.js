@@ -1,5 +1,7 @@
 package test.tsmlang;
 
+import test.tsmlang.cmdtreenodes.CmdTreeNode;
+
 public class CmdTreeParseTabChoices
 {
 	private final String strChoice;

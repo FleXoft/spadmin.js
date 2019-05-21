@@ -45,9 +45,9 @@
 		createNode(CmdTreeRootNode [indexNode=0, type=root])
 		node(CmdTreeRootNode [indexNode=0, type=root])
 			node(CmdTreeLevelStart [indexNode=1, type=levelStart])
-			node(CmdTreeChoice [fixPart=q, fullText=query, indexNode=2, type=choice])
+			node(CmdTreeChoice [fixPart=q, fullText=query, indexNode=2, type=choiceText, level=2])
 				node(CmdTreeLevelStart [indexNode=3, type=levelStart])
-				node(CmdTreeChoice [fixPart=n, fullText=node, indexNode=4, type=choice])
+				node(CmdTreeChoice [fixPart=n, fullText=node, indexNode=4, type=choiceText, level=3])
 					node(CmdTreeLevelStart [indexNode=5, type=levelStart])
 					node(CmdTreeSeq [bCanBeEmpty=true, indexNode=6, listValues=[node1, node2], type=seqList])
 					node(CmdTreeSeq [bCanBeEmpty=true, indexNode=7, subNodeName=domains, type=seqSub])
@@ -61,29 +61,49 @@
 						node(CmdTreeSeq [bCanBeEmpty=false, indexNode=15, fixPart==, fullText==, type=seqText])
 						node(CmdTreeSeq [bCanBeEmpty=false, indexNode=16, subNodeName=formatlist, type=seqSub])
 							node(CmdTreeLevelStart [indexNode=17, type=levelStart])
-							node(CmdTreeChoice [fixPart=s, fullText=standard, indexNode=18, type=choice])
-							node(CmdTreeChoice [fixPart=d, fullText=detailed, indexNode=19, type=choice])
+							node(CmdTreeChoice [fixPart=s, fullText=standard, indexNode=18, type=choiceText, level=6])
+							node(CmdTreeChoice [fixPart=d, fullText=detailed, indexNode=19, type=choiceText, level=6])
 					node(CmdTreeSeq [bCanBeEmpty=true, indexNode=20, subNodeName=auth, type=seqSub])
 						node(CmdTreeLevelStart [indexNode=21, type=levelStart])
 						node(CmdTreeSeq [bCanBeEmpty=false, indexNode=22, fixPart=auth, fullText=authentication, type=seqText])
 						node(CmdTreeSeq [bCanBeEmpty=false, indexNode=23, fixPart==, fullText==, type=seqText])
 						node(CmdTreeSeq [bCanBeEmpty=false, indexNode=24, subNodeName=authlist, type=seqSub])
 							node(CmdTreeLevelStart [indexNode=25, type=levelStart])
-							node(CmdTreeChoice [fixPart=lo, fullText=local, indexNode=26, type=choice])
-							node(CmdTreeChoice [fixPart=ld, fullText=ldap, indexNode=27, type=choice])
+							node(CmdTreeChoice [fixPart=lo, fullText=local, indexNode=26, type=choiceText, level=6])
+							node(CmdTreeChoice [fixPart=ld, fullText=ldap, indexNode=27, type=choiceText, level=6])
 					node(CmdTreeSeq [bCanBeEmpty=true, indexNode=28, subNodeName=Type, type=seqSub])
 						node(CmdTreeLevelStart [indexNode=29, type=levelStart])
 						node(CmdTreeSeq [bCanBeEmpty=false, indexNode=30, fixPart=t, fullText=type, type=seqText])
 						node(CmdTreeSeq [bCanBeEmpty=false, indexNode=31, fixPart==, fullText==, type=seqText])
 						node(CmdTreeSeq [bCanBeEmpty=false, indexNode=32, subNodeName=TypeList, type=seqSub])
 							node(CmdTreeLevelStart [indexNode=33, type=levelStart])
-							node(CmdTreeChoice [fixPart=c, fullText=client, indexNode=34, type=choice])
-							node(CmdTreeChoice [fixPart=nas, fullText=nas, indexNode=35, type=choice])
-							node(CmdTreeChoice [fixPart=s, fullText=server, indexNode=36, type=choice])
-							node(CmdTreeChoice [fixPart=a, fullText=any, indexNode=37, type=choice])
-				node(CmdTreeChoice [fixPart=ac, fullText=actlog, indexNode=38, type=choice])
-				node(CmdTreeChoice [fixPart=xx, fullText=xx123, indexNode=39, type=choice])
-			node(CmdTreeChoice [fixPart=d, fullText=dir, indexNode=40, type=choice])
+							node(CmdTreeChoice [fixPart=c, fullText=client, indexNode=34, type=choiceText, level=6])
+							node(CmdTreeChoice [fixPart=nas, fullText=nas, indexNode=35, type=choiceText, level=6])
+							node(CmdTreeChoice [fixPart=s, fullText=server, indexNode=36, type=choiceText, level=6])
+							node(CmdTreeChoice [fixPart=a, fullText=any, indexNode=37, type=choiceText, level=6])
+				node(CmdTreeChoice [fixPart=ac, fullText=actlog, indexNode=38, type=choiceText, level=3])
+				node(CmdTreeChoice [fixPart=xx, fullText=xx123, indexNode=39, type=choiceText, level=3])
+			node(CmdTreeChoice [fixPart=aud, fullText=audit, indexNode=40, type=choiceText, level=2])
+				node(CmdTreeLevelStart [indexNode=41, type=levelStart])
+				node(CmdTreeChoice [fixPart=cont, fullText=container, indexNode=42, type=choiceText, level=3])
+					node(CmdTreeLevelStart [indexNode=43, type=levelStart])
+					node(CmdTreeSeq [bCanBeEmpty=false, indexNode=44, subNodeName=firstsub, type=seqSub])
+						node(CmdTreeLevelStart [indexNode=45, type=levelStart])
+						node(CmdTreeChoiceList [listValues=[node1, node2], indexNode=46, type=choiceList, level=5, cmdSample=00 01 02 40 41 42 43 44 45 46])
+						node(CmdTreeChoiceSub [subNodeName=firstsubsub1, indexNode=47, type=choiceSub, level=5, cmdSample=00 01 02 40 41 42 43 44 45 46 47])
+							node(CmdTreeLevelStart [indexNode=48, type=levelStart])
+							node(CmdTreeSeq [bCanBeEmpty=false, indexNode=49, fixPart=stg, fullText=stgpool, type=seqText])
+							node(CmdTreeSeq [bCanBeEmpty=false, indexNode=50, fixPart==, fullText==, type=seqText])
+							node(CmdTreeSeq [bCanBeEmpty=false, indexNode=51, listValues=[pool1, pool2], type=seqList])
+						node(CmdTreeChoiceSub [subNodeName=firstsubsub2, indexNode=52, type=choiceSub, level=5, cmdSample=00 01 02 40 41 42 43 44 45 46 47 52])
+							node(CmdTreeLevelStart [indexNode=53, type=levelStart])
+							node(CmdTreeSeq [bCanBeEmpty=false, indexNode=54, fixPart=stg, fullText=stgpool, type=seqText])
+							node(CmdTreeSeq [bCanBeEmpty=false, indexNode=55, fixPart==, fullText==, type=seqText])
+							node(CmdTreeSeq [bCanBeEmpty=false, indexNode=56, listValues=[pool1, pool2], type=seqList])
+							node(CmdTreeSeq [bCanBeEmpty=false, indexNode=57, fixPart=stgpooldir, fullText=stgpooldirectory, type=seqText])
+							node(CmdTreeSeq [bCanBeEmpty=false, indexNode=58, fixPart==, fullText==, type=seqText])
+							node(CmdTreeSeq [bCanBeEmpty=false, indexNode=59, listValues=[dir1, dir2], type=seqList])
+			node(CmdTreeChoice [fixPart=d, fullText=dir, indexNode=60, type=choiceText, level=2])
 	- elvileg kész a parser check :)
 
 20190504:
@@ -133,3 +153,39 @@
 		- új tag-ek lettek: choiceList,choiceSub
 		- az eddigi choice átnevezve choiceText-nek
 	- prg kódban még nincs átalakítás
+
+20190521:
+	- a legfontosabb algó a tab-nál levő lehetséges következő szavak listája
+		- az algó
+			- felteszem, hogy megvan az utolsó teljesen egyező szó (ctNodeLastMatching)
+			- ezután mélységi bejárással egészen addig megyek, amíg megtalálom az utolsó teljesen egyező szó node-ját (ctNodeLastMatching)
+			- a mélységi bejárás szerint a következő node nagyon fontos (ctNodeBase)
+				- ez a node jelöli ki azt a fa részt, amelyben egyáltalán lehetnek a lehetséges következő "szót tartalmazó" node-ok
+				- ugyanis, ha ezen a fa részen kívül megyünk, akkor már olyan node-okat találunk, amelyekhez az adott parancsot vizsgálva nem juthatnánk el
+			- innentől a ctNodeBase node-ból kiinduló fát járom be mélységi bejárással (ctNodeBase az első ellenőrizendő node)
+				- ha találok egy lehetséges következő szót tartalmazó node-ot
+					- beteszem az eredmény listába
+					- ha choiceNecessary vagy seqCanBeEmpty a node, akkor 
+						- ha létezik child node-ja, akkor a bejáráskor kihagyom a child node-ból induló teljes fát
+							- azaz ennek a sibling-jére ugrok a bejáráskor
+							- ha nincs ilyen, akkor a parent sibling-jére ugrok a bejáráskor...
+							- egészen addig amíg találok egy nem null node-ot és még benne vagyok a ctNodeBase node-ból induló fában
+							- ha ilyen nincs, akkor kész az algó
+					- ha seqNecessary a node, akkor 
+						- a bejáráskor kihagyom az ebből a node-ból induló teljes fát
+							- azaz ennek a node-nak a parent-jének a sibling-jére ugrok a bejáráskor...
+							- egészen addig amíg találok egy nem null node-ot és még benne vagyok a ctNodeBase node-ból induló fában
+							- ha ilyen nincs, akkor kész az algó
+		- a mélységi bejárás sorrendjét tárolom egy linkedlist-ben, így nem kell rekurziót alkalmazni ilyenkor
+			- egy adott node-tól a mélységi bejárás: a linkedlist-ben megkeresem a node-ot, majd onnan megyek egyesével
+				- tároltam a node-okhoz a bejárási string-et, azaz a gyökértől az adott node-ig tartó legrövidebb út node-jainak indexeit
+				- így két node-ról ezen string alapján el tudom dönteni hamar (startsWith), hogy egy rész-fában vannak-e
+		- kialakítottam minden CmdTreeNode-nál egy WORD_TYPE paramétert, amelyben tárolom, hogy egy node-hoz milyen szó típusú szó-tartalmazás lehet
+			- noWord: ekkor nem tartozik szó a node-hoz
+			- choiceNecessary: ekkor tartozik szó a node-hoz, és úgy tartozik, hogy ha ezt nem választom, akkor folytathatom a bejárást a sibling node-okkal
+			- seqCanBeEmpty: ekkor tartozik szó a node-hoz, és úgy tartozik, hogy ha ezt nem választom, akkor folytathatom a bejárást a sibling node-okkal
+			- seqNecessary: ekkor tartozik szó a node-hoz, és úgy tartozik, hogy ezután a bejárást a parent sibling node-al kell folytatni
+	- kész megint az algó :)
+	- hibák:
+		- "q no no"
+		- "q nod no"

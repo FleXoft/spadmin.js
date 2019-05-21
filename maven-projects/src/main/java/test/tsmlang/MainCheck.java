@@ -7,6 +7,8 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.xml.DOMConfigurator;
 
 import test.tsmlang.CmdTreeParsePosition.TYPE_MATCH;
+import test.tsmlang.cmdtreenodes.CmdTreeNode;
+import test.tsmlang.cmdtreenodes.CmdTreeRootNode;
 
 public class MainCheck
 {
@@ -31,16 +33,19 @@ public class MainCheck
 		logger.debug( "---------listCmdTreeNodes" );
 		for ( CmdTreeNode ctNode : listCmdTreeNodes )
 		{
-			logger.debug( String.format( "node(%02d)(%s)",ctNode.indexNode,ctNode.cmdSample ) );
+			logger.debug( String.format( "node(%02d)(%s)",ctNode.getIndexNode(),ctNode.getCmdSample() ) );
 		}
 
+//		checkInput( nodeRoot,"  query" );
 //		checkInput( nodeRoot,"  quer   node" );
+		checkInput( nodeRoot,"  q   no no" );
 //		checkInput( nodeRoot,"  q   n do=domain1" );
 //		checkInput( nodeRoot,"  q   n node1 auth=" );
 //		checkInput( nodeRoot,"  q   n node1 auth=ld t=" );
+//		checkInput( nodeRoot,"  q   n node1 auth=ld t=nas" );
 //		checkInput( nodeRoot,"  dir" );
 //		checkInput( nodeRoot,"  q  ac" );
-		checkInput( nodeRoot,"  q  actlog" );
+//		checkInput( nodeRoot,"  q  actlog" );
 
 //		checkInput( args[0] );
 //		handleTab( args[0] );

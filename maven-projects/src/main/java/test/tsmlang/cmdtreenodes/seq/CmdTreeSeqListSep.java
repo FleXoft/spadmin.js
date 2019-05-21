@@ -1,9 +1,12 @@
-package test.tsmlang;
+package test.tsmlang.cmdtreenodes.seq;
 
 import java.util.List;
 
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
+
+import test.tsmlang.ObjectCTNodeMatch;
+import test.tsmlang.cmdtreenodes.CmdTreeNode;
 
 public class CmdTreeSeqListSep extends CmdTreeSeq
 {
@@ -16,18 +19,19 @@ public class CmdTreeSeqListSep extends CmdTreeSeq
 		NamedNodeMap attributes = node.getAttributes();
 		this.listSeparator = setTextValue( attributes.getNamedItem( ATTRNAME_LIST_SEPARATOR ) );
 		this.listValues = setListValues( attributes.getNamedItem( ATTRNAME_LIST ),this.listSeparator );
+		setWordType();
 
 		addChildNodes();
 	}
 
 	@Override
-	protected List<String> addTabChoices( String cmd )
+	public List<String> addTabChoices( String cmd )
 	{
 		return super.addTabChoicesForList( cmd,listValues );
 	}
 
 	@Override
-	protected ObjectCTNodeMatch checkCTNode( String cmd )
+	public ObjectCTNodeMatch checkCTNode( String cmd )
 	{
 		return super.checkCTNodeForList1( cmd,listValues );
 	}

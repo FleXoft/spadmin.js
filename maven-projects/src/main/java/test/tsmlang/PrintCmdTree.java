@@ -2,6 +2,8 @@ package test.tsmlang;
 
 import org.apache.log4j.Logger;
 
+import test.tsmlang.cmdtreenodes.CmdTreeNode;
+
 public class PrintCmdTree
 {
 	private static final Logger logger = Logger.getLogger( PrintCmdTree.class );
