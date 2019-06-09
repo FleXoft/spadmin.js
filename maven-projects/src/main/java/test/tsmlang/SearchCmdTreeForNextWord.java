@@ -1,8 +1,6 @@
 package test.tsmlang;
 
-import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.Set;
 
 import org.apache.log4j.Logger;
 
@@ -14,16 +12,12 @@ public class SearchCmdTreeForNextWord
 {
 	private static final Logger logger = Logger.getLogger( SearchCmdTreeForNextWord.class );
 
-	public enum TYPE_RECURSION { writeContentThenTreeWalk };
-	
 	private static LinkedList<CmdTreeNode> listPossibleNextWords = null;
-	private static Set<CmdTreeNode> hsPossibleNextWords = null;
 
 
 	public static void search( CmdTreeParsePosition lastMatchingPos )
 	{
 		listPossibleNextWords = new LinkedList<CmdTreeNode>();
-		hsPossibleNextWords = new HashSet<CmdTreeNode>();
 
 		CmdTreeNode ctNodeLastMatching = lastMatchingPos.getCTNode();
 		logger.debug( String.format( "lastMatchingNode=(%02d)",ctNodeLastMatching.getIndexNode() ) );
@@ -57,7 +51,6 @@ public class SearchCmdTreeForNextWord
 
 					if ( ctNode.getbHasWord()==true )
 					{
-						hsPossibleNextWords.add( ctNode );
 						listPossibleNextWords.add( ctNode );
 
 						CmdTreeNode ctNodeNext = null;

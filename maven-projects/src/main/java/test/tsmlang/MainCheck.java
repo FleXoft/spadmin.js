@@ -91,6 +91,9 @@ public class MainCheck
 		SearchCmdTreeForMatch.recursiveSearchCmdTreeForMatch( "" );
 
 		CmdTreeParsePosition lastMatchingPos = SearchCmdTreeForMatch.getLastMathcingPosition();
+		CmdTreeNode ctNodeLastMatching = lastMatchingPos.getCTNode();
+		logger.debug( String.format( "lastMatchingNode=(%02d)",ctNodeLastMatching.getIndexNode() ) );
+
 		if ( lastMatchingPos!=null )
 		{
 			if ( lastMatchingPos.getMatch()==TYPE_MATCH.partial )

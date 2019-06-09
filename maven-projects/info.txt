@@ -189,3 +189,67 @@
 	- hibák:
 		- "q no no"
 		- "q nod no"
+
+20190609:
+	- automatikus teszteléshez külön prg-t fogok csinálni
+		- ki kell találni egy olyan formátumot, hogy a teszelő prg a beviteli érték alapján egyértelműen ellenőrizni tudja a TAB-os keresés funkció működését
+	- Flex: teszt esetek
+		- q n[TAB]
+			node-ra kiegészíti + SPACE
+		- q no[TAB]
+			node-ra kiegészíti + SPACE
+		- q n [TAB] vagy q node [TAB]
+			*, testnode1, testnode2, tsmnode, donode
+			DOmain=aktuálsi TSM-es doamin lista
+			Format=Detailed/Standard
+			AUTHentication=LOcal/LDap
+			Type=Client/NAS/Server/Any
+		- q node *[TAB]
+			semmi, de kezelni kell
+		- q node *akármi[TAB]
+			semmi, de kezelni kell
+		- q node * [TAB]
+			DOmain=aktuálsi TSM-es doamin lista
+			Format=Detailed/Standard
+			AUTHentication=LOcal/LDap
+			Type=Client/NAS/Server/Any
+		- q node * DO[TAB]
+			DOman=-re kiegészít
+		- q node testnode[TAB]
+			testnode1, testnode2
+		- q node tsmno[TAB]
+			tsmnode-ra kiegészít egyből, mert csak egy ilyen node van
+		- q node do
+			itt mivel van olyan node, hogy donode és van olyan paraméter, hogy DOmain ezért:
+			donode
+			DOmain=aktuálsi TSM-es doamin lista domain1, tsmdomain
+		- q node doma
+			DOmain=-re egészíti ki
+		- q node DOmain=[TAB]
+			aktuális dominlista domain1, tsmdomain
+		- q node DOmain=tsm[TAB]
+			tsmdomain-re egészíti ki
+		- q node DOmain=tsmdomain,dom[TAB]
+			domain1-re egészíti ki, mert van ilyen TSM-es domain
+	- átalakítás a jobb érthetőség miatt
+		- most két részből áll a keresés
+			- kezdetben egy rekurzív keresés, amíg egy olyan pontig érek el, amit már nem tudok a szabályok alapján azonosítani, vagy véget ér az input string
+			- majd egy adott pozíciótól megnézem, a TAB lehetőségeket
+		- ehelyett 1 keresést szeretnék, mert így is bonyi mindkettő, a rengeteg speciális eset kezelés miatt elég lesz 1 helyen módosítani
+			- a terv az, hogy készítek 
+				- egy fgvt (fgv1), amely csak megadja mik lehetnek a cmdtree szerint a következő szavak
+				- egy fgvt (fgv2), amely egyezést néz a beviteli string következő szava alapján
+				- ezt a két fgv-t hívva és az fgv2 kimenetét vizsgálva végighaladunk a teljes beviteli string-en és végül kiírjuk az eredményt :)
+			- fgv1:
+				- bemenő paramétere egy tree node (vagy az indexe)
+					- ez az a node, ameddig full, vagy partial egyezés van a beviteli string-ben
+					- kezdetben ez a root node
+				- kimenő paramétere
+					- egy cmdtree node lista, amely a következő szót tartalmazhazja
+			- fgv2:
+				- bemenő paramétere 
+					- egy string, a következő "szó" a beviteli string-ben
+						- ez elvileg tartalmazhat SPACE-t (pl valami felsorolás, vagy spec paraméter), de ekkor tudni kell, hogy összetartozó karakter sorozatról van szó (pl idézőjelek közti szó)
+					- egy cmdtree lista, amely a következő szót tartalmazhazja
+				- kimenő paramétere
+					- egy cmdtree node lista, amelyben olyan node-ok vannak, amelynek megfelel a következő szó
