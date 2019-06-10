@@ -259,3 +259,12 @@
 		- "query node format=Standard" cmd után nem hozta fel a lehetséges szavak közt az "AUTHentication" node-ot
 		- módosítani kell a keresés...
 		- végtelenül bonyi... elakadtam megint
+	- ezt szeretném megcsinálni: "fgvt (fgv1), amely csak megadja mik lehetnek a cmdtree szerint a következő szavak"
+		- adott az utolsó partial vagy full match node (nodeLastMatch)
+			- ehhez a node-hoz child node-on utána sibling node-on ellenőrizve megkeresem a lehetséges első szavakat
+			- ezután visszafele végigmegyek azokon a node-okon, ahogy a mélységi bejárás során a nodeLastMatch-ig eljutottunk
+				- ahol van sibling és tovább tudok menni, ott még kibővítem a lehetséges node-ok listáját
+					- pl ha egy choiceText-hez érek, akkor itt nem tudok tovább menni
+					- ha egy seqSub-hoz érek, amely canBeEmpty=true, akkor itt tovább tudok menni és a sibling-eket is be tudom járni, amíg canBeEmpty=true
+			- ha ez a root node, akkor nincs visszafele vizsgálat
+	- rész eredmény: kész van addig, hogy a nodeLastMatch node alatti elemeket már beveszi a listába, már csak a nodeLastMatch ősökön kell visszafele végigmenni ügyesen

@@ -1,6 +1,8 @@
 package test.tsmlang;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -8,7 +10,11 @@ import org.apache.log4j.Logger;
 import test.tsmlang.cmdtreenodes.CmdTreeLevelStart;
 import test.tsmlang.cmdtreenodes.CmdTreeNode;
 import test.tsmlang.cmdtreenodes.CmdTreeNode.WORD_TYPE;
+import test.tsmlang.cmdtreenodes.ListCmdTreeNodes;
 import test.tsmlang.cmdtreenodes.choice.CmdTreeChoice;
+import test.tsmlang.cmdtreenodes.choice.CmdTreeChoiceList;
+import test.tsmlang.cmdtreenodes.choice.CmdTreeChoiceSub;
+import test.tsmlang.cmdtreenodes.choice.CmdTreeChoiceText;
 import test.tsmlang.cmdtreenodes.seq.CmdTreeSeq;
 import test.tsmlang.cmdtreenodes.seq.CmdTreeSeqSub;
 
@@ -36,22 +42,115 @@ public class CalcNextPossibleWords
 
 		List<CmdTreeNode> result = new ArrayList<CmdTreeNode>();
 
-		CmdTreeNode ctNodeCurrent = MainCheck.safeGetNextCmdTreeNode( paramLastMatchingNode );
+		LinkedList<CmdTreeNode> listCTNodePath = getListCTNodePath( paramLastMatchingNode );
+		Iterator<CmdTreeNode> descendingIterator = listCTNodePath.descendingIterator();
+		descendingIterator.next();	// ez tuti van, ez a paramLastMatchingNode
+
+		List<CmdTreeNode> result1 = fillNextPossibleWords1( paramLastMatchingNode );
+		result.addAll( result1 );
+
+		while ( descendingIterator.hasNext()==true )
+		{
+			logger.debug( String.format( "...more nodes=(%02d)",descendingIterator.next().getIndexNode() ) );
+		}
+
+//		CmdTreeNode ctNodePrev = paramLastMatchingNode;
+//		CmdTreeNode ctNodeCurrent = ListCmdTreeNodes.safeGetNextCmdTreeNode( ctNodePrev );
+//		while ( true )
+//		{
+//			if ( ctNodeCurrent==null )
+//				break;
+//
+//			boolean bNoWord = ( ctNodeCurrent.getWordType()==WORD_TYPE.noWord );
+//			boolean bPossibleNextWord = isPossibleNextWord( ctNodePrev,ctNodeCurrent );
+//			if ( bNoWord==true || bPossibleNextWord==false )
+//			{
+//				ctNodePrev = ctNodeCurrent;
+//				ctNodeCurrent = ListCmdTreeNodes.safeGetNextCmdTreeNode( ctNodeCurrent );
+//			}
+//			else
+//			{
+//				result.add( ctNodeCurrent );
+//				ctNodePrev = ctNodeCurrent;
+//				ctNodeCurrent = getNextCurrentNode( ctNodeCurrent );
+//			}
+//		}
+
+		return result;
+	}
+
+	private static List<CmdTreeNode> fillNextPossibleWords1( CmdTreeNode paramLastMatchingNode )
+	{
+		List<CmdTreeNode> result = new ArrayList<CmdTreeNode>();
+
+		CmdTreeNode ctNodeChild = paramLastMatchingNode.getChildCTNode();
+		result.addAll( fillNextPossibleWordsParent( ctNodeChild ) );
+
+		CmdTreeNode ctNodeSibling = paramLastMatchingNode.getNextSiblingCTNode();
+		result.addAll( fillNextPossibleWordsSibling( ctNodeSibling ) );
+
+		return result;
+	}
+
+	private static List<CmdTreeNode> fillNextPossibleWordsSibling( CmdTreeNode ctNodeSibling )
+	{
+		List<CmdTreeNode> result = new ArrayList<CmdTreeNode>();
+		if ( ctNodeSibling==null )
+		{
+			;
+		}
+		else if ( ctNodeSibling instanceof CmdTreeChoiceText || 
+				ctNodeSibling instanceof CmdTreeChoiceList ||
+				ctNodeSibling instanceof CmdTreeChoiceSub )
+		{
+			;
+		}
+		else if ( ctNodeSibling instanceof CmdTreeSeq )
+		{
+			while ( true )
+			{
+				CmdTreeSeq ctNodeSeq = (CmdTreeSeq)ctNodeSibling;
+				if ( (ctNodeSeq instanceof CmdTreeSeq)==false )
+					throw new RuntimeException( "fillNextPossibleWordsSibling seq invlaid type:" + ctNodeSibling.getClass().getName() );
+
+				if ( ctNodeSeq.getWordType()!=WORD_TYPE.noWord )
+					result.add( ctNodeSeq );
+				CmdTreeNode ctNodeChild = ctNodeSeq.getChildCTNode();
+				result.addAll( fillNextPossibleWordsParent( ctNodeChild ) );
+
+				if ( ctNodeSeq.getbCanBeEmpty()==false )
+					break;
+				ctNodeSibling = ctNodeSeq.getNextSiblingCTNode();
+				if ( ctNodeSibling==null )
+					break;
+			}
+		}
+		else
+			throw new RuntimeException( "fillNextPossibleWordsSibling unknonw type:" + ctNodeSibling.getClass().getName() );
+		return result;
+	}
+
+	private static List<CmdTreeNode> fillNextPossibleWordsParent( CmdTreeNode ctNode )
+	{
+		List<CmdTreeNode> result = new ArrayList<CmdTreeNode>();
+
+		CmdTreeNode ctNodeOrig = ctNode;
 		while ( true )
 		{
-			if ( ctNodeCurrent==null )
+			if ( ctNode==null )
+				break;
+			if ( ctNode.getCmdSample().startsWith( ctNodeOrig.getCmdSample() )==false )
 				break;
 
-			boolean bNoWord = ( ctNodeCurrent.getWordType()==WORD_TYPE.noWord );
-			boolean bPossibleNextWord = isPossibleNextWord( paramLastMatchingNode,ctNodeCurrent );
-			if ( bNoWord==true || bPossibleNextWord==false )
+			boolean bNoWord = ( ctNode.getWordType()==WORD_TYPE.noWord );
+			if ( bNoWord==true )
 			{
-				ctNodeCurrent = MainCheck.safeGetNextCmdTreeNode( ctNodeCurrent );
+				ctNode = ListCmdTreeNodes.safeGetNextCmdTreeNode( ctNode );
 			}
 			else
 			{
-				result.add( ctNodeCurrent );
-				ctNodeCurrent = getNextCurrentNode( ctNodeCurrent );
+				result.add( ctNode );
+				ctNode = getNextCurrentNode( ctNode );
 			}
 		}
 
@@ -97,21 +196,21 @@ public class CalcNextPossibleWords
 		return ctNodeNext;
 	}
 
-	private static boolean isPossibleNextWord( CmdTreeNode paramLastMatchingNode,CmdTreeNode ctNodeDestination )
+	private static boolean isPossibleNextWord( CmdTreeNode ctNodePrev,CmdTreeNode ctNodeDestination )
 	{
 //		össze kell számolni, hogy a paramLastMatchingNode node utáni node-ok közül hány "kötelező" szó van a mélységi bejárás szerint amíg elérünk ctNodeCurrent-ig
 //		ha már egyet találunk, akkor nem kell tovább számolni
 
-		CmdTreeNode ctNodeNext = getNextRequiredWord( paramLastMatchingNode );
+		CmdTreeNode ctNodeNext = getNextRequiredWord( ctNodePrev );
 		if ( ctNodeNext==null )
 			return true;
 		else
-			return ( ctNodeNext.getIndexNode()>ctNodeDestination.getIndexNode() );
+			return ( ctNodeNext.getIndexNode()>=ctNodeDestination.getIndexNode() );
 	}
 
-	private static CmdTreeNode getNextRequiredWord( CmdTreeNode paramLastMatchingNode )
+	private static CmdTreeNode getNextRequiredWord( CmdTreeNode ctNodePrev )
 	{
-		CmdTreeNode ctNodeCurrent = MainCheck.safeGetNextCmdTreeNode( paramLastMatchingNode );
+		CmdTreeNode ctNodeCurrent = ListCmdTreeNodes.safeGetNextCmdTreeNode( ctNodePrev );
 		while ( true )
 		{
 			if ( ctNodeCurrent==null )
@@ -153,7 +252,7 @@ public class CalcNextPossibleWords
 			}
 			else if ( ctNodeCurrent instanceof CmdTreeLevelStart )
 			{
-				CmdTreeNode ctNodeNext = MainCheck.safeGetNextCmdTreeNode( ctNodeCurrent );
+				CmdTreeNode ctNodeNext = ListCmdTreeNodes.safeGetNextCmdTreeNode( ctNodeCurrent );
 				if ( ctNodeNext==null )
 					throw new RuntimeException( "empty levelstart node:" + ctNodeCurrent.getWordType() );
 				ctNodeCurrent = ctNodeNext;
@@ -202,11 +301,11 @@ public class CalcNextPossibleWords
 //		return false;
 	}
 
-	private static List<CmdTreeNode> getListCTNodesFromCommonNode( CmdTreeNode ctNode2,CmdTreeNode ctNodeCommon )
+	public static List<CmdTreeNode> getListCTNodesFromCommonNode( CmdTreeNode ctNode,CmdTreeNode ctNodeCommon )
 	{
 		List<CmdTreeNode> result = new ArrayList<CmdTreeNode>();
 
-		String[] list = ctNode2.getCmdSample().split( " " );
+		String[] list = ctNode.getCmdSample().split( " " );
 		boolean bNodeToList = false;
 		for ( String strIndex : list )
 		{
@@ -218,13 +317,25 @@ public class CalcNextPossibleWords
 			else
 			{
 				if ( bNodeToList==true )
-					result.add( MainCheck.listCmdTreeNodes.get( indexNode ) );
+					result.add( ListCmdTreeNodes.listCmdTreeNodes.get( indexNode ) );
 			}
 		}
 		return result;
 	}
 
-	private static CmdTreeNode getLastCommonNode( CmdTreeNode ctNode,CmdTreeNode ctNode2 )
+	public static LinkedList<CmdTreeNode> getListCTNodePath( CmdTreeNode ctNode )
+	{
+		LinkedList<CmdTreeNode> result = new LinkedList<CmdTreeNode>();
+		String[] list = ctNode.getCmdSample().split( " " );
+		for ( String strIndex : list )
+		{
+			int indexNode = Integer.parseInt( strIndex );
+			result.addLast( ListCmdTreeNodes.listCmdTreeNodes.get( indexNode ) );
+		}
+		return result;
+	}
+
+	public static CmdTreeNode getLastCommonNode( CmdTreeNode ctNode,CmdTreeNode ctNode2 )
 	{
 		int indexFirstDiff = 0;
 		for ( ; true; indexFirstDiff++ )
@@ -244,6 +355,6 @@ public class CalcNextPossibleWords
 		int index = Integer.parseInt( strLastCommonIndex );
 
 //		logger.debug( String.format( "lastCommonIndex(%02d)",index ) );
-		return MainCheck.listCmdTreeNodes.get( index );
+		return ListCmdTreeNodes.listCmdTreeNodes.get( index );
 	}
 }

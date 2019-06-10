@@ -1,6 +1,5 @@
 package test.tsmlang;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -10,6 +9,7 @@ import test.tsmlang.CmdTreeParsePosition.TYPE_MATCH;
 import test.tsmlang.cmdtreenodes.CmdTreeNode;
 import test.tsmlang.cmdtreenodes.CmdTreeNode.NODE_TYPE;
 import test.tsmlang.cmdtreenodes.CmdTreeRootNode;
+import test.tsmlang.cmdtreenodes.ListCmdTreeNodes;
 
 public class MainCheck
 {
@@ -19,21 +19,6 @@ public class MainCheck
 
 	public static final String COMMAND_TREE_XML = "command-tree1.xml";
 
-	public static LinkedList<CmdTreeNode> listCmdTreeNodes = new LinkedList<CmdTreeNode>();
-	public static void addNextCmdTreeNode( CmdTreeNode cmdTreeNode )
-	{
-		listCmdTreeNodes.addLast( cmdTreeNode );
-	}
-	public static CmdTreeNode safeGetNextCmdTreeNode( CmdTreeNode cmdTreeNode )
-	{
-		int nextIndex = cmdTreeNode.getIndexNode()+1;
-		if ( nextIndex<MainCheck.listCmdTreeNodes.size() )
-		{
-			return MainCheck.listCmdTreeNodes.get( nextIndex );
-		}
-		else
-			return null;
-	}
 
 	public static void main( String[] args ) throws Exception
 	{
@@ -59,20 +44,20 @@ public class MainCheck
 		PrintCmdTree.recursivePrintCmdTreeNode( nodeRoot,"" );
 
 		logger.debug( "---------listCmdTreeNodes" );
-		for ( CmdTreeNode ctNode : listCmdTreeNodes )
+		for ( CmdTreeNode ctNode : ListCmdTreeNodes.listCmdTreeNodes )
 		{
 			logger.debug( String.format( "node(%02d)(%s)",ctNode.getIndexNode(),ctNode.getCmdSample() ) );
 		}
 
 		logger.debug( "---------list NextPossibleWords" );
-		for ( CmdTreeNode ctNode : listCmdTreeNodes )
+		for ( CmdTreeNode ctNode : ListCmdTreeNodes.listCmdTreeNodes )
 		{
 			if ( ctNode.getType()==NODE_TYPE.levelStart || 
 				ctNode.getType()==NODE_TYPE.choiceSub ||
 				ctNode.getType()==NODE_TYPE.seqSub )
 				continue;
-			if ( ctNode.getIndexNode()==2 )
-				logger.debug( "2" );
+			if ( ctNode.getIndexNode()==15 )
+				logger.debug( "xxx" );
 			logger.debug( String.format( "\n\nnode(%02d) (%s)",ctNode.getIndexNode(),ctNode.toString() ) );
 			List<CmdTreeNode> list = CalcNextPossibleWords.calc( ctNode );
 			for ( CmdTreeNode ctNode2 : list )

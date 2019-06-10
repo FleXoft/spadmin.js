@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 
 import test.tsmlang.cmdtreenodes.CmdTreeNode;
 import test.tsmlang.cmdtreenodes.CmdTreeNode.WORD_TYPE;
+import test.tsmlang.cmdtreenodes.ListCmdTreeNodes;
 import test.tsmlang.cmdtreenodes.seq.CmdTreeSeq;
 
 public class SearchCmdTreeForNextWord
@@ -27,9 +28,9 @@ public class SearchCmdTreeForNextWord
 			logger.debug( String.format( "lastMatchingNode child=(%02d)",ctNodeLastMatchingChild.getIndexNode() ) );
 
 		int nextIndex = ctNodeLastMatching.getIndexNode()+1;
-		if ( nextIndex<MainCheck.listCmdTreeNodes.size() )
+		if ( nextIndex<ListCmdTreeNodes.listCmdTreeNodes.size() )
 		{
-			CmdTreeNode ctNodeBase = MainCheck.listCmdTreeNodes.get( nextIndex );
+			CmdTreeNode ctNodeBase = ListCmdTreeNodes.listCmdTreeNodes.get( nextIndex );
 			logger.debug( String.format( "ctNodeBase=(%02d)",ctNodeBase.getIndexNode() ) );
 
 			boolean bContinue = false;
@@ -95,9 +96,9 @@ public class SearchCmdTreeForNextWord
 					{
 //						folytatom a mélységi bejárást
 						nextIndex = ctNode.getIndexNode()+1;
-						if ( nextIndex>=MainCheck.listCmdTreeNodes.size() )
+						if ( nextIndex>=ListCmdTreeNodes.listCmdTreeNodes.size() )
 							break;
-						ctNode = MainCheck.listCmdTreeNodes.get( nextIndex );
+						ctNode = ListCmdTreeNodes.listCmdTreeNodes.get( nextIndex );
 					}
 				}
 			}

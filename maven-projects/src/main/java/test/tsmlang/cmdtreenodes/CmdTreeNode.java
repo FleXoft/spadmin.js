@@ -65,7 +65,7 @@ public abstract class CmdTreeNode
 		}
 
 		this.indexNode = LoadCmdTreeXml.indexNode++;
-		MainCheck.addNextCmdTreeNode( this );
+		ListCmdTreeNodes.addNextCmdTreeNode( this );
 		this.xmlNode = xmlNode;
 		this.type = type;
 		this.parentCTNode = parentCTNode;
