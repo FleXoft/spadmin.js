@@ -8,6 +8,7 @@ import org.apache.log4j.xml.DOMConfigurator;
 
 import test.tsmlang.CmdTreeParsePosition.TYPE_MATCH;
 import test.tsmlang.cmdtreenodes.CmdTreeNode;
+import test.tsmlang.cmdtreenodes.CmdTreeNode.NODE_TYPE;
 import test.tsmlang.cmdtreenodes.CmdTreeRootNode;
 
 public class MainCheck
@@ -23,32 +24,15 @@ public class MainCheck
 	{
 		listCmdTreeNodes.addLast( cmdTreeNode );
 	}
-
-	public MainCheck() throws Exception
+	public static CmdTreeNode safeGetNextCmdTreeNode( CmdTreeNode cmdTreeNode )
 	{
-		CmdTreeRootNode nodeRoot = LoadCmdTreeXml.loadXml();
-
-		PrintCmdTree.recursivePrintCmdTreeNode( nodeRoot,"" );
-
-		logger.debug( "---------listCmdTreeNodes" );
-		for ( CmdTreeNode ctNode : listCmdTreeNodes )
+		int nextIndex = cmdTreeNode.getIndexNode()+1;
+		if ( nextIndex<MainCheck.listCmdTreeNodes.size() )
 		{
-			logger.debug( String.format( "node(%02d)(%s)",ctNode.getIndexNode(),ctNode.getCmdSample() ) );
+			return MainCheck.listCmdTreeNodes.get( nextIndex );
 		}
-
-//		checkInput( nodeRoot,"  query" );
-//		checkInput( nodeRoot,"  quer   node" );
-		checkInput( nodeRoot,"  q   no no" );
-//		checkInput( nodeRoot,"  q   n do=domain1" );
-//		checkInput( nodeRoot,"  q   n node1 auth=" );
-//		checkInput( nodeRoot,"  q   n node1 auth=ld t=" );
-//		checkInput( nodeRoot,"  q   n node1 auth=ld t=nas" );
-//		checkInput( nodeRoot,"  dir" );
-//		checkInput( nodeRoot,"  q  ac" );
-//		checkInput( nodeRoot,"  q  actlog" );
-
-//		checkInput( args[0] );
-//		handleTab( args[0] );
+		else
+			return null;
 	}
 
 	public static void main( String[] args ) throws Exception
@@ -66,6 +50,51 @@ public class MainCheck
 		}
 
 		logger.debug( "End." );
+	}
+
+	public MainCheck() throws Exception
+	{
+		CmdTreeRootNode nodeRoot = LoadCmdTreeXml.loadXml();
+
+		PrintCmdTree.recursivePrintCmdTreeNode( nodeRoot,"" );
+
+		logger.debug( "---------listCmdTreeNodes" );
+		for ( CmdTreeNode ctNode : listCmdTreeNodes )
+		{
+			logger.debug( String.format( "node(%02d)(%s)",ctNode.getIndexNode(),ctNode.getCmdSample() ) );
+		}
+
+		logger.debug( "---------list NextPossibleWords" );
+		for ( CmdTreeNode ctNode : listCmdTreeNodes )
+		{
+			if ( ctNode.getType()==NODE_TYPE.levelStart || 
+				ctNode.getType()==NODE_TYPE.choiceSub ||
+				ctNode.getType()==NODE_TYPE.seqSub )
+				continue;
+			if ( ctNode.getIndexNode()==2 )
+				logger.debug( "2" );
+			logger.debug( String.format( "\n\nnode(%02d) (%s)",ctNode.getIndexNode(),ctNode.toString() ) );
+			List<CmdTreeNode> list = CalcNextPossibleWords.calc( ctNode );
+			for ( CmdTreeNode ctNode2 : list )
+			{
+				logger.debug( String.format( "  node(%02d) (%s)",ctNode2.getIndexNode(),ctNode2.toString() ) );
+			}
+		}
+
+
+//		checkInput( nodeRoot,"  query" );
+//		checkInput( nodeRoot,"  quer   node" );
+//		checkInput( nodeRoot,"  q   no no" );
+//		checkInput( nodeRoot,"  q   n do=domain1" );
+//		checkInput( nodeRoot,"  q   n node1 auth=" );
+//		checkInput( nodeRoot,"  q   n node1 auth=ld t=" );
+//		checkInput( nodeRoot,"  q   n node1 auth=ld t=nas" );
+//		checkInput( nodeRoot,"  dir" );
+//		checkInput( nodeRoot,"  q  ac" );
+//		checkInput( nodeRoot,"  q  actlog" );
+
+//		checkInput( args[0] );
+//		handleTab( args[0] );
 	}
 
 	public static List<CmdTreeParseTabChoices> checkInput( CmdTreeRootNode nodeRoot,String cmd )

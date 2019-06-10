@@ -253,3 +253,9 @@
 					- egy cmdtree lista, amely a következő szót tartalmazhazja
 				- kimenő paramétere
 					- egy cmdtree node lista, amelyben olyan node-ok vannak, amelynek megfelel a következő szó
+
+20190610:
+	- találtam bug-ot a prg-ben:
+		- "query node format=Standard" cmd után nem hozta fel a lehetséges szavak közt az "AUTHentication" node-ot
+		- módosítani kell a keresés...
+		- végtelenül bonyi... elakadtam megint
