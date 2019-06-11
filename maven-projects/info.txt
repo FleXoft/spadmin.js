@@ -268,3 +268,8 @@
 					- ha egy seqSub-hoz érek, amely canBeEmpty=true, akkor itt tovább tudok menni és a sibling-eket is be tudom járni, amíg canBeEmpty=true
 			- ha ez a root node, akkor nincs visszafele vizsgálat
 	- rész eredmény: kész van addig, hogy a nodeLastMatch node alatti elemeket már beveszi a listába, már csak a nodeLastMatch ősökön kell visszafele végigmenni ügyesen
+
+20190611:
+	- kész van és helyes a jelenlegi teljes tree minden node-jára a possible-next-words lista
+		- fájl mentve: app.log-saved1
+	- ezután már csak az egyes node-ok egyezéseit kell kigyúrni, és Flex példáit

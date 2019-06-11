@@ -7,16 +7,13 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import test.tsmlang.cmdtreenodes.CmdTreeLevelStart;
 import test.tsmlang.cmdtreenodes.CmdTreeNode;
 import test.tsmlang.cmdtreenodes.CmdTreeNode.WORD_TYPE;
 import test.tsmlang.cmdtreenodes.ListCmdTreeNodes;
-import test.tsmlang.cmdtreenodes.choice.CmdTreeChoice;
 import test.tsmlang.cmdtreenodes.choice.CmdTreeChoiceList;
 import test.tsmlang.cmdtreenodes.choice.CmdTreeChoiceSub;
 import test.tsmlang.cmdtreenodes.choice.CmdTreeChoiceText;
 import test.tsmlang.cmdtreenodes.seq.CmdTreeSeq;
-import test.tsmlang.cmdtreenodes.seq.CmdTreeSeqSub;
 
 public class CalcNextPossibleWords
 {
@@ -46,53 +43,66 @@ public class CalcNextPossibleWords
 		Iterator<CmdTreeNode> descendingIterator = listCTNodePath.descendingIterator();
 		descendingIterator.next();	// ez tuti van, ez a paramLastMatchingNode
 
-		List<CmdTreeNode> result1 = fillNextPossibleWords1( paramLastMatchingNode );
-		result.addAll( result1 );
-
-		while ( descendingIterator.hasNext()==true )
 		{
-			logger.debug( String.format( "...more nodes=(%02d)",descendingIterator.next().getIndexNode() ) );
+			CmdTreeNode ctNodeChild = paramLastMatchingNode.getChildCTNode();
+			result.addAll( fillNextPossibleWordsChild( ctNodeChild ) );
+
+			CmdTreeNode ctNodeSibling = paramLastMatchingNode.getNextSiblingCTNode();
+			result.addAll( fillNextPossibleWordsSiblings( ctNodeSibling ) );
 		}
 
-//		CmdTreeNode ctNodePrev = paramLastMatchingNode;
-//		CmdTreeNode ctNodeCurrent = ListCmdTreeNodes.safeGetNextCmdTreeNode( ctNodePrev );
-//		while ( true )
-//		{
-//			if ( ctNodeCurrent==null )
-//				break;
-//
-//			boolean bNoWord = ( ctNodeCurrent.getWordType()==WORD_TYPE.noWord );
-//			boolean bPossibleNextWord = isPossibleNextWord( ctNodePrev,ctNodeCurrent );
-//			if ( bNoWord==true || bPossibleNextWord==false )
-//			{
-//				ctNodePrev = ctNodeCurrent;
-//				ctNodeCurrent = ListCmdTreeNodes.safeGetNextCmdTreeNode( ctNodeCurrent );
-//			}
-//			else
-//			{
-//				result.add( ctNodeCurrent );
-//				ctNodePrev = ctNodeCurrent;
-//				ctNodeCurrent = getNextCurrentNode( ctNodeCurrent );
-//			}
-//		}
+//		logger.debug( String.format( "----------------backTest" ) );
+//		result.add( ListCmdTreeNodes.listCmdTreeNodes.get( 0 ) );
+
+//		ha csak nem kötelező node-ok vannak az eddigi listában, akkor mehetek tovább a kereséssel
+		if ( isThereNecessaryNodesInPreviousResults( result )==false )
+		{
+			int skipLevel = -1;
+			while ( descendingIterator.hasNext()==true )
+			{
+				CmdTreeNode ctNode = descendingIterator.next();
+//				logger.debug( String.format( "...more nodes=(%02d)",ctNode.getIndexNode() ) );
+				if ( ctNode.getLevel()==skipLevel )
+					continue;
+				else
+					skipLevel = -1;
+
+				if ( ctNode instanceof CmdTreeSeq )
+				{
+					CmdTreeSeq ctNodeSeq = (CmdTreeSeq)ctNode;
+					if ( ctNodeSeq.getbCanBeEmpty()==true )
+					{
+						skipLevel = ctNodeSeq.getLevel();
+						CmdTreeNode ctNodeSibling = ctNodeSeq.getNextSiblingCTNode();
+						if ( ctNodeSibling!=null )
+						{
+							result.addAll( fillNextPossibleWordsSiblings( ctNodeSibling ) );
+						}
+					}
+				}
+			}
+		}
 
 		return result;
 	}
 
-	private static List<CmdTreeNode> fillNextPossibleWords1( CmdTreeNode paramLastMatchingNode )
+	private static boolean isThereNecessaryNodesInPreviousResults( List<CmdTreeNode> result )
 	{
-		List<CmdTreeNode> result = new ArrayList<CmdTreeNode>();
-
-		CmdTreeNode ctNodeChild = paramLastMatchingNode.getChildCTNode();
-		result.addAll( fillNextPossibleWordsParent( ctNodeChild ) );
-
-		CmdTreeNode ctNodeSibling = paramLastMatchingNode.getNextSiblingCTNode();
-		result.addAll( fillNextPossibleWordsSibling( ctNodeSibling ) );
-
-		return result;
+		for ( CmdTreeNode ctNode : result )
+		{
+			if ( ctNode instanceof CmdTreeSeq )
+			{
+				CmdTreeSeq ctNodeSeq = (CmdTreeSeq)ctNode;
+				if ( ctNodeSeq.getbCanBeEmpty()==false )
+					return true;
+			}
+			else
+				return true;
+		}
+		return false;
 	}
 
-	private static List<CmdTreeNode> fillNextPossibleWordsSibling( CmdTreeNode ctNodeSibling )
+	private static List<CmdTreeNode> fillNextPossibleWordsSiblings( CmdTreeNode ctNodeSibling )
 	{
 		List<CmdTreeNode> result = new ArrayList<CmdTreeNode>();
 		if ( ctNodeSibling==null )
@@ -109,14 +119,14 @@ public class CalcNextPossibleWords
 		{
 			while ( true )
 			{
-				CmdTreeSeq ctNodeSeq = (CmdTreeSeq)ctNodeSibling;
-				if ( (ctNodeSeq instanceof CmdTreeSeq)==false )
+				if ( (ctNodeSibling instanceof CmdTreeSeq)==false )
 					throw new RuntimeException( "fillNextPossibleWordsSibling seq invlaid type:" + ctNodeSibling.getClass().getName() );
+				CmdTreeSeq ctNodeSeq = (CmdTreeSeq)ctNodeSibling;
 
 				if ( ctNodeSeq.getWordType()!=WORD_TYPE.noWord )
 					result.add( ctNodeSeq );
 				CmdTreeNode ctNodeChild = ctNodeSeq.getChildCTNode();
-				result.addAll( fillNextPossibleWordsParent( ctNodeChild ) );
+				result.addAll( fillNextPossibleWordsChild( ctNodeChild ) );
 
 				if ( ctNodeSeq.getbCanBeEmpty()==false )
 					break;
@@ -130,7 +140,7 @@ public class CalcNextPossibleWords
 		return result;
 	}
 
-	private static List<CmdTreeNode> fillNextPossibleWordsParent( CmdTreeNode ctNode )
+	private static List<CmdTreeNode> fillNextPossibleWordsChild( CmdTreeNode ctNode )
 	{
 		List<CmdTreeNode> result = new ArrayList<CmdTreeNode>();
 
@@ -196,133 +206,6 @@ public class CalcNextPossibleWords
 		return ctNodeNext;
 	}
 
-	private static boolean isPossibleNextWord( CmdTreeNode ctNodePrev,CmdTreeNode ctNodeDestination )
-	{
-//		össze kell számolni, hogy a paramLastMatchingNode node utáni node-ok közül hány "kötelező" szó van a mélységi bejárás szerint amíg elérünk ctNodeCurrent-ig
-//		ha már egyet találunk, akkor nem kell tovább számolni
-
-		CmdTreeNode ctNodeNext = getNextRequiredWord( ctNodePrev );
-		if ( ctNodeNext==null )
-			return true;
-		else
-			return ( ctNodeNext.getIndexNode()>=ctNodeDestination.getIndexNode() );
-	}
-
-	private static CmdTreeNode getNextRequiredWord( CmdTreeNode ctNodePrev )
-	{
-		CmdTreeNode ctNodeCurrent = ListCmdTreeNodes.safeGetNextCmdTreeNode( ctNodePrev );
-		while ( true )
-		{
-			if ( ctNodeCurrent==null )
-				break;
-			if ( ctNodeCurrent instanceof CmdTreeSeq )
-			{
-				CmdTreeSeq ctNode = (CmdTreeSeq)ctNodeCurrent;
-				if ( ctNode.getbCanBeEmpty()==true )
-				{
-					CmdTreeNode prevParentNode = ctNodeCurrent;
-					ctNodeCurrent = ctNodeCurrent.getNextSiblingCTNode();
-					while ( true )
-					{
-						if ( ctNodeCurrent!=null )
-							break;
-						CmdTreeNode ctNode2 = prevParentNode.getParentCTNode();
-						if ( ctNode2==null )
-							break;
-						prevParentNode = ctNode2;
-						ctNodeCurrent = ctNode2.getNextSiblingCTNode();
-					}
-				}
-				else
-				{
-					if ( ctNodeCurrent instanceof CmdTreeSeqSub )
-					{
-						CmdTreeNode ctNodeNext = ctNodeCurrent.getChildCTNode();
-						if ( ctNodeNext==null )
-							throw new RuntimeException( "empty sub node:" + ctNodeCurrent.getWordType() );
-						ctNodeCurrent = ctNodeNext; 
-					}
-					else
-						return ctNodeCurrent;
-				}
-			}
-			else if ( ctNodeCurrent instanceof CmdTreeChoice )
-			{
-				return ctNodeCurrent;
-			}
-			else if ( ctNodeCurrent instanceof CmdTreeLevelStart )
-			{
-				CmdTreeNode ctNodeNext = ListCmdTreeNodes.safeGetNextCmdTreeNode( ctNodeCurrent );
-				if ( ctNodeNext==null )
-					throw new RuntimeException( "empty levelstart node:" + ctNodeCurrent.getWordType() );
-				ctNodeCurrent = ctNodeNext;
-			}
-//			if ( ctNodeCurrent)
-//			if ( ctNodeCurrent.getWordType()==WORD_TYPE.noWord )
-//			{
-//				ctNodeCurrent = MainCheck.safeGetNextCmdTreeNode( ctNodeCurrent );
-//			}
-//			else
-//			{
-//				ctNodeCurrent = getNextCurrentNode( ctNodeCurrent );
-//			}
-		}
-		return null;
-
-//		egyszerű eset, közvetlen leszármazás
-//		if ( ctNodeCurrent.getCmdSample().startsWith( paramLastMatchingNode.getCmdSample() )==true )
-//		{
-//			paramLastMatchingNode
-//			return true;
-//		}
-
-//		 bonyolult következés, pl:
-//			"query node format=Standard" cmd után "AUTHentication" node
-//			node(18)(00 01 02 03 04 05 06 07 12 13 14 15 16 17 18)
-//			node(22)(00 01 02 03 04 05 06 07 12 20 21 22)
-//			közös node 12, ami bCanBeEmpty=true
-//			de pl 
-//			node(38)(00 01 02 03 04 38)
-//			közös node 04, ami choiceText, ezért hibás
-//		CmdTreeNode lastCommonNode = getLastCommonNode( paramLastMatchingNode,ctNodeCurrent );
-//		List<CmdTreeNode> listCTNodesFromCommonNode = getListCTNodesFromCommonNode( paramLastMatchingNode,lastCommonNode );
-//		if ( lastCommonNode instanceof CmdTreeRootNode )
-//			return true;
-//		if ( lastCommonNode instanceof CmdTreeChoice )
-//		{
-//			
-//		}
-//		if ( lastCommonNode instanceof CmdTreeSeq )
-//		{
-//			CmdTreeSeq ctNode = (CmdTreeSeq)lastCommonNode;
-//			if ( ctNode.getbCanBeEmpty()==true )
-//				return true;
-//		}
-//		return false;
-	}
-
-	public static List<CmdTreeNode> getListCTNodesFromCommonNode( CmdTreeNode ctNode,CmdTreeNode ctNodeCommon )
-	{
-		List<CmdTreeNode> result = new ArrayList<CmdTreeNode>();
-
-		String[] list = ctNode.getCmdSample().split( " " );
-		boolean bNodeToList = false;
-		for ( String strIndex : list )
-		{
-			int indexNode = Integer.parseInt( strIndex );
-			if ( indexNode==ctNodeCommon.getIndexNode() )
-			{
-				bNodeToList = true;
-			}
-			else
-			{
-				if ( bNodeToList==true )
-					result.add( ListCmdTreeNodes.listCmdTreeNodes.get( indexNode ) );
-			}
-		}
-		return result;
-	}
-
 	public static LinkedList<CmdTreeNode> getListCTNodePath( CmdTreeNode ctNode )
 	{
 		LinkedList<CmdTreeNode> result = new LinkedList<CmdTreeNode>();
@@ -335,26 +218,153 @@ public class CalcNextPossibleWords
 		return result;
 	}
 
-	public static CmdTreeNode getLastCommonNode( CmdTreeNode ctNode,CmdTreeNode ctNode2 )
-	{
-		int indexFirstDiff = 0;
-		for ( ; true; indexFirstDiff++ )
-		{
-			if ( ctNode.getCmdSample().length()<=indexFirstDiff )
-				break;
-			if ( ctNode2.getCmdSample().length()<=indexFirstDiff )
-				break;
-			if ( ctNode.getCmdSample().charAt( indexFirstDiff )!=ctNode2.getCmdSample().charAt( indexFirstDiff ) )
-				break;
-		}
-		String strCommon = ctNode.getCmdSample().substring( 0,indexFirstDiff );
-		String[] list = strCommon.split( " " );
-		String strLastCommonIndex = null;
-		if ( list.length>0 )
-			strLastCommonIndex = list[list.length-1];
-		int index = Integer.parseInt( strLastCommonIndex );
+//	private static boolean isPossibleNextWord( CmdTreeNode ctNodePrev,CmdTreeNode ctNodeDestination )
+//	{
+////		össze kell számolni, hogy a paramLastMatchingNode node utáni node-ok közül hány "kötelező" szó van a mélységi bejárás szerint amíg elérünk ctNodeCurrent-ig
+////		ha már egyet találunk, akkor nem kell tovább számolni
+//
+//		CmdTreeNode ctNodeNext = getNextRequiredWord( ctNodePrev );
+//		if ( ctNodeNext==null )
+//			return true;
+//		else
+//			return ( ctNodeNext.getIndexNode()>=ctNodeDestination.getIndexNode() );
+//	}
+//
+//	private static CmdTreeNode getNextRequiredWord( CmdTreeNode ctNodePrev )
+//	{
+//		CmdTreeNode ctNodeCurrent = ListCmdTreeNodes.safeGetNextCmdTreeNode( ctNodePrev );
+//		while ( true )
+//		{
+//			if ( ctNodeCurrent==null )
+//				break;
+//			if ( ctNodeCurrent instanceof CmdTreeSeq )
+//			{
+//				CmdTreeSeq ctNode = (CmdTreeSeq)ctNodeCurrent;
+//				if ( ctNode.getbCanBeEmpty()==true )
+//				{
+//					CmdTreeNode prevParentNode = ctNodeCurrent;
+//					ctNodeCurrent = ctNodeCurrent.getNextSiblingCTNode();
+//					while ( true )
+//					{
+//						if ( ctNodeCurrent!=null )
+//							break;
+//						CmdTreeNode ctNode2 = prevParentNode.getParentCTNode();
+//						if ( ctNode2==null )
+//							break;
+//						prevParentNode = ctNode2;
+//						ctNodeCurrent = ctNode2.getNextSiblingCTNode();
+//					}
+//				}
+//				else
+//				{
+//					if ( ctNodeCurrent instanceof CmdTreeSeqSub )
+//					{
+//						CmdTreeNode ctNodeNext = ctNodeCurrent.getChildCTNode();
+//						if ( ctNodeNext==null )
+//							throw new RuntimeException( "empty sub node:" + ctNodeCurrent.getWordType() );
+//						ctNodeCurrent = ctNodeNext; 
+//					}
+//					else
+//						return ctNodeCurrent;
+//				}
+//			}
+//			else if ( ctNodeCurrent instanceof CmdTreeChoice )
+//			{
+//				return ctNodeCurrent;
+//			}
+//			else if ( ctNodeCurrent instanceof CmdTreeLevelStart )
+//			{
+//				CmdTreeNode ctNodeNext = ListCmdTreeNodes.safeGetNextCmdTreeNode( ctNodeCurrent );
+//				if ( ctNodeNext==null )
+//					throw new RuntimeException( "empty levelstart node:" + ctNodeCurrent.getWordType() );
+//				ctNodeCurrent = ctNodeNext;
+//			}
+////			if ( ctNodeCurrent)
+////			if ( ctNodeCurrent.getWordType()==WORD_TYPE.noWord )
+////			{
+////				ctNodeCurrent = MainCheck.safeGetNextCmdTreeNode( ctNodeCurrent );
+////			}
+////			else
+////			{
+////				ctNodeCurrent = getNextCurrentNode( ctNodeCurrent );
+////			}
+//		}
+//		return null;
+//
+////		egyszerű eset, közvetlen leszármazás
+////		if ( ctNodeCurrent.getCmdSample().startsWith( paramLastMatchingNode.getCmdSample() )==true )
+////		{
+////			paramLastMatchingNode
+////			return true;
+////		}
+//
+////		 bonyolult következés, pl:
+////			"query node format=Standard" cmd után "AUTHentication" node
+////			node(18)(00 01 02 03 04 05 06 07 12 13 14 15 16 17 18)
+////			node(22)(00 01 02 03 04 05 06 07 12 20 21 22)
+////			közös node 12, ami bCanBeEmpty=true
+////			de pl 
+////			node(38)(00 01 02 03 04 38)
+////			közös node 04, ami choiceText, ezért hibás
+////		CmdTreeNode lastCommonNode = getLastCommonNode( paramLastMatchingNode,ctNodeCurrent );
+////		List<CmdTreeNode> listCTNodesFromCommonNode = getListCTNodesFromCommonNode( paramLastMatchingNode,lastCommonNode );
+////		if ( lastCommonNode instanceof CmdTreeRootNode )
+////			return true;
+////		if ( lastCommonNode instanceof CmdTreeChoice )
+////		{
+////			
+////		}
+////		if ( lastCommonNode instanceof CmdTreeSeq )
+////		{
+////			CmdTreeSeq ctNode = (CmdTreeSeq)lastCommonNode;
+////			if ( ctNode.getbCanBeEmpty()==true )
+////				return true;
+////		}
+////		return false;
+//	}
 
-//		logger.debug( String.format( "lastCommonIndex(%02d)",index ) );
-		return ListCmdTreeNodes.listCmdTreeNodes.get( index );
-	}
+//	public static List<CmdTreeNode> getListCTNodesFromCommonNode( CmdTreeNode ctNode,CmdTreeNode ctNodeCommon )
+//	{
+//		List<CmdTreeNode> result = new ArrayList<CmdTreeNode>();
+//
+//		String[] list = ctNode.getCmdSample().split( " " );
+//		boolean bNodeToList = false;
+//		for ( String strIndex : list )
+//		{
+//			int indexNode = Integer.parseInt( strIndex );
+//			if ( indexNode==ctNodeCommon.getIndexNode() )
+//			{
+//				bNodeToList = true;
+//			}
+//			else
+//			{
+//				if ( bNodeToList==true )
+//					result.add( ListCmdTreeNodes.listCmdTreeNodes.get( indexNode ) );
+//			}
+//		}
+//		return result;
+//	}
+//
+//	public static CmdTreeNode getLastCommonNode( CmdTreeNode ctNode,CmdTreeNode ctNode2 )
+//	{
+//		int indexFirstDiff = 0;
+//		for ( ; true; indexFirstDiff++ )
+//		{
+//			if ( ctNode.getCmdSample().length()<=indexFirstDiff )
+//				break;
+//			if ( ctNode2.getCmdSample().length()<=indexFirstDiff )
+//				break;
+//			if ( ctNode.getCmdSample().charAt( indexFirstDiff )!=ctNode2.getCmdSample().charAt( indexFirstDiff ) )
+//				break;
+//		}
+//		String strCommon = ctNode.getCmdSample().substring( 0,indexFirstDiff );
+//		String[] list = strCommon.split( " " );
+//		String strLastCommonIndex = null;
+//		if ( list.length>0 )
+//			strLastCommonIndex = list[list.length-1];
+//		int index = Integer.parseInt( strLastCommonIndex );
+//
+////		logger.debug( String.format( "lastCommonIndex(%02d)",index ) );
+//		return ListCmdTreeNodes.listCmdTreeNodes.get( index );
+//	}
 }

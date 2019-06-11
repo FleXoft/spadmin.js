@@ -1,0 +1,706 @@
+DEBUG 2019.06.11 21:32:40,935 test.tsmlang.MainCheck - Start
+DEBUG 2019.06.11 21:32:40,949 test.tsmlang.cmdtreenodes.CmdTreeNode - new CmdTreeNode (CmdTreeRootNode [indexNode=0, type=root])
+DEBUG 2019.06.11 21:32:40,949 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes start (51228289)
+DEBUG 2019.06.11 21:32:40,949 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(51228289) (0)
+DEBUG 2019.06.11 21:32:40,950 test.tsmlang.cmdtreenodes.CmdTreeNode - node(#text) tpye(3) nodeValue(
+	)
+DEBUG 2019.06.11 21:32:40,950 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(51228289) (1)
+DEBUG 2019.06.11 21:32:40,950 test.tsmlang.cmdtreenodes.CmdTreeNode - new CmdTreeNode (CmdTreeLevelStart [indexNode=1, type=levelStart])
+DEBUG 2019.06.11 21:32:40,950 test.tsmlang.cmdtreenodes.CmdTreeNode - new CmdTreeNode (CmdTreeChoice [fixPart=null, fullText=null, indexNode=2, type=choiceText, level=2])
+DEBUG 2019.06.11 21:32:40,950 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes start (455896770)
+DEBUG 2019.06.11 21:32:40,950 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(455896770) (0)
+DEBUG 2019.06.11 21:32:40,951 test.tsmlang.cmdtreenodes.CmdTreeNode - node(#text) tpye(3) nodeValue(
+		)
+DEBUG 2019.06.11 21:32:40,951 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(455896770) (1)
+DEBUG 2019.06.11 21:32:40,951 test.tsmlang.cmdtreenodes.CmdTreeNode - new CmdTreeNode (CmdTreeLevelStart [indexNode=3, type=levelStart])
+DEBUG 2019.06.11 21:32:40,951 test.tsmlang.cmdtreenodes.CmdTreeNode - new CmdTreeNode (CmdTreeChoice [fixPart=null, fullText=null, indexNode=4, type=choiceText, level=3])
+DEBUG 2019.06.11 21:32:40,951 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes start (1323165413)
+DEBUG 2019.06.11 21:32:40,951 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(1323165413) (0)
+DEBUG 2019.06.11 21:32:40,951 test.tsmlang.cmdtreenodes.CmdTreeNode - node(#text) tpye(3) nodeValue(
+			)
+DEBUG 2019.06.11 21:32:40,951 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(1323165413) (1)
+DEBUG 2019.06.11 21:32:40,952 test.tsmlang.cmdtreenodes.CmdTreeNode - new CmdTreeNode (CmdTreeLevelStart [indexNode=5, type=levelStart])
+DEBUG 2019.06.11 21:32:40,952 test.tsmlang.cmdtreenodes.CmdTreeNode - new CmdTreeNode (CmdTreeSeq [bCanBeEmpty=null, indexNode=6, listValues=null, type=seqList])
+DEBUG 2019.06.11 21:32:40,952 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes start (1880587981)
+DEBUG 2019.06.11 21:32:40,952 test.tsmlang.cmdtreenodes.CmdTreeNode - createNode(CmdTreeSeq [bCanBeEmpty=true, indexNode=6, listValues=[node1, node2], type=seqList])
+DEBUG 2019.06.11 21:32:40,952 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(1323165413) (2)
+DEBUG 2019.06.11 21:32:40,952 test.tsmlang.cmdtreenodes.CmdTreeNode - node(#text) tpye(3) nodeValue(
+			)
+DEBUG 2019.06.11 21:32:40,952 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(1323165413) (3)
+DEBUG 2019.06.11 21:32:40,952 test.tsmlang.cmdtreenodes.CmdTreeNode - new CmdTreeNode (CmdTreeSeq [bCanBeEmpty=null, indexNode=7, subNodeName=null, type=seqSub])
+DEBUG 2019.06.11 21:32:40,952 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes start (511754216)
+DEBUG 2019.06.11 21:32:40,952 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(511754216) (0)
+DEBUG 2019.06.11 21:32:40,952 test.tsmlang.cmdtreenodes.CmdTreeNode - node(#text) tpye(3) nodeValue(
+				)
+DEBUG 2019.06.11 21:32:40,952 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(511754216) (1)
+DEBUG 2019.06.11 21:32:40,952 test.tsmlang.cmdtreenodes.CmdTreeNode - new CmdTreeNode (CmdTreeLevelStart [indexNode=8, type=levelStart])
+DEBUG 2019.06.11 21:32:40,952 test.tsmlang.cmdtreenodes.CmdTreeNode - new CmdTreeNode (CmdTreeSeq [bCanBeEmpty=null, indexNode=9, fixPart=null, fullText=null, type=seqText])
+DEBUG 2019.06.11 21:32:40,952 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes start (1721931908)
+DEBUG 2019.06.11 21:32:40,952 test.tsmlang.cmdtreenodes.CmdTreeNode - createNode(CmdTreeSeq [bCanBeEmpty=false, indexNode=9, fixPart=do, fullText=domain, type=seqText])
+DEBUG 2019.06.11 21:32:40,952 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(511754216) (2)
+DEBUG 2019.06.11 21:32:40,953 test.tsmlang.cmdtreenodes.CmdTreeNode - node(#text) tpye(3) nodeValue(
+				)
+DEBUG 2019.06.11 21:32:40,953 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(511754216) (3)
+DEBUG 2019.06.11 21:32:40,953 test.tsmlang.cmdtreenodes.CmdTreeNode - new CmdTreeNode (CmdTreeSeq [bCanBeEmpty=null, indexNode=10, fixPart=null, fullText=null, type=seqText])
+DEBUG 2019.06.11 21:32:40,953 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes start (1198108795)
+DEBUG 2019.06.11 21:32:40,953 test.tsmlang.cmdtreenodes.CmdTreeNode - createNode(CmdTreeSeq [bCanBeEmpty=false, indexNode=10, fixPart==, fullText==, type=seqText])
+DEBUG 2019.06.11 21:32:40,953 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(511754216) (4)
+DEBUG 2019.06.11 21:32:40,953 test.tsmlang.cmdtreenodes.CmdTreeNode - node(#text) tpye(3) nodeValue(
+				)
+DEBUG 2019.06.11 21:32:40,953 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(511754216) (5)
+DEBUG 2019.06.11 21:32:40,953 test.tsmlang.cmdtreenodes.CmdTreeNode - new CmdTreeNode (CmdTreeSeq [bCanBeEmpty=null, indexNode=11, listSeparator=null, listValues=null, type=seqListSep])
+DEBUG 2019.06.11 21:32:40,954 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes start (214126413)
+DEBUG 2019.06.11 21:32:40,954 test.tsmlang.cmdtreenodes.CmdTreeNode - createNode(CmdTreeSeq [bCanBeEmpty=false, indexNode=11, listSeparator=,, listValues=[domain1, domain2], type=seqListSep])
+DEBUG 2019.06.11 21:32:40,954 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(511754216) (6)
+DEBUG 2019.06.11 21:32:40,954 test.tsmlang.cmdtreenodes.CmdTreeNode - node(#text) tpye(3) nodeValue(
+			)
+DEBUG 2019.06.11 21:32:40,954 test.tsmlang.cmdtreenodes.CmdTreeNode - createNode(CmdTreeSeq [bCanBeEmpty=true, indexNode=7, subNodeName=domains, type=seqSub])
+DEBUG 2019.06.11 21:32:40,954 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(1323165413) (4)
+DEBUG 2019.06.11 21:32:40,954 test.tsmlang.cmdtreenodes.CmdTreeNode - node(#text) tpye(3) nodeValue(
+			)
+DEBUG 2019.06.11 21:32:40,954 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(1323165413) (5)
+DEBUG 2019.06.11 21:32:40,954 test.tsmlang.cmdtreenodes.CmdTreeNode - new CmdTreeNode (CmdTreeSeq [bCanBeEmpty=null, indexNode=12, subNodeName=null, type=seqSub])
+DEBUG 2019.06.11 21:32:40,954 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes start (396873410)
+DEBUG 2019.06.11 21:32:40,954 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(396873410) (0)
+DEBUG 2019.06.11 21:32:40,955 test.tsmlang.cmdtreenodes.CmdTreeNode - node(#text) tpye(3) nodeValue(
+				)
+DEBUG 2019.06.11 21:32:40,955 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(396873410) (1)
+DEBUG 2019.06.11 21:32:40,955 test.tsmlang.cmdtreenodes.CmdTreeNode - new CmdTreeNode (CmdTreeLevelStart [indexNode=13, type=levelStart])
+DEBUG 2019.06.11 21:32:40,955 test.tsmlang.cmdtreenodes.CmdTreeNode - new CmdTreeNode (CmdTreeSeq [bCanBeEmpty=null, indexNode=14, fixPart=null, fullText=null, type=seqText])
+DEBUG 2019.06.11 21:32:40,955 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes start (1706234378)
+DEBUG 2019.06.11 21:32:40,955 test.tsmlang.cmdtreenodes.CmdTreeNode - createNode(CmdTreeSeq [bCanBeEmpty=false, indexNode=14, fixPart=f, fullText=format, type=seqText])
+DEBUG 2019.06.11 21:32:40,955 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(396873410) (2)
+DEBUG 2019.06.11 21:32:40,955 test.tsmlang.cmdtreenodes.CmdTreeNode - node(#text) tpye(3) nodeValue(
+				)
+DEBUG 2019.06.11 21:32:40,955 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(396873410) (3)
+DEBUG 2019.06.11 21:32:40,956 test.tsmlang.cmdtreenodes.CmdTreeNode - new CmdTreeNode (CmdTreeSeq [bCanBeEmpty=null, indexNode=15, fixPart=null, fullText=null, type=seqText])
+DEBUG 2019.06.11 21:32:40,956 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes start (1867750575)
+DEBUG 2019.06.11 21:32:40,956 test.tsmlang.cmdtreenodes.CmdTreeNode - createNode(CmdTreeSeq [bCanBeEmpty=false, indexNode=15, fixPart==, fullText==, type=seqText])
+DEBUG 2019.06.11 21:32:40,956 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(396873410) (4)
+DEBUG 2019.06.11 21:32:40,956 test.tsmlang.cmdtreenodes.CmdTreeNode - node(#text) tpye(3) nodeValue(
+				)
+DEBUG 2019.06.11 21:32:40,956 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(396873410) (5)
+DEBUG 2019.06.11 21:32:40,956 test.tsmlang.cmdtreenodes.CmdTreeNode - new CmdTreeNode (CmdTreeSeq [bCanBeEmpty=null, indexNode=16, subNodeName=null, type=seqSub])
+DEBUG 2019.06.11 21:32:40,956 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes start (2046562095)
+DEBUG 2019.06.11 21:32:40,956 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(2046562095) (0)
+DEBUG 2019.06.11 21:32:40,956 test.tsmlang.cmdtreenodes.CmdTreeNode - node(#text) tpye(3) nodeValue(
+					)
+DEBUG 2019.06.11 21:32:40,956 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(2046562095) (1)
+DEBUG 2019.06.11 21:32:40,957 test.tsmlang.cmdtreenodes.CmdTreeNode - new CmdTreeNode (CmdTreeLevelStart [indexNode=17, type=levelStart])
+DEBUG 2019.06.11 21:32:40,957 test.tsmlang.cmdtreenodes.CmdTreeNode - new CmdTreeNode (CmdTreeChoice [fixPart=null, fullText=null, indexNode=18, type=choiceText, level=6])
+DEBUG 2019.06.11 21:32:40,957 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes start (1342443276)
+DEBUG 2019.06.11 21:32:40,957 test.tsmlang.cmdtreenodes.CmdTreeNode - createNode(CmdTreeChoice [fixPart=s, fullText=standard, indexNode=18, type=choiceText, level=6])
+DEBUG 2019.06.11 21:32:40,957 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(2046562095) (2)
+DEBUG 2019.06.11 21:32:40,957 test.tsmlang.cmdtreenodes.CmdTreeNode - node(#text) tpye(3) nodeValue(
+					)
+DEBUG 2019.06.11 21:32:40,957 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(2046562095) (3)
+DEBUG 2019.06.11 21:32:40,957 test.tsmlang.cmdtreenodes.CmdTreeNode - new CmdTreeNode (CmdTreeChoice [fixPart=null, fullText=null, indexNode=19, type=choiceText, level=6])
+DEBUG 2019.06.11 21:32:40,957 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes start (769287236)
+DEBUG 2019.06.11 21:32:40,957 test.tsmlang.cmdtreenodes.CmdTreeNode - createNode(CmdTreeChoice [fixPart=d, fullText=detailed, indexNode=19, type=choiceText, level=6])
+DEBUG 2019.06.11 21:32:40,957 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(2046562095) (4)
+DEBUG 2019.06.11 21:32:40,959 test.tsmlang.cmdtreenodes.CmdTreeNode - node(#text) tpye(3) nodeValue(
+				)
+DEBUG 2019.06.11 21:32:40,959 test.tsmlang.cmdtreenodes.CmdTreeNode - createNode(CmdTreeSeq [bCanBeEmpty=false, indexNode=16, subNodeName=formatlist, type=seqSub])
+DEBUG 2019.06.11 21:32:40,959 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(396873410) (6)
+DEBUG 2019.06.11 21:32:40,959 test.tsmlang.cmdtreenodes.CmdTreeNode - node(#text) tpye(3) nodeValue(
+			)
+DEBUG 2019.06.11 21:32:40,959 test.tsmlang.cmdtreenodes.CmdTreeNode - createNode(CmdTreeSeq [bCanBeEmpty=true, indexNode=12, subNodeName=format, type=seqSub])
+DEBUG 2019.06.11 21:32:40,959 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(1323165413) (6)
+DEBUG 2019.06.11 21:32:40,959 test.tsmlang.cmdtreenodes.CmdTreeNode - node(#text) tpye(3) nodeValue(
+			)
+DEBUG 2019.06.11 21:32:40,959 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(1323165413) (7)
+DEBUG 2019.06.11 21:32:40,959 test.tsmlang.cmdtreenodes.CmdTreeNode - new CmdTreeNode (CmdTreeSeq [bCanBeEmpty=null, indexNode=20, subNodeName=null, type=seqSub])
+DEBUG 2019.06.11 21:32:40,959 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes start (1587487668)
+DEBUG 2019.06.11 21:32:40,959 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(1587487668) (0)
+DEBUG 2019.06.11 21:32:40,959 test.tsmlang.cmdtreenodes.CmdTreeNode - node(#text) tpye(3) nodeValue(
+				)
+DEBUG 2019.06.11 21:32:40,959 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(1587487668) (1)
+DEBUG 2019.06.11 21:32:40,959 test.tsmlang.cmdtreenodes.CmdTreeNode - new CmdTreeNode (CmdTreeLevelStart [indexNode=21, type=levelStart])
+DEBUG 2019.06.11 21:32:40,959 test.tsmlang.cmdtreenodes.CmdTreeNode - new CmdTreeNode (CmdTreeSeq [bCanBeEmpty=null, indexNode=22, fixPart=null, fullText=null, type=seqText])
+DEBUG 2019.06.11 21:32:40,959 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes start (1199823423)
+DEBUG 2019.06.11 21:32:40,960 test.tsmlang.cmdtreenodes.CmdTreeNode - createNode(CmdTreeSeq [bCanBeEmpty=false, indexNode=22, fixPart=auth, fullText=authentication, type=seqText])
+DEBUG 2019.06.11 21:32:40,960 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(1587487668) (2)
+DEBUG 2019.06.11 21:32:40,960 test.tsmlang.cmdtreenodes.CmdTreeNode - node(#text) tpye(3) nodeValue(
+				)
+DEBUG 2019.06.11 21:32:40,960 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(1587487668) (3)
+DEBUG 2019.06.11 21:32:40,960 test.tsmlang.cmdtreenodes.CmdTreeNode - new CmdTreeNode (CmdTreeSeq [bCanBeEmpty=null, indexNode=23, fixPart=null, fullText=null, type=seqText])
+DEBUG 2019.06.11 21:32:40,960 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes start (932172204)
+DEBUG 2019.06.11 21:32:40,960 test.tsmlang.cmdtreenodes.CmdTreeNode - createNode(CmdTreeSeq [bCanBeEmpty=false, indexNode=23, fixPart==, fullText==, type=seqText])
+DEBUG 2019.06.11 21:32:40,960 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(1587487668) (4)
+DEBUG 2019.06.11 21:32:40,961 test.tsmlang.cmdtreenodes.CmdTreeNode - node(#text) tpye(3) nodeValue(
+				)
+DEBUG 2019.06.11 21:32:40,961 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(1587487668) (5)
+DEBUG 2019.06.11 21:32:40,961 test.tsmlang.cmdtreenodes.CmdTreeNode - new CmdTreeNode (CmdTreeSeq [bCanBeEmpty=null, indexNode=24, subNodeName=null, type=seqSub])
+DEBUG 2019.06.11 21:32:40,961 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes start (1225358173)
+DEBUG 2019.06.11 21:32:40,961 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(1225358173) (0)
+DEBUG 2019.06.11 21:32:40,961 test.tsmlang.cmdtreenodes.CmdTreeNode - node(#text) tpye(3) nodeValue(
+					)
+DEBUG 2019.06.11 21:32:40,961 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(1225358173) (1)
+DEBUG 2019.06.11 21:32:40,961 test.tsmlang.cmdtreenodes.CmdTreeNode - new CmdTreeNode (CmdTreeLevelStart [indexNode=25, type=levelStart])
+DEBUG 2019.06.11 21:32:40,961 test.tsmlang.cmdtreenodes.CmdTreeNode - new CmdTreeNode (CmdTreeChoice [fixPart=null, fullText=null, indexNode=26, type=choiceText, level=6])
+DEBUG 2019.06.11 21:32:40,961 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes start (1848402763)
+DEBUG 2019.06.11 21:32:40,961 test.tsmlang.cmdtreenodes.CmdTreeNode - createNode(CmdTreeChoice [fixPart=lo, fullText=local, indexNode=26, type=choiceText, level=6])
+DEBUG 2019.06.11 21:32:40,962 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(1225358173) (2)
+DEBUG 2019.06.11 21:32:40,962 test.tsmlang.cmdtreenodes.CmdTreeNode - node(#text) tpye(3) nodeValue(
+					)
+DEBUG 2019.06.11 21:32:40,962 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(1225358173) (3)
+DEBUG 2019.06.11 21:32:40,962 test.tsmlang.cmdtreenodes.CmdTreeNode - new CmdTreeNode (CmdTreeChoice [fixPart=null, fullText=null, indexNode=27, type=choiceText, level=6])
+DEBUG 2019.06.11 21:32:40,962 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes start (933699219)
+DEBUG 2019.06.11 21:32:40,962 test.tsmlang.cmdtreenodes.CmdTreeNode - createNode(CmdTreeChoice [fixPart=ld, fullText=ldap, indexNode=27, type=choiceText, level=6])
+DEBUG 2019.06.11 21:32:40,962 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(1225358173) (4)
+DEBUG 2019.06.11 21:32:40,962 test.tsmlang.cmdtreenodes.CmdTreeNode - node(#text) tpye(3) nodeValue(
+				)
+DEBUG 2019.06.11 21:32:40,962 test.tsmlang.cmdtreenodes.CmdTreeNode - createNode(CmdTreeSeq [bCanBeEmpty=false, indexNode=24, subNodeName=authlist, type=seqSub])
+DEBUG 2019.06.11 21:32:40,962 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(1587487668) (6)
+DEBUG 2019.06.11 21:32:40,962 test.tsmlang.cmdtreenodes.CmdTreeNode - node(#text) tpye(3) nodeValue(
+			)
+DEBUG 2019.06.11 21:32:40,962 test.tsmlang.cmdtreenodes.CmdTreeNode - createNode(CmdTreeSeq [bCanBeEmpty=true, indexNode=20, subNodeName=auth, type=seqSub])
+DEBUG 2019.06.11 21:32:40,963 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(1323165413) (8)
+DEBUG 2019.06.11 21:32:40,963 test.tsmlang.cmdtreenodes.CmdTreeNode - node(#text) tpye(3) nodeValue(
+			)
+DEBUG 2019.06.11 21:32:40,963 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(1323165413) (9)
+DEBUG 2019.06.11 21:32:40,963 test.tsmlang.cmdtreenodes.CmdTreeNode - new CmdTreeNode (CmdTreeSeq [bCanBeEmpty=null, indexNode=28, subNodeName=null, type=seqSub])
+DEBUG 2019.06.11 21:32:40,963 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes start (2121055098)
+DEBUG 2019.06.11 21:32:40,963 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(2121055098) (0)
+DEBUG 2019.06.11 21:32:40,963 test.tsmlang.cmdtreenodes.CmdTreeNode - node(#text) tpye(3) nodeValue(
+				)
+DEBUG 2019.06.11 21:32:40,963 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(2121055098) (1)
+DEBUG 2019.06.11 21:32:40,963 test.tsmlang.cmdtreenodes.CmdTreeNode - new CmdTreeNode (CmdTreeLevelStart [indexNode=29, type=levelStart])
+DEBUG 2019.06.11 21:32:40,963 test.tsmlang.cmdtreenodes.CmdTreeNode - new CmdTreeNode (CmdTreeSeq [bCanBeEmpty=null, indexNode=30, fixPart=null, fullText=null, type=seqText])
+DEBUG 2019.06.11 21:32:40,965 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes start (2084435065)
+DEBUG 2019.06.11 21:32:40,965 test.tsmlang.cmdtreenodes.CmdTreeNode - createNode(CmdTreeSeq [bCanBeEmpty=false, indexNode=30, fixPart=t, fullText=type, type=seqText])
+DEBUG 2019.06.11 21:32:40,965 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(2121055098) (2)
+DEBUG 2019.06.11 21:32:40,965 test.tsmlang.cmdtreenodes.CmdTreeNode - node(#text) tpye(3) nodeValue(
+				)
+DEBUG 2019.06.11 21:32:40,965 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(2121055098) (3)
+DEBUG 2019.06.11 21:32:40,965 test.tsmlang.cmdtreenodes.CmdTreeNode - new CmdTreeNode (CmdTreeSeq [bCanBeEmpty=null, indexNode=31, fixPart=null, fullText=null, type=seqText])
+DEBUG 2019.06.11 21:32:40,965 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes start (1896277646)
+DEBUG 2019.06.11 21:32:40,965 test.tsmlang.cmdtreenodes.CmdTreeNode - createNode(CmdTreeSeq [bCanBeEmpty=false, indexNode=31, fixPart==, fullText==, type=seqText])
+DEBUG 2019.06.11 21:32:40,965 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(2121055098) (4)
+DEBUG 2019.06.11 21:32:40,965 test.tsmlang.cmdtreenodes.CmdTreeNode - node(#text) tpye(3) nodeValue(
+				)
+DEBUG 2019.06.11 21:32:40,965 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(2121055098) (5)
+DEBUG 2019.06.11 21:32:40,965 test.tsmlang.cmdtreenodes.CmdTreeNode - new CmdTreeNode (CmdTreeSeq [bCanBeEmpty=null, indexNode=32, subNodeName=null, type=seqSub])
+DEBUG 2019.06.11 21:32:40,965 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes start (2128227771)
+DEBUG 2019.06.11 21:32:40,965 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(2128227771) (0)
+DEBUG 2019.06.11 21:32:40,965 test.tsmlang.cmdtreenodes.CmdTreeNode - node(#text) tpye(3) nodeValue(
+					)
+DEBUG 2019.06.11 21:32:40,965 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(2128227771) (1)
+DEBUG 2019.06.11 21:32:40,965 test.tsmlang.cmdtreenodes.CmdTreeNode - new CmdTreeNode (CmdTreeLevelStart [indexNode=33, type=levelStart])
+DEBUG 2019.06.11 21:32:40,966 test.tsmlang.cmdtreenodes.CmdTreeNode - new CmdTreeNode (CmdTreeChoice [fixPart=null, fullText=null, indexNode=34, type=choiceText, level=6])
+DEBUG 2019.06.11 21:32:40,966 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes start (1702297201)
+DEBUG 2019.06.11 21:32:40,966 test.tsmlang.cmdtreenodes.CmdTreeNode - createNode(CmdTreeChoice [fixPart=c, fullText=client, indexNode=34, type=choiceText, level=6])
+DEBUG 2019.06.11 21:32:40,966 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(2128227771) (2)
+DEBUG 2019.06.11 21:32:40,966 test.tsmlang.cmdtreenodes.CmdTreeNode - node(#text) tpye(3) nodeValue(
+					)
+DEBUG 2019.06.11 21:32:40,966 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(2128227771) (3)
+DEBUG 2019.06.11 21:32:40,966 test.tsmlang.cmdtreenodes.CmdTreeNode - new CmdTreeNode (CmdTreeChoice [fixPart=null, fullText=null, indexNode=35, type=choiceText, level=6])
+DEBUG 2019.06.11 21:32:40,966 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes start (1996181658)
+DEBUG 2019.06.11 21:32:40,966 test.tsmlang.cmdtreenodes.CmdTreeNode - createNode(CmdTreeChoice [fixPart=nas, fullText=nas, indexNode=35, type=choiceText, level=6])
+DEBUG 2019.06.11 21:32:40,966 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(2128227771) (4)
+DEBUG 2019.06.11 21:32:40,966 test.tsmlang.cmdtreenodes.CmdTreeNode - node(#text) tpye(3) nodeValue(
+					)
+DEBUG 2019.06.11 21:32:40,966 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(2128227771) (5)
+DEBUG 2019.06.11 21:32:40,966 test.tsmlang.cmdtreenodes.CmdTreeNode - new CmdTreeNode (CmdTreeChoice [fixPart=null, fullText=null, indexNode=36, type=choiceText, level=6])
+DEBUG 2019.06.11 21:32:40,967 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes start (806353501)
+DEBUG 2019.06.11 21:32:40,967 test.tsmlang.cmdtreenodes.CmdTreeNode - createNode(CmdTreeChoice [fixPart=s, fullText=server, indexNode=36, type=choiceText, level=6])
+DEBUG 2019.06.11 21:32:40,967 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(2128227771) (6)
+DEBUG 2019.06.11 21:32:40,967 test.tsmlang.cmdtreenodes.CmdTreeNode - node(#text) tpye(3) nodeValue(
+					)
+DEBUG 2019.06.11 21:32:40,967 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(2128227771) (7)
+DEBUG 2019.06.11 21:32:40,967 test.tsmlang.cmdtreenodes.CmdTreeNode - new CmdTreeNode (CmdTreeChoice [fixPart=null, fullText=null, indexNode=37, type=choiceText, level=6])
+DEBUG 2019.06.11 21:32:40,967 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes start (521645586)
+DEBUG 2019.06.11 21:32:40,967 test.tsmlang.cmdtreenodes.CmdTreeNode - createNode(CmdTreeChoice [fixPart=a, fullText=any, indexNode=37, type=choiceText, level=6])
+DEBUG 2019.06.11 21:32:40,967 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(2128227771) (8)
+DEBUG 2019.06.11 21:32:40,967 test.tsmlang.cmdtreenodes.CmdTreeNode - node(#text) tpye(3) nodeValue(
+				)
+DEBUG 2019.06.11 21:32:40,967 test.tsmlang.cmdtreenodes.CmdTreeNode - createNode(CmdTreeSeq [bCanBeEmpty=false, indexNode=32, subNodeName=TypeList, type=seqSub])
+DEBUG 2019.06.11 21:32:40,967 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(2121055098) (6)
+DEBUG 2019.06.11 21:32:40,967 test.tsmlang.cmdtreenodes.CmdTreeNode - node(#text) tpye(3) nodeValue(
+			)
+DEBUG 2019.06.11 21:32:40,967 test.tsmlang.cmdtreenodes.CmdTreeNode - createNode(CmdTreeSeq [bCanBeEmpty=true, indexNode=28, subNodeName=Type, type=seqSub])
+DEBUG 2019.06.11 21:32:40,967 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(1323165413) (10)
+DEBUG 2019.06.11 21:32:40,968 test.tsmlang.cmdtreenodes.CmdTreeNode - node(#text) tpye(3) nodeValue(
+		)
+DEBUG 2019.06.11 21:32:40,968 test.tsmlang.cmdtreenodes.CmdTreeNode - createNode(CmdTreeChoice [fixPart=n, fullText=node, indexNode=4, type=choiceText, level=3])
+DEBUG 2019.06.11 21:32:40,968 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(455896770) (2)
+DEBUG 2019.06.11 21:32:40,968 test.tsmlang.cmdtreenodes.CmdTreeNode - node(#text) tpye(3) nodeValue(
+		)
+DEBUG 2019.06.11 21:32:40,968 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(455896770) (3)
+DEBUG 2019.06.11 21:32:40,968 test.tsmlang.cmdtreenodes.CmdTreeNode - new CmdTreeNode (CmdTreeChoice [fixPart=null, fullText=null, indexNode=38, type=choiceText, level=3])
+DEBUG 2019.06.11 21:32:40,968 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes start (1296064247)
+DEBUG 2019.06.11 21:32:40,968 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(1296064247) (0)
+DEBUG 2019.06.11 21:32:40,968 test.tsmlang.cmdtreenodes.CmdTreeNode - node(#text) tpye(3) nodeValue(
+		)
+DEBUG 2019.06.11 21:32:40,968 test.tsmlang.cmdtreenodes.CmdTreeNode - createNode(CmdTreeChoice [fixPart=ac, fullText=actlog, indexNode=38, type=choiceText, level=3])
+DEBUG 2019.06.11 21:32:40,968 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(455896770) (4)
+DEBUG 2019.06.11 21:32:40,968 test.tsmlang.cmdtreenodes.CmdTreeNode - node(#text) tpye(3) nodeValue(
+		)
+DEBUG 2019.06.11 21:32:40,968 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(455896770) (5)
+DEBUG 2019.06.11 21:32:40,968 test.tsmlang.cmdtreenodes.CmdTreeNode - new CmdTreeNode (CmdTreeChoice [fixPart=null, fullText=null, indexNode=39, type=choiceText, level=3])
+DEBUG 2019.06.11 21:32:40,969 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes start (1637070917)
+DEBUG 2019.06.11 21:32:40,969 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(1637070917) (0)
+DEBUG 2019.06.11 21:32:40,969 test.tsmlang.cmdtreenodes.CmdTreeNode - node(#text) tpye(3) nodeValue(
+		)
+DEBUG 2019.06.11 21:32:40,969 test.tsmlang.cmdtreenodes.CmdTreeNode - createNode(CmdTreeChoice [fixPart=xx, fullText=xx123, indexNode=39, type=choiceText, level=3])
+DEBUG 2019.06.11 21:32:40,969 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(455896770) (6)
+DEBUG 2019.06.11 21:32:40,969 test.tsmlang.cmdtreenodes.CmdTreeNode - node(#text) tpye(3) nodeValue(
+	)
+DEBUG 2019.06.11 21:32:40,969 test.tsmlang.cmdtreenodes.CmdTreeNode - createNode(CmdTreeChoice [fixPart=q, fullText=query, indexNode=2, type=choiceText, level=2])
+DEBUG 2019.06.11 21:32:40,969 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(51228289) (2)
+DEBUG 2019.06.11 21:32:40,969 test.tsmlang.cmdtreenodes.CmdTreeNode - node(#text) tpye(3) nodeValue(
+	)
+DEBUG 2019.06.11 21:32:40,969 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(51228289) (3)
+DEBUG 2019.06.11 21:32:40,969 test.tsmlang.cmdtreenodes.CmdTreeNode - new CmdTreeNode (CmdTreeChoice [fixPart=null, fullText=null, indexNode=40, type=choiceText, level=2])
+DEBUG 2019.06.11 21:32:40,969 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes start (780237624)
+DEBUG 2019.06.11 21:32:40,969 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(780237624) (0)
+DEBUG 2019.06.11 21:32:40,969 test.tsmlang.cmdtreenodes.CmdTreeNode - node(#text) tpye(3) nodeValue(
+		)
+DEBUG 2019.06.11 21:32:40,969 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(780237624) (1)
+DEBUG 2019.06.11 21:32:40,970 test.tsmlang.cmdtreenodes.CmdTreeNode - new CmdTreeNode (CmdTreeLevelStart [indexNode=41, type=levelStart])
+DEBUG 2019.06.11 21:32:40,970 test.tsmlang.cmdtreenodes.CmdTreeNode - new CmdTreeNode (CmdTreeChoice [fixPart=null, fullText=null, indexNode=42, type=choiceText, level=3])
+DEBUG 2019.06.11 21:32:40,970 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes start (205797316)
+DEBUG 2019.06.11 21:32:40,970 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(205797316) (0)
+DEBUG 2019.06.11 21:32:40,970 test.tsmlang.cmdtreenodes.CmdTreeNode - node(#text) tpye(3) nodeValue(
+			)
+DEBUG 2019.06.11 21:32:40,970 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(205797316) (1)
+DEBUG 2019.06.11 21:32:40,970 test.tsmlang.cmdtreenodes.CmdTreeNode - new CmdTreeNode (CmdTreeLevelStart [indexNode=43, type=levelStart])
+DEBUG 2019.06.11 21:32:40,970 test.tsmlang.cmdtreenodes.CmdTreeNode - new CmdTreeNode (CmdTreeSeq [bCanBeEmpty=null, indexNode=44, subNodeName=null, type=seqSub])
+DEBUG 2019.06.11 21:32:40,970 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes start (1128032093)
+DEBUG 2019.06.11 21:32:40,970 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(1128032093) (0)
+DEBUG 2019.06.11 21:32:40,970 test.tsmlang.cmdtreenodes.CmdTreeNode - node(#text) tpye(3) nodeValue(
+				)
+DEBUG 2019.06.11 21:32:40,970 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(1128032093) (1)
+DEBUG 2019.06.11 21:32:40,970 test.tsmlang.cmdtreenodes.CmdTreeNode - new CmdTreeNode (CmdTreeLevelStart [indexNode=45, type=levelStart])
+DEBUG 2019.06.11 21:32:40,971 test.tsmlang.cmdtreenodes.CmdTreeNode - new CmdTreeNode (CmdTreeChoiceList [listValues=null, indexNode=46, type=choiceList, level=5, cmdSample=00 01 02 40 41 42 43 44 45 46])
+DEBUG 2019.06.11 21:32:40,971 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes start (1066516207)
+DEBUG 2019.06.11 21:32:40,971 test.tsmlang.cmdtreenodes.CmdTreeNode - createNode(CmdTreeChoiceList [listValues=[node1, node2], indexNode=46, type=choiceList, level=5, cmdSample=00 01 02 40 41 42 43 44 45 46])
+DEBUG 2019.06.11 21:32:40,971 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(1128032093) (2)
+DEBUG 2019.06.11 21:32:40,971 test.tsmlang.cmdtreenodes.CmdTreeNode - node(#text) tpye(3) nodeValue(
+				)
+DEBUG 2019.06.11 21:32:40,971 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(1128032093) (3)
+DEBUG 2019.06.11 21:32:40,971 test.tsmlang.cmdtreenodes.CmdTreeNode - new CmdTreeNode (CmdTreeChoiceSub [subNodeName=null, indexNode=47, type=choiceSub, level=5, cmdSample=00 01 02 40 41 42 43 44 45 46 47])
+DEBUG 2019.06.11 21:32:40,971 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes start (443308702)
+DEBUG 2019.06.11 21:32:40,971 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(443308702) (0)
+DEBUG 2019.06.11 21:32:40,971 test.tsmlang.cmdtreenodes.CmdTreeNode - node(#text) tpye(3) nodeValue(
+					)
+DEBUG 2019.06.11 21:32:40,971 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(443308702) (1)
+DEBUG 2019.06.11 21:32:40,972 test.tsmlang.cmdtreenodes.CmdTreeNode - new CmdTreeNode (CmdTreeLevelStart [indexNode=48, type=levelStart])
+DEBUG 2019.06.11 21:32:40,972 test.tsmlang.cmdtreenodes.CmdTreeNode - new CmdTreeNode (CmdTreeSeq [bCanBeEmpty=null, indexNode=49, fixPart=null, fullText=null, type=seqText])
+DEBUG 2019.06.11 21:32:40,972 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes start (935044096)
+DEBUG 2019.06.11 21:32:40,972 test.tsmlang.cmdtreenodes.CmdTreeNode - createNode(CmdTreeSeq [bCanBeEmpty=false, indexNode=49, fixPart=stg, fullText=stgpool, type=seqText])
+DEBUG 2019.06.11 21:32:40,972 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(443308702) (2)
+DEBUG 2019.06.11 21:32:40,972 test.tsmlang.cmdtreenodes.CmdTreeNode - node(#text) tpye(3) nodeValue(
+					)
+DEBUG 2019.06.11 21:32:40,972 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(443308702) (3)
+DEBUG 2019.06.11 21:32:40,972 test.tsmlang.cmdtreenodes.CmdTreeNode - new CmdTreeNode (CmdTreeSeq [bCanBeEmpty=null, indexNode=50, fixPart=null, fullText=null, type=seqText])
+DEBUG 2019.06.11 21:32:40,972 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes start (396180261)
+DEBUG 2019.06.11 21:32:40,972 test.tsmlang.cmdtreenodes.CmdTreeNode - createNode(CmdTreeSeq [bCanBeEmpty=false, indexNode=50, fixPart==, fullText==, type=seqText])
+DEBUG 2019.06.11 21:32:40,972 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(443308702) (4)
+DEBUG 2019.06.11 21:32:40,972 test.tsmlang.cmdtreenodes.CmdTreeNode - node(#text) tpye(3) nodeValue(
+					)
+DEBUG 2019.06.11 21:32:40,972 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(443308702) (5)
+DEBUG 2019.06.11 21:32:40,973 test.tsmlang.cmdtreenodes.CmdTreeNode - new CmdTreeNode (CmdTreeSeq [bCanBeEmpty=null, indexNode=51, listValues=null, type=seqList])
+DEBUG 2019.06.11 21:32:40,973 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes start (625576447)
+DEBUG 2019.06.11 21:32:40,973 test.tsmlang.cmdtreenodes.CmdTreeNode - createNode(CmdTreeSeq [bCanBeEmpty=false, indexNode=51, listValues=[pool1, pool2], type=seqList])
+DEBUG 2019.06.11 21:32:40,973 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(443308702) (6)
+DEBUG 2019.06.11 21:32:40,973 test.tsmlang.cmdtreenodes.CmdTreeNode - node(#text) tpye(3) nodeValue(
+				)
+DEBUG 2019.06.11 21:32:40,973 test.tsmlang.cmdtreenodes.CmdTreeNode - createNode(CmdTreeChoiceSub [subNodeName=firstsubsub1, indexNode=47, type=choiceSub, level=5, cmdSample=00 01 02 40 41 42 43 44 45 46 47])
+DEBUG 2019.06.11 21:32:40,973 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(1128032093) (4)
+DEBUG 2019.06.11 21:32:40,973 test.tsmlang.cmdtreenodes.CmdTreeNode - node(#text) tpye(3) nodeValue(
+				)
+DEBUG 2019.06.11 21:32:40,973 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(1128032093) (5)
+DEBUG 2019.06.11 21:32:40,973 test.tsmlang.cmdtreenodes.CmdTreeNode - new CmdTreeNode (CmdTreeChoiceSub [subNodeName=null, indexNode=52, type=choiceSub, level=5, cmdSample=00 01 02 40 41 42 43 44 45 46 47 52])
+DEBUG 2019.06.11 21:32:40,973 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes start (1560911714)
+DEBUG 2019.06.11 21:32:40,973 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(1560911714) (0)
+DEBUG 2019.06.11 21:32:40,974 test.tsmlang.cmdtreenodes.CmdTreeNode - node(#text) tpye(3) nodeValue(
+					)
+DEBUG 2019.06.11 21:32:40,974 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(1560911714) (1)
+DEBUG 2019.06.11 21:32:40,974 test.tsmlang.cmdtreenodes.CmdTreeNode - new CmdTreeNode (CmdTreeLevelStart [indexNode=53, type=levelStart])
+DEBUG 2019.06.11 21:32:40,974 test.tsmlang.cmdtreenodes.CmdTreeNode - new CmdTreeNode (CmdTreeSeq [bCanBeEmpty=null, indexNode=54, fixPart=null, fullText=null, type=seqText])
+DEBUG 2019.06.11 21:32:40,974 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes start (939047783)
+DEBUG 2019.06.11 21:32:40,974 test.tsmlang.cmdtreenodes.CmdTreeNode - createNode(CmdTreeSeq [bCanBeEmpty=false, indexNode=54, fixPart=stg, fullText=stgpool, type=seqText])
+DEBUG 2019.06.11 21:32:40,974 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(1560911714) (2)
+DEBUG 2019.06.11 21:32:40,974 test.tsmlang.cmdtreenodes.CmdTreeNode - node(#text) tpye(3) nodeValue(
+					)
+DEBUG 2019.06.11 21:32:40,974 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(1560911714) (3)
+DEBUG 2019.06.11 21:32:40,974 test.tsmlang.cmdtreenodes.CmdTreeNode - new CmdTreeNode (CmdTreeSeq [bCanBeEmpty=null, indexNode=55, fixPart=null, fullText=null, type=seqText])
+DEBUG 2019.06.11 21:32:40,974 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes start (1237514926)
+DEBUG 2019.06.11 21:32:40,974 test.tsmlang.cmdtreenodes.CmdTreeNode - createNode(CmdTreeSeq [bCanBeEmpty=false, indexNode=55, fixPart==, fullText==, type=seqText])
+DEBUG 2019.06.11 21:32:40,974 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(1560911714) (4)
+DEBUG 2019.06.11 21:32:40,974 test.tsmlang.cmdtreenodes.CmdTreeNode - node(#text) tpye(3) nodeValue(
+					)
+DEBUG 2019.06.11 21:32:40,974 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(1560911714) (5)
+DEBUG 2019.06.11 21:32:40,975 test.tsmlang.cmdtreenodes.CmdTreeNode - new CmdTreeNode (CmdTreeSeq [bCanBeEmpty=null, indexNode=56, listValues=null, type=seqList])
+DEBUG 2019.06.11 21:32:40,975 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes start (548246552)
+DEBUG 2019.06.11 21:32:40,975 test.tsmlang.cmdtreenodes.CmdTreeNode - createNode(CmdTreeSeq [bCanBeEmpty=false, indexNode=56, listValues=[pool1, pool2], type=seqList])
+DEBUG 2019.06.11 21:32:40,975 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(1560911714) (6)
+DEBUG 2019.06.11 21:32:40,975 test.tsmlang.cmdtreenodes.CmdTreeNode - node(#text) tpye(3) nodeValue(
+					)
+DEBUG 2019.06.11 21:32:40,975 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(1560911714) (7)
+DEBUG 2019.06.11 21:32:40,975 test.tsmlang.cmdtreenodes.CmdTreeNode - new CmdTreeNode (CmdTreeSeq [bCanBeEmpty=null, indexNode=57, fixPart=null, fullText=null, type=seqText])
+DEBUG 2019.06.11 21:32:40,975 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes start (835648992)
+DEBUG 2019.06.11 21:32:40,975 test.tsmlang.cmdtreenodes.CmdTreeNode - createNode(CmdTreeSeq [bCanBeEmpty=false, indexNode=57, fixPart=stgpooldir, fullText=stgpooldirectory, type=seqText])
+DEBUG 2019.06.11 21:32:40,975 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(1560911714) (8)
+DEBUG 2019.06.11 21:32:40,975 test.tsmlang.cmdtreenodes.CmdTreeNode - node(#text) tpye(3) nodeValue(
+					)
+DEBUG 2019.06.11 21:32:40,975 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(1560911714) (9)
+DEBUG 2019.06.11 21:32:40,975 test.tsmlang.cmdtreenodes.CmdTreeNode - new CmdTreeNode (CmdTreeSeq [bCanBeEmpty=null, indexNode=58, fixPart=null, fullText=null, type=seqText])
+DEBUG 2019.06.11 21:32:40,975 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes start (1134517053)
+DEBUG 2019.06.11 21:32:40,975 test.tsmlang.cmdtreenodes.CmdTreeNode - createNode(CmdTreeSeq [bCanBeEmpty=false, indexNode=58, fixPart==, fullText==, type=seqText])
+DEBUG 2019.06.11 21:32:40,975 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(1560911714) (10)
+DEBUG 2019.06.11 21:32:40,976 test.tsmlang.cmdtreenodes.CmdTreeNode - node(#text) tpye(3) nodeValue(
+					)
+DEBUG 2019.06.11 21:32:40,976 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(1560911714) (11)
+DEBUG 2019.06.11 21:32:40,976 test.tsmlang.cmdtreenodes.CmdTreeNode - new CmdTreeNode (CmdTreeSeq [bCanBeEmpty=null, indexNode=59, listValues=null, type=seqList])
+DEBUG 2019.06.11 21:32:40,976 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes start (492228202)
+DEBUG 2019.06.11 21:32:40,976 test.tsmlang.cmdtreenodes.CmdTreeNode - createNode(CmdTreeSeq [bCanBeEmpty=false, indexNode=59, listValues=[dir1, dir2], type=seqList])
+DEBUG 2019.06.11 21:32:40,976 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(1560911714) (12)
+DEBUG 2019.06.11 21:32:40,976 test.tsmlang.cmdtreenodes.CmdTreeNode - node(#text) tpye(3) nodeValue(
+				)
+DEBUG 2019.06.11 21:32:40,976 test.tsmlang.cmdtreenodes.CmdTreeNode - createNode(CmdTreeChoiceSub [subNodeName=firstsubsub2, indexNode=52, type=choiceSub, level=5, cmdSample=00 01 02 40 41 42 43 44 45 46 47 52])
+DEBUG 2019.06.11 21:32:40,976 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(1128032093) (6)
+DEBUG 2019.06.11 21:32:40,976 test.tsmlang.cmdtreenodes.CmdTreeNode - node(#text) tpye(3) nodeValue(
+			)
+DEBUG 2019.06.11 21:32:40,976 test.tsmlang.cmdtreenodes.CmdTreeNode - createNode(CmdTreeSeq [bCanBeEmpty=false, indexNode=44, subNodeName=firstsub, type=seqSub])
+DEBUG 2019.06.11 21:32:40,976 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(205797316) (2)
+DEBUG 2019.06.11 21:32:40,976 test.tsmlang.cmdtreenodes.CmdTreeNode - node(#text) tpye(3) nodeValue(
+		)
+DEBUG 2019.06.11 21:32:40,976 test.tsmlang.cmdtreenodes.CmdTreeNode - createNode(CmdTreeChoice [fixPart=cont, fullText=container, indexNode=42, type=choiceText, level=3])
+DEBUG 2019.06.11 21:32:40,977 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(780237624) (2)
+DEBUG 2019.06.11 21:32:40,977 test.tsmlang.cmdtreenodes.CmdTreeNode - node(#text) tpye(3) nodeValue(
+	)
+DEBUG 2019.06.11 21:32:40,977 test.tsmlang.cmdtreenodes.CmdTreeNode - createNode(CmdTreeChoice [fixPart=aud, fullText=audit, indexNode=40, type=choiceText, level=2])
+DEBUG 2019.06.11 21:32:40,977 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(51228289) (4)
+DEBUG 2019.06.11 21:32:40,977 test.tsmlang.cmdtreenodes.CmdTreeNode - node(#text) tpye(3) nodeValue(
+	)
+DEBUG 2019.06.11 21:32:40,977 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(51228289) (5)
+DEBUG 2019.06.11 21:32:40,977 test.tsmlang.cmdtreenodes.CmdTreeNode - new CmdTreeNode (CmdTreeChoice [fixPart=null, fullText=null, indexNode=60, type=choiceText, level=2])
+DEBUG 2019.06.11 21:32:40,977 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes start (1368884364)
+DEBUG 2019.06.11 21:32:40,977 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(1368884364) (0)
+DEBUG 2019.06.11 21:32:40,977 test.tsmlang.cmdtreenodes.CmdTreeNode - node(#text) tpye(3) nodeValue(
+	)
+DEBUG 2019.06.11 21:32:40,977 test.tsmlang.cmdtreenodes.CmdTreeNode - createNode(CmdTreeChoice [fixPart=d, fullText=dir, indexNode=60, type=choiceText, level=2])
+DEBUG 2019.06.11 21:32:40,977 test.tsmlang.cmdtreenodes.CmdTreeNode - addChildNodes(51228289) (6)
+DEBUG 2019.06.11 21:32:40,977 test.tsmlang.cmdtreenodes.CmdTreeNode - node(#text) tpye(3) nodeValue(
+)
+DEBUG 2019.06.11 21:32:40,977 test.tsmlang.cmdtreenodes.CmdTreeNode - createNode(CmdTreeRootNode [indexNode=0, type=root])
+DEBUG 2019.06.11 21:32:40,978 test.tsmlang.PrintCmdTree - node(CmdTreeRootNode [indexNode=0, type=root])
+DEBUG 2019.06.11 21:32:40,978 test.tsmlang.PrintCmdTree - 	node(CmdTreeLevelStart [indexNode=1, type=levelStart])
+DEBUG 2019.06.11 21:32:40,978 test.tsmlang.PrintCmdTree - 	node(CmdTreeChoice [fixPart=q, fullText=query, indexNode=2, type=choiceText, level=2])
+DEBUG 2019.06.11 21:32:40,978 test.tsmlang.PrintCmdTree - 		node(CmdTreeLevelStart [indexNode=3, type=levelStart])
+DEBUG 2019.06.11 21:32:40,978 test.tsmlang.PrintCmdTree - 		node(CmdTreeChoice [fixPart=n, fullText=node, indexNode=4, type=choiceText, level=3])
+DEBUG 2019.06.11 21:32:40,978 test.tsmlang.PrintCmdTree - 			node(CmdTreeLevelStart [indexNode=5, type=levelStart])
+DEBUG 2019.06.11 21:32:40,978 test.tsmlang.PrintCmdTree - 			node(CmdTreeSeq [bCanBeEmpty=true, indexNode=6, listValues=[node1, node2], type=seqList])
+DEBUG 2019.06.11 21:32:40,978 test.tsmlang.PrintCmdTree - 			node(CmdTreeSeq [bCanBeEmpty=true, indexNode=7, subNodeName=domains, type=seqSub])
+DEBUG 2019.06.11 21:32:40,978 test.tsmlang.PrintCmdTree - 				node(CmdTreeLevelStart [indexNode=8, type=levelStart])
+DEBUG 2019.06.11 21:32:40,978 test.tsmlang.PrintCmdTree - 				node(CmdTreeSeq [bCanBeEmpty=false, indexNode=9, fixPart=do, fullText=domain, type=seqText])
+DEBUG 2019.06.11 21:32:40,978 test.tsmlang.PrintCmdTree - 				node(CmdTreeSeq [bCanBeEmpty=false, indexNode=10, fixPart==, fullText==, type=seqText])
+DEBUG 2019.06.11 21:32:40,978 test.tsmlang.PrintCmdTree - 				node(CmdTreeSeq [bCanBeEmpty=false, indexNode=11, listSeparator=,, listValues=[domain1, domain2], type=seqListSep])
+DEBUG 2019.06.11 21:32:40,978 test.tsmlang.PrintCmdTree - 			node(CmdTreeSeq [bCanBeEmpty=true, indexNode=12, subNodeName=format, type=seqSub])
+DEBUG 2019.06.11 21:32:40,978 test.tsmlang.PrintCmdTree - 				node(CmdTreeLevelStart [indexNode=13, type=levelStart])
+DEBUG 2019.06.11 21:32:40,979 test.tsmlang.PrintCmdTree - 				node(CmdTreeSeq [bCanBeEmpty=false, indexNode=14, fixPart=f, fullText=format, type=seqText])
+DEBUG 2019.06.11 21:32:40,979 test.tsmlang.PrintCmdTree - 				node(CmdTreeSeq [bCanBeEmpty=false, indexNode=15, fixPart==, fullText==, type=seqText])
+DEBUG 2019.06.11 21:32:40,979 test.tsmlang.PrintCmdTree - 				node(CmdTreeSeq [bCanBeEmpty=false, indexNode=16, subNodeName=formatlist, type=seqSub])
+DEBUG 2019.06.11 21:32:40,979 test.tsmlang.PrintCmdTree - 					node(CmdTreeLevelStart [indexNode=17, type=levelStart])
+DEBUG 2019.06.11 21:32:40,979 test.tsmlang.PrintCmdTree - 					node(CmdTreeChoice [fixPart=s, fullText=standard, indexNode=18, type=choiceText, level=6])
+DEBUG 2019.06.11 21:32:40,979 test.tsmlang.PrintCmdTree - 					node(CmdTreeChoice [fixPart=d, fullText=detailed, indexNode=19, type=choiceText, level=6])
+DEBUG 2019.06.11 21:32:40,979 test.tsmlang.PrintCmdTree - 			node(CmdTreeSeq [bCanBeEmpty=true, indexNode=20, subNodeName=auth, type=seqSub])
+DEBUG 2019.06.11 21:32:40,979 test.tsmlang.PrintCmdTree - 				node(CmdTreeLevelStart [indexNode=21, type=levelStart])
+DEBUG 2019.06.11 21:32:40,979 test.tsmlang.PrintCmdTree - 				node(CmdTreeSeq [bCanBeEmpty=false, indexNode=22, fixPart=auth, fullText=authentication, type=seqText])
+DEBUG 2019.06.11 21:32:40,979 test.tsmlang.PrintCmdTree - 				node(CmdTreeSeq [bCanBeEmpty=false, indexNode=23, fixPart==, fullText==, type=seqText])
+DEBUG 2019.06.11 21:32:40,979 test.tsmlang.PrintCmdTree - 				node(CmdTreeSeq [bCanBeEmpty=false, indexNode=24, subNodeName=authlist, type=seqSub])
+DEBUG 2019.06.11 21:32:40,979 test.tsmlang.PrintCmdTree - 					node(CmdTreeLevelStart [indexNode=25, type=levelStart])
+DEBUG 2019.06.11 21:32:40,979 test.tsmlang.PrintCmdTree - 					node(CmdTreeChoice [fixPart=lo, fullText=local, indexNode=26, type=choiceText, level=6])
+DEBUG 2019.06.11 21:32:40,979 test.tsmlang.PrintCmdTree - 					node(CmdTreeChoice [fixPart=ld, fullText=ldap, indexNode=27, type=choiceText, level=6])
+DEBUG 2019.06.11 21:32:40,979 test.tsmlang.PrintCmdTree - 			node(CmdTreeSeq [bCanBeEmpty=true, indexNode=28, subNodeName=Type, type=seqSub])
+DEBUG 2019.06.11 21:32:40,979 test.tsmlang.PrintCmdTree - 				node(CmdTreeLevelStart [indexNode=29, type=levelStart])
+DEBUG 2019.06.11 21:32:40,979 test.tsmlang.PrintCmdTree - 				node(CmdTreeSeq [bCanBeEmpty=false, indexNode=30, fixPart=t, fullText=type, type=seqText])
+DEBUG 2019.06.11 21:32:40,979 test.tsmlang.PrintCmdTree - 				node(CmdTreeSeq [bCanBeEmpty=false, indexNode=31, fixPart==, fullText==, type=seqText])
+DEBUG 2019.06.11 21:32:40,979 test.tsmlang.PrintCmdTree - 				node(CmdTreeSeq [bCanBeEmpty=false, indexNode=32, subNodeName=TypeList, type=seqSub])
+DEBUG 2019.06.11 21:32:40,979 test.tsmlang.PrintCmdTree - 					node(CmdTreeLevelStart [indexNode=33, type=levelStart])
+DEBUG 2019.06.11 21:32:40,980 test.tsmlang.PrintCmdTree - 					node(CmdTreeChoice [fixPart=c, fullText=client, indexNode=34, type=choiceText, level=6])
+DEBUG 2019.06.11 21:32:40,980 test.tsmlang.PrintCmdTree - 					node(CmdTreeChoice [fixPart=nas, fullText=nas, indexNode=35, type=choiceText, level=6])
+DEBUG 2019.06.11 21:32:40,980 test.tsmlang.PrintCmdTree - 					node(CmdTreeChoice [fixPart=s, fullText=server, indexNode=36, type=choiceText, level=6])
+DEBUG 2019.06.11 21:32:40,980 test.tsmlang.PrintCmdTree - 					node(CmdTreeChoice [fixPart=a, fullText=any, indexNode=37, type=choiceText, level=6])
+DEBUG 2019.06.11 21:32:40,980 test.tsmlang.PrintCmdTree - 		node(CmdTreeChoice [fixPart=ac, fullText=actlog, indexNode=38, type=choiceText, level=3])
+DEBUG 2019.06.11 21:32:40,980 test.tsmlang.PrintCmdTree - 		node(CmdTreeChoice [fixPart=xx, fullText=xx123, indexNode=39, type=choiceText, level=3])
+DEBUG 2019.06.11 21:32:40,980 test.tsmlang.PrintCmdTree - 	node(CmdTreeChoice [fixPart=aud, fullText=audit, indexNode=40, type=choiceText, level=2])
+DEBUG 2019.06.11 21:32:40,980 test.tsmlang.PrintCmdTree - 		node(CmdTreeLevelStart [indexNode=41, type=levelStart])
+DEBUG 2019.06.11 21:32:40,980 test.tsmlang.PrintCmdTree - 		node(CmdTreeChoice [fixPart=cont, fullText=container, indexNode=42, type=choiceText, level=3])
+DEBUG 2019.06.11 21:32:40,980 test.tsmlang.PrintCmdTree - 			node(CmdTreeLevelStart [indexNode=43, type=levelStart])
+DEBUG 2019.06.11 21:32:40,980 test.tsmlang.PrintCmdTree - 			node(CmdTreeSeq [bCanBeEmpty=false, indexNode=44, subNodeName=firstsub, type=seqSub])
+DEBUG 2019.06.11 21:32:40,980 test.tsmlang.PrintCmdTree - 				node(CmdTreeLevelStart [indexNode=45, type=levelStart])
+DEBUG 2019.06.11 21:32:40,980 test.tsmlang.PrintCmdTree - 				node(CmdTreeChoiceList [listValues=[node1, node2], indexNode=46, type=choiceList, level=5, cmdSample=00 01 02 40 41 42 43 44 45 46])
+DEBUG 2019.06.11 21:32:40,980 test.tsmlang.PrintCmdTree - 				node(CmdTreeChoiceSub [subNodeName=firstsubsub1, indexNode=47, type=choiceSub, level=5, cmdSample=00 01 02 40 41 42 43 44 45 46 47])
+DEBUG 2019.06.11 21:32:40,980 test.tsmlang.PrintCmdTree - 					node(CmdTreeLevelStart [indexNode=48, type=levelStart])
+DEBUG 2019.06.11 21:32:40,980 test.tsmlang.PrintCmdTree - 					node(CmdTreeSeq [bCanBeEmpty=false, indexNode=49, fixPart=stg, fullText=stgpool, type=seqText])
+DEBUG 2019.06.11 21:32:40,980 test.tsmlang.PrintCmdTree - 					node(CmdTreeSeq [bCanBeEmpty=false, indexNode=50, fixPart==, fullText==, type=seqText])
+DEBUG 2019.06.11 21:32:40,980 test.tsmlang.PrintCmdTree - 					node(CmdTreeSeq [bCanBeEmpty=false, indexNode=51, listValues=[pool1, pool2], type=seqList])
+DEBUG 2019.06.11 21:32:40,980 test.tsmlang.PrintCmdTree - 				node(CmdTreeChoiceSub [subNodeName=firstsubsub2, indexNode=52, type=choiceSub, level=5, cmdSample=00 01 02 40 41 42 43 44 45 46 47 52])
+DEBUG 2019.06.11 21:32:40,980 test.tsmlang.PrintCmdTree - 					node(CmdTreeLevelStart [indexNode=53, type=levelStart])
+DEBUG 2019.06.11 21:32:40,981 test.tsmlang.PrintCmdTree - 					node(CmdTreeSeq [bCanBeEmpty=false, indexNode=54, fixPart=stg, fullText=stgpool, type=seqText])
+DEBUG 2019.06.11 21:32:40,981 test.tsmlang.PrintCmdTree - 					node(CmdTreeSeq [bCanBeEmpty=false, indexNode=55, fixPart==, fullText==, type=seqText])
+DEBUG 2019.06.11 21:32:40,981 test.tsmlang.PrintCmdTree - 					node(CmdTreeSeq [bCanBeEmpty=false, indexNode=56, listValues=[pool1, pool2], type=seqList])
+DEBUG 2019.06.11 21:32:40,981 test.tsmlang.PrintCmdTree - 					node(CmdTreeSeq [bCanBeEmpty=false, indexNode=57, fixPart=stgpooldir, fullText=stgpooldirectory, type=seqText])
+DEBUG 2019.06.11 21:32:40,981 test.tsmlang.PrintCmdTree - 					node(CmdTreeSeq [bCanBeEmpty=false, indexNode=58, fixPart==, fullText==, type=seqText])
+DEBUG 2019.06.11 21:32:40,981 test.tsmlang.PrintCmdTree - 					node(CmdTreeSeq [bCanBeEmpty=false, indexNode=59, listValues=[dir1, dir2], type=seqList])
+DEBUG 2019.06.11 21:32:40,981 test.tsmlang.PrintCmdTree - 	node(CmdTreeChoice [fixPart=d, fullText=dir, indexNode=60, type=choiceText, level=2])
+DEBUG 2019.06.11 21:32:40,981 test.tsmlang.MainCheck - ---------listCmdTreeNodes
+DEBUG 2019.06.11 21:32:40,981 test.tsmlang.MainCheck - node(00)(00)
+DEBUG 2019.06.11 21:32:40,981 test.tsmlang.MainCheck - node(01)(00 01)
+DEBUG 2019.06.11 21:32:40,981 test.tsmlang.MainCheck - node(02)(00 01 02)
+DEBUG 2019.06.11 21:32:40,981 test.tsmlang.MainCheck - node(03)(00 01 02 03)
+DEBUG 2019.06.11 21:32:40,981 test.tsmlang.MainCheck - node(04)(00 01 02 03 04)
+DEBUG 2019.06.11 21:32:40,981 test.tsmlang.MainCheck - node(05)(00 01 02 03 04 05)
+DEBUG 2019.06.11 21:32:40,981 test.tsmlang.MainCheck - node(06)(00 01 02 03 04 05 06)
+DEBUG 2019.06.11 21:32:40,981 test.tsmlang.MainCheck - node(07)(00 01 02 03 04 05 06 07)
+DEBUG 2019.06.11 21:32:40,982 test.tsmlang.MainCheck - node(08)(00 01 02 03 04 05 06 07 08)
+DEBUG 2019.06.11 21:32:40,982 test.tsmlang.MainCheck - node(09)(00 01 02 03 04 05 06 07 08 09)
+DEBUG 2019.06.11 21:32:40,982 test.tsmlang.MainCheck - node(10)(00 01 02 03 04 05 06 07 08 09 10)
+DEBUG 2019.06.11 21:32:40,982 test.tsmlang.MainCheck - node(11)(00 01 02 03 04 05 06 07 08 09 10 11)
+DEBUG 2019.06.11 21:32:40,982 test.tsmlang.MainCheck - node(12)(00 01 02 03 04 05 06 07 12)
+DEBUG 2019.06.11 21:32:40,982 test.tsmlang.MainCheck - node(13)(00 01 02 03 04 05 06 07 12 13)
+DEBUG 2019.06.11 21:32:40,982 test.tsmlang.MainCheck - node(14)(00 01 02 03 04 05 06 07 12 13 14)
+DEBUG 2019.06.11 21:32:40,982 test.tsmlang.MainCheck - node(15)(00 01 02 03 04 05 06 07 12 13 14 15)
+DEBUG 2019.06.11 21:32:40,982 test.tsmlang.MainCheck - node(16)(00 01 02 03 04 05 06 07 12 13 14 15 16)
+DEBUG 2019.06.11 21:32:40,982 test.tsmlang.MainCheck - node(17)(00 01 02 03 04 05 06 07 12 13 14 15 16 17)
+DEBUG 2019.06.11 21:32:40,982 test.tsmlang.MainCheck - node(18)(00 01 02 03 04 05 06 07 12 13 14 15 16 17 18)
+DEBUG 2019.06.11 21:32:40,982 test.tsmlang.MainCheck - node(19)(00 01 02 03 04 05 06 07 12 13 14 15 16 17 18 19)
+DEBUG 2019.06.11 21:32:40,982 test.tsmlang.MainCheck - node(20)(00 01 02 03 04 05 06 07 12 20)
+DEBUG 2019.06.11 21:32:40,982 test.tsmlang.MainCheck - node(21)(00 01 02 03 04 05 06 07 12 20 21)
+DEBUG 2019.06.11 21:32:40,982 test.tsmlang.MainCheck - node(22)(00 01 02 03 04 05 06 07 12 20 21 22)
+DEBUG 2019.06.11 21:32:40,982 test.tsmlang.MainCheck - node(23)(00 01 02 03 04 05 06 07 12 20 21 22 23)
+DEBUG 2019.06.11 21:32:40,982 test.tsmlang.MainCheck - node(24)(00 01 02 03 04 05 06 07 12 20 21 22 23 24)
+DEBUG 2019.06.11 21:32:40,982 test.tsmlang.MainCheck - node(25)(00 01 02 03 04 05 06 07 12 20 21 22 23 24 25)
+DEBUG 2019.06.11 21:32:40,982 test.tsmlang.MainCheck - node(26)(00 01 02 03 04 05 06 07 12 20 21 22 23 24 25 26)
+DEBUG 2019.06.11 21:32:40,982 test.tsmlang.MainCheck - node(27)(00 01 02 03 04 05 06 07 12 20 21 22 23 24 25 26 27)
+DEBUG 2019.06.11 21:32:40,983 test.tsmlang.MainCheck - node(28)(00 01 02 03 04 05 06 07 12 20 28)
+DEBUG 2019.06.11 21:32:40,983 test.tsmlang.MainCheck - node(29)(00 01 02 03 04 05 06 07 12 20 28 29)
+DEBUG 2019.06.11 21:32:40,983 test.tsmlang.MainCheck - node(30)(00 01 02 03 04 05 06 07 12 20 28 29 30)
+DEBUG 2019.06.11 21:32:40,983 test.tsmlang.MainCheck - node(31)(00 01 02 03 04 05 06 07 12 20 28 29 30 31)
+DEBUG 2019.06.11 21:32:40,983 test.tsmlang.MainCheck - node(32)(00 01 02 03 04 05 06 07 12 20 28 29 30 31 32)
+DEBUG 2019.06.11 21:32:40,983 test.tsmlang.MainCheck - node(33)(00 01 02 03 04 05 06 07 12 20 28 29 30 31 32 33)
+DEBUG 2019.06.11 21:32:40,983 test.tsmlang.MainCheck - node(34)(00 01 02 03 04 05 06 07 12 20 28 29 30 31 32 33 34)
+DEBUG 2019.06.11 21:32:40,983 test.tsmlang.MainCheck - node(35)(00 01 02 03 04 05 06 07 12 20 28 29 30 31 32 33 34 35)
+DEBUG 2019.06.11 21:32:40,983 test.tsmlang.MainCheck - node(36)(00 01 02 03 04 05 06 07 12 20 28 29 30 31 32 33 34 35 36)
+DEBUG 2019.06.11 21:32:40,983 test.tsmlang.MainCheck - node(37)(00 01 02 03 04 05 06 07 12 20 28 29 30 31 32 33 34 35 36 37)
+DEBUG 2019.06.11 21:32:40,983 test.tsmlang.MainCheck - node(38)(00 01 02 03 04 38)
+DEBUG 2019.06.11 21:32:40,983 test.tsmlang.MainCheck - node(39)(00 01 02 03 04 38 39)
+DEBUG 2019.06.11 21:32:40,983 test.tsmlang.MainCheck - node(40)(00 01 02 40)
+DEBUG 2019.06.11 21:32:40,983 test.tsmlang.MainCheck - node(41)(00 01 02 40 41)
+DEBUG 2019.06.11 21:32:40,983 test.tsmlang.MainCheck - node(42)(00 01 02 40 41 42)
+DEBUG 2019.06.11 21:32:40,983 test.tsmlang.MainCheck - node(43)(00 01 02 40 41 42 43)
+DEBUG 2019.06.11 21:32:40,983 test.tsmlang.MainCheck - node(44)(00 01 02 40 41 42 43 44)
+DEBUG 2019.06.11 21:32:40,983 test.tsmlang.MainCheck - node(45)(00 01 02 40 41 42 43 44 45)
+DEBUG 2019.06.11 21:32:40,983 test.tsmlang.MainCheck - node(46)(00 01 02 40 41 42 43 44 45 46)
+DEBUG 2019.06.11 21:32:40,984 test.tsmlang.MainCheck - node(47)(00 01 02 40 41 42 43 44 45 46 47)
+DEBUG 2019.06.11 21:32:40,984 test.tsmlang.MainCheck - node(48)(00 01 02 40 41 42 43 44 45 46 47 48)
+DEBUG 2019.06.11 21:32:40,984 test.tsmlang.MainCheck - node(49)(00 01 02 40 41 42 43 44 45 46 47 48 49)
+DEBUG 2019.06.11 21:32:40,984 test.tsmlang.MainCheck - node(50)(00 01 02 40 41 42 43 44 45 46 47 48 49 50)
+DEBUG 2019.06.11 21:32:40,984 test.tsmlang.MainCheck - node(51)(00 01 02 40 41 42 43 44 45 46 47 48 49 50 51)
+DEBUG 2019.06.11 21:32:40,984 test.tsmlang.MainCheck - node(52)(00 01 02 40 41 42 43 44 45 46 47 52)
+DEBUG 2019.06.11 21:32:40,984 test.tsmlang.MainCheck - node(53)(00 01 02 40 41 42 43 44 45 46 47 52 53)
+DEBUG 2019.06.11 21:32:40,984 test.tsmlang.MainCheck - node(54)(00 01 02 40 41 42 43 44 45 46 47 52 53 54)
+DEBUG 2019.06.11 21:32:40,984 test.tsmlang.MainCheck - node(55)(00 01 02 40 41 42 43 44 45 46 47 52 53 54 55)
+DEBUG 2019.06.11 21:32:40,984 test.tsmlang.MainCheck - node(56)(00 01 02 40 41 42 43 44 45 46 47 52 53 54 55 56)
+DEBUG 2019.06.11 21:32:40,984 test.tsmlang.MainCheck - node(57)(00 01 02 40 41 42 43 44 45 46 47 52 53 54 55 56 57)
+DEBUG 2019.06.11 21:32:40,984 test.tsmlang.MainCheck - node(58)(00 01 02 40 41 42 43 44 45 46 47 52 53 54 55 56 57 58)
+DEBUG 2019.06.11 21:32:40,984 test.tsmlang.MainCheck - node(59)(00 01 02 40 41 42 43 44 45 46 47 52 53 54 55 56 57 58 59)
+DEBUG 2019.06.11 21:32:40,984 test.tsmlang.MainCheck - node(60)(00 01 02 40 60)
+DEBUG 2019.06.11 21:32:40,984 test.tsmlang.MainCheck - ---------list NextPossibleWords
+DEBUG 2019.06.11 21:32:40,984 test.tsmlang.MainCheck - 
+
+node(00) (CmdTreeRootNode [indexNode=0, type=root])
+DEBUG 2019.06.11 21:32:40,985 test.tsmlang.CalcNextPossibleWords - lastMatchingNode=(00)
+DEBUG 2019.06.11 21:32:40,985 test.tsmlang.MainCheck -   node(02) (CmdTreeChoice [fixPart=q, fullText=query, indexNode=2, type=choiceText, level=2])
+DEBUG 2019.06.11 21:32:40,985 test.tsmlang.MainCheck -   node(40) (CmdTreeChoice [fixPart=aud, fullText=audit, indexNode=40, type=choiceText, level=2])
+DEBUG 2019.06.11 21:32:40,985 test.tsmlang.MainCheck -   node(60) (CmdTreeChoice [fixPart=d, fullText=dir, indexNode=60, type=choiceText, level=2])
+DEBUG 2019.06.11 21:32:40,985 test.tsmlang.MainCheck - 
+
+node(02) (CmdTreeChoice [fixPart=q, fullText=query, indexNode=2, type=choiceText, level=2])
+DEBUG 2019.06.11 21:32:40,985 test.tsmlang.CalcNextPossibleWords - lastMatchingNode=(02)
+DEBUG 2019.06.11 21:32:40,985 test.tsmlang.MainCheck -   node(04) (CmdTreeChoice [fixPart=n, fullText=node, indexNode=4, type=choiceText, level=3])
+DEBUG 2019.06.11 21:32:40,985 test.tsmlang.MainCheck -   node(38) (CmdTreeChoice [fixPart=ac, fullText=actlog, indexNode=38, type=choiceText, level=3])
+DEBUG 2019.06.11 21:32:40,985 test.tsmlang.MainCheck -   node(39) (CmdTreeChoice [fixPart=xx, fullText=xx123, indexNode=39, type=choiceText, level=3])
+DEBUG 2019.06.11 21:32:40,986 test.tsmlang.MainCheck - 
+
+node(04) (CmdTreeChoice [fixPart=n, fullText=node, indexNode=4, type=choiceText, level=3])
+DEBUG 2019.06.11 21:32:40,986 test.tsmlang.CalcNextPossibleWords - lastMatchingNode=(04)
+DEBUG 2019.06.11 21:32:40,986 test.tsmlang.MainCheck -   node(06) (CmdTreeSeq [bCanBeEmpty=true, indexNode=6, listValues=[node1, node2], type=seqList])
+DEBUG 2019.06.11 21:32:40,986 test.tsmlang.MainCheck -   node(09) (CmdTreeSeq [bCanBeEmpty=false, indexNode=9, fixPart=do, fullText=domain, type=seqText])
+DEBUG 2019.06.11 21:32:40,986 test.tsmlang.MainCheck -   node(14) (CmdTreeSeq [bCanBeEmpty=false, indexNode=14, fixPart=f, fullText=format, type=seqText])
+DEBUG 2019.06.11 21:32:40,986 test.tsmlang.MainCheck -   node(22) (CmdTreeSeq [bCanBeEmpty=false, indexNode=22, fixPart=auth, fullText=authentication, type=seqText])
+DEBUG 2019.06.11 21:32:40,986 test.tsmlang.MainCheck -   node(30) (CmdTreeSeq [bCanBeEmpty=false, indexNode=30, fixPart=t, fullText=type, type=seqText])
+DEBUG 2019.06.11 21:32:40,986 test.tsmlang.MainCheck - 
+
+node(06) (CmdTreeSeq [bCanBeEmpty=true, indexNode=6, listValues=[node1, node2], type=seqList])
+DEBUG 2019.06.11 21:32:40,986 test.tsmlang.CalcNextPossibleWords - lastMatchingNode=(06)
+DEBUG 2019.06.11 21:32:40,986 test.tsmlang.MainCheck -   node(09) (CmdTreeSeq [bCanBeEmpty=false, indexNode=9, fixPart=do, fullText=domain, type=seqText])
+DEBUG 2019.06.11 21:32:40,986 test.tsmlang.MainCheck -   node(14) (CmdTreeSeq [bCanBeEmpty=false, indexNode=14, fixPart=f, fullText=format, type=seqText])
+DEBUG 2019.06.11 21:32:40,986 test.tsmlang.MainCheck -   node(22) (CmdTreeSeq [bCanBeEmpty=false, indexNode=22, fixPart=auth, fullText=authentication, type=seqText])
+DEBUG 2019.06.11 21:32:40,986 test.tsmlang.MainCheck -   node(30) (CmdTreeSeq [bCanBeEmpty=false, indexNode=30, fixPart=t, fullText=type, type=seqText])
+DEBUG 2019.06.11 21:32:40,986 test.tsmlang.MainCheck - xxx
+DEBUG 2019.06.11 21:32:40,986 test.tsmlang.MainCheck - 
+
+node(09) (CmdTreeSeq [bCanBeEmpty=false, indexNode=9, fixPart=do, fullText=domain, type=seqText])
+DEBUG 2019.06.11 21:32:40,986 test.tsmlang.CalcNextPossibleWords - lastMatchingNode=(09)
+DEBUG 2019.06.11 21:32:40,986 test.tsmlang.MainCheck -   node(10) (CmdTreeSeq [bCanBeEmpty=false, indexNode=10, fixPart==, fullText==, type=seqText])
+DEBUG 2019.06.11 21:32:40,986 test.tsmlang.MainCheck - 
+
+node(10) (CmdTreeSeq [bCanBeEmpty=false, indexNode=10, fixPart==, fullText==, type=seqText])
+DEBUG 2019.06.11 21:32:40,986 test.tsmlang.CalcNextPossibleWords - lastMatchingNode=(10)
+DEBUG 2019.06.11 21:32:40,987 test.tsmlang.MainCheck -   node(11) (CmdTreeSeq [bCanBeEmpty=false, indexNode=11, listSeparator=,, listValues=[domain1, domain2], type=seqListSep])
+DEBUG 2019.06.11 21:32:40,987 test.tsmlang.MainCheck - 
+
+node(11) (CmdTreeSeq [bCanBeEmpty=false, indexNode=11, listSeparator=,, listValues=[domain1, domain2], type=seqListSep])
+DEBUG 2019.06.11 21:32:40,987 test.tsmlang.CalcNextPossibleWords - lastMatchingNode=(11)
+DEBUG 2019.06.11 21:32:40,987 test.tsmlang.MainCheck -   node(14) (CmdTreeSeq [bCanBeEmpty=false, indexNode=14, fixPart=f, fullText=format, type=seqText])
+DEBUG 2019.06.11 21:32:40,987 test.tsmlang.MainCheck -   node(22) (CmdTreeSeq [bCanBeEmpty=false, indexNode=22, fixPart=auth, fullText=authentication, type=seqText])
+DEBUG 2019.06.11 21:32:40,987 test.tsmlang.MainCheck -   node(30) (CmdTreeSeq [bCanBeEmpty=false, indexNode=30, fixPart=t, fullText=type, type=seqText])
+DEBUG 2019.06.11 21:32:40,987 test.tsmlang.MainCheck - 
+
+node(14) (CmdTreeSeq [bCanBeEmpty=false, indexNode=14, fixPart=f, fullText=format, type=seqText])
+DEBUG 2019.06.11 21:32:40,987 test.tsmlang.CalcNextPossibleWords - lastMatchingNode=(14)
+DEBUG 2019.06.11 21:32:40,987 test.tsmlang.MainCheck -   node(15) (CmdTreeSeq [bCanBeEmpty=false, indexNode=15, fixPart==, fullText==, type=seqText])
+DEBUG 2019.06.11 21:32:40,987 test.tsmlang.MainCheck - 
+
+node(15) (CmdTreeSeq [bCanBeEmpty=false, indexNode=15, fixPart==, fullText==, type=seqText])
+DEBUG 2019.06.11 21:32:40,987 test.tsmlang.CalcNextPossibleWords - lastMatchingNode=(15)
+DEBUG 2019.06.11 21:32:40,987 test.tsmlang.MainCheck -   node(18) (CmdTreeChoice [fixPart=s, fullText=standard, indexNode=18, type=choiceText, level=6])
+DEBUG 2019.06.11 21:32:40,987 test.tsmlang.MainCheck -   node(19) (CmdTreeChoice [fixPart=d, fullText=detailed, indexNode=19, type=choiceText, level=6])
+DEBUG 2019.06.11 21:32:40,987 test.tsmlang.MainCheck - 
+
+node(18) (CmdTreeChoice [fixPart=s, fullText=standard, indexNode=18, type=choiceText, level=6])
+DEBUG 2019.06.11 21:32:40,987 test.tsmlang.CalcNextPossibleWords - lastMatchingNode=(18)
+DEBUG 2019.06.11 21:32:40,987 test.tsmlang.MainCheck -   node(22) (CmdTreeSeq [bCanBeEmpty=false, indexNode=22, fixPart=auth, fullText=authentication, type=seqText])
+DEBUG 2019.06.11 21:32:40,987 test.tsmlang.MainCheck -   node(30) (CmdTreeSeq [bCanBeEmpty=false, indexNode=30, fixPart=t, fullText=type, type=seqText])
+DEBUG 2019.06.11 21:32:40,988 test.tsmlang.MainCheck - 
+
+node(19) (CmdTreeChoice [fixPart=d, fullText=detailed, indexNode=19, type=choiceText, level=6])
+DEBUG 2019.06.11 21:32:40,988 test.tsmlang.CalcNextPossibleWords - lastMatchingNode=(19)
+DEBUG 2019.06.11 21:32:40,988 test.tsmlang.MainCheck -   node(22) (CmdTreeSeq [bCanBeEmpty=false, indexNode=22, fixPart=auth, fullText=authentication, type=seqText])
+DEBUG 2019.06.11 21:32:40,988 test.tsmlang.MainCheck -   node(30) (CmdTreeSeq [bCanBeEmpty=false, indexNode=30, fixPart=t, fullText=type, type=seqText])
+DEBUG 2019.06.11 21:32:40,988 test.tsmlang.MainCheck - 
+
+node(22) (CmdTreeSeq [bCanBeEmpty=false, indexNode=22, fixPart=auth, fullText=authentication, type=seqText])
+DEBUG 2019.06.11 21:32:40,988 test.tsmlang.CalcNextPossibleWords - lastMatchingNode=(22)
+DEBUG 2019.06.11 21:32:40,988 test.tsmlang.MainCheck -   node(23) (CmdTreeSeq [bCanBeEmpty=false, indexNode=23, fixPart==, fullText==, type=seqText])
+DEBUG 2019.06.11 21:32:40,988 test.tsmlang.MainCheck - 
+
+node(23) (CmdTreeSeq [bCanBeEmpty=false, indexNode=23, fixPart==, fullText==, type=seqText])
+DEBUG 2019.06.11 21:32:40,988 test.tsmlang.CalcNextPossibleWords - lastMatchingNode=(23)
+DEBUG 2019.06.11 21:32:40,988 test.tsmlang.MainCheck -   node(26) (CmdTreeChoice [fixPart=lo, fullText=local, indexNode=26, type=choiceText, level=6])
+DEBUG 2019.06.11 21:32:40,988 test.tsmlang.MainCheck -   node(27) (CmdTreeChoice [fixPart=ld, fullText=ldap, indexNode=27, type=choiceText, level=6])
+DEBUG 2019.06.11 21:32:40,988 test.tsmlang.MainCheck - 
+
+node(26) (CmdTreeChoice [fixPart=lo, fullText=local, indexNode=26, type=choiceText, level=6])
+DEBUG 2019.06.11 21:32:40,988 test.tsmlang.CalcNextPossibleWords - lastMatchingNode=(26)
+DEBUG 2019.06.11 21:32:40,988 test.tsmlang.MainCheck -   node(30) (CmdTreeSeq [bCanBeEmpty=false, indexNode=30, fixPart=t, fullText=type, type=seqText])
+DEBUG 2019.06.11 21:32:40,988 test.tsmlang.MainCheck - 
+
+node(27) (CmdTreeChoice [fixPart=ld, fullText=ldap, indexNode=27, type=choiceText, level=6])
+DEBUG 2019.06.11 21:32:40,988 test.tsmlang.CalcNextPossibleWords - lastMatchingNode=(27)
+DEBUG 2019.06.11 21:32:40,988 test.tsmlang.MainCheck -   node(30) (CmdTreeSeq [bCanBeEmpty=false, indexNode=30, fixPart=t, fullText=type, type=seqText])
+DEBUG 2019.06.11 21:32:40,988 test.tsmlang.MainCheck - 
+
+node(30) (CmdTreeSeq [bCanBeEmpty=false, indexNode=30, fixPart=t, fullText=type, type=seqText])
+DEBUG 2019.06.11 21:32:40,989 test.tsmlang.CalcNextPossibleWords - lastMatchingNode=(30)
+DEBUG 2019.06.11 21:32:40,989 test.tsmlang.MainCheck -   node(31) (CmdTreeSeq [bCanBeEmpty=false, indexNode=31, fixPart==, fullText==, type=seqText])
+DEBUG 2019.06.11 21:32:40,989 test.tsmlang.MainCheck - 
+
+node(31) (CmdTreeSeq [bCanBeEmpty=false, indexNode=31, fixPart==, fullText==, type=seqText])
+DEBUG 2019.06.11 21:32:40,989 test.tsmlang.CalcNextPossibleWords - lastMatchingNode=(31)
+DEBUG 2019.06.11 21:32:40,989 test.tsmlang.MainCheck -   node(34) (CmdTreeChoice [fixPart=c, fullText=client, indexNode=34, type=choiceText, level=6])
+DEBUG 2019.06.11 21:32:40,989 test.tsmlang.MainCheck -   node(35) (CmdTreeChoice [fixPart=nas, fullText=nas, indexNode=35, type=choiceText, level=6])
+DEBUG 2019.06.11 21:32:40,989 test.tsmlang.MainCheck -   node(36) (CmdTreeChoice [fixPart=s, fullText=server, indexNode=36, type=choiceText, level=6])
+DEBUG 2019.06.11 21:32:40,989 test.tsmlang.MainCheck -   node(37) (CmdTreeChoice [fixPart=a, fullText=any, indexNode=37, type=choiceText, level=6])
+DEBUG 2019.06.11 21:32:40,989 test.tsmlang.MainCheck - 
+
+node(34) (CmdTreeChoice [fixPart=c, fullText=client, indexNode=34, type=choiceText, level=6])
+DEBUG 2019.06.11 21:32:40,989 test.tsmlang.CalcNextPossibleWords - lastMatchingNode=(34)
+DEBUG 2019.06.11 21:32:40,989 test.tsmlang.MainCheck - 
+
+node(35) (CmdTreeChoice [fixPart=nas, fullText=nas, indexNode=35, type=choiceText, level=6])
+DEBUG 2019.06.11 21:32:40,989 test.tsmlang.CalcNextPossibleWords - lastMatchingNode=(35)
+DEBUG 2019.06.11 21:32:40,989 test.tsmlang.MainCheck - 
+
+node(36) (CmdTreeChoice [fixPart=s, fullText=server, indexNode=36, type=choiceText, level=6])
+DEBUG 2019.06.11 21:32:40,989 test.tsmlang.CalcNextPossibleWords - lastMatchingNode=(36)
+DEBUG 2019.06.11 21:32:40,989 test.tsmlang.MainCheck - 
+
+node(37) (CmdTreeChoice [fixPart=a, fullText=any, indexNode=37, type=choiceText, level=6])
+DEBUG 2019.06.11 21:32:40,989 test.tsmlang.CalcNextPossibleWords - lastMatchingNode=(37)
+DEBUG 2019.06.11 21:32:40,989 test.tsmlang.MainCheck - 
+
+node(38) (CmdTreeChoice [fixPart=ac, fullText=actlog, indexNode=38, type=choiceText, level=3])
+DEBUG 2019.06.11 21:32:40,990 test.tsmlang.CalcNextPossibleWords - lastMatchingNode=(38)
+DEBUG 2019.06.11 21:32:40,990 test.tsmlang.MainCheck - 
+
+node(39) (CmdTreeChoice [fixPart=xx, fullText=xx123, indexNode=39, type=choiceText, level=3])
+DEBUG 2019.06.11 21:32:40,990 test.tsmlang.CalcNextPossibleWords - lastMatchingNode=(39)
+DEBUG 2019.06.11 21:32:40,990 test.tsmlang.MainCheck - 
+
+node(40) (CmdTreeChoice [fixPart=aud, fullText=audit, indexNode=40, type=choiceText, level=2])
+DEBUG 2019.06.11 21:32:40,990 test.tsmlang.CalcNextPossibleWords - lastMatchingNode=(40)
+DEBUG 2019.06.11 21:32:40,990 test.tsmlang.MainCheck -   node(42) (CmdTreeChoice [fixPart=cont, fullText=container, indexNode=42, type=choiceText, level=3])
+DEBUG 2019.06.11 21:32:40,990 test.tsmlang.MainCheck - 
+
+node(42) (CmdTreeChoice [fixPart=cont, fullText=container, indexNode=42, type=choiceText, level=3])
+DEBUG 2019.06.11 21:32:40,990 test.tsmlang.CalcNextPossibleWords - lastMatchingNode=(42)
+DEBUG 2019.06.11 21:32:40,990 test.tsmlang.MainCheck -   node(46) (CmdTreeChoiceList [listValues=[node1, node2], indexNode=46, type=choiceList, level=5, cmdSample=00 01 02 40 41 42 43 44 45 46])
+DEBUG 2019.06.11 21:32:40,990 test.tsmlang.MainCheck -   node(49) (CmdTreeSeq [bCanBeEmpty=false, indexNode=49, fixPart=stg, fullText=stgpool, type=seqText])
+DEBUG 2019.06.11 21:32:40,990 test.tsmlang.MainCheck -   node(54) (CmdTreeSeq [bCanBeEmpty=false, indexNode=54, fixPart=stg, fullText=stgpool, type=seqText])
+DEBUG 2019.06.11 21:32:40,990 test.tsmlang.MainCheck - 
+
+node(46) (CmdTreeChoiceList [listValues=[node1, node2], indexNode=46, type=choiceList, level=5, cmdSample=00 01 02 40 41 42 43 44 45 46])
+DEBUG 2019.06.11 21:32:40,990 test.tsmlang.CalcNextPossibleWords - lastMatchingNode=(46)
+DEBUG 2019.06.11 21:32:40,990 test.tsmlang.MainCheck - 
+
+node(49) (CmdTreeSeq [bCanBeEmpty=false, indexNode=49, fixPart=stg, fullText=stgpool, type=seqText])
+DEBUG 2019.06.11 21:32:40,990 test.tsmlang.CalcNextPossibleWords - lastMatchingNode=(49)
+DEBUG 2019.06.11 21:32:40,990 test.tsmlang.MainCheck -   node(50) (CmdTreeSeq [bCanBeEmpty=false, indexNode=50, fixPart==, fullText==, type=seqText])
+DEBUG 2019.06.11 21:32:40,990 test.tsmlang.MainCheck - 
+
+node(50) (CmdTreeSeq [bCanBeEmpty=false, indexNode=50, fixPart==, fullText==, type=seqText])
+DEBUG 2019.06.11 21:32:40,990 test.tsmlang.CalcNextPossibleWords - lastMatchingNode=(50)
+DEBUG 2019.06.11 21:32:40,990 test.tsmlang.MainCheck -   node(51) (CmdTreeSeq [bCanBeEmpty=false, indexNode=51, listValues=[pool1, pool2], type=seqList])
+DEBUG 2019.06.11 21:32:40,990 test.tsmlang.MainCheck - 
+
+node(51) (CmdTreeSeq [bCanBeEmpty=false, indexNode=51, listValues=[pool1, pool2], type=seqList])
+DEBUG 2019.06.11 21:32:40,991 test.tsmlang.CalcNextPossibleWords - lastMatchingNode=(51)
+DEBUG 2019.06.11 21:32:40,991 test.tsmlang.MainCheck - 
+
+node(54) (CmdTreeSeq [bCanBeEmpty=false, indexNode=54, fixPart=stg, fullText=stgpool, type=seqText])
+DEBUG 2019.06.11 21:32:40,991 test.tsmlang.CalcNextPossibleWords - lastMatchingNode=(54)
+DEBUG 2019.06.11 21:32:40,991 test.tsmlang.MainCheck -   node(55) (CmdTreeSeq [bCanBeEmpty=false, indexNode=55, fixPart==, fullText==, type=seqText])
+DEBUG 2019.06.11 21:32:40,991 test.tsmlang.MainCheck - 
+
+node(55) (CmdTreeSeq [bCanBeEmpty=false, indexNode=55, fixPart==, fullText==, type=seqText])
+DEBUG 2019.06.11 21:32:40,991 test.tsmlang.CalcNextPossibleWords - lastMatchingNode=(55)
+DEBUG 2019.06.11 21:32:40,991 test.tsmlang.MainCheck -   node(56) (CmdTreeSeq [bCanBeEmpty=false, indexNode=56, listValues=[pool1, pool2], type=seqList])
+DEBUG 2019.06.11 21:32:40,991 test.tsmlang.MainCheck - 
+
+node(56) (CmdTreeSeq [bCanBeEmpty=false, indexNode=56, listValues=[pool1, pool2], type=seqList])
+DEBUG 2019.06.11 21:32:40,991 test.tsmlang.CalcNextPossibleWords - lastMatchingNode=(56)
+DEBUG 2019.06.11 21:32:40,991 test.tsmlang.MainCheck -   node(57) (CmdTreeSeq [bCanBeEmpty=false, indexNode=57, fixPart=stgpooldir, fullText=stgpooldirectory, type=seqText])
+DEBUG 2019.06.11 21:32:40,991 test.tsmlang.MainCheck - 
+
+node(57) (CmdTreeSeq [bCanBeEmpty=false, indexNode=57, fixPart=stgpooldir, fullText=stgpooldirectory, type=seqText])
+DEBUG 2019.06.11 21:32:40,991 test.tsmlang.CalcNextPossibleWords - lastMatchingNode=(57)
+DEBUG 2019.06.11 21:32:40,991 test.tsmlang.MainCheck -   node(58) (CmdTreeSeq [bCanBeEmpty=false, indexNode=58, fixPart==, fullText==, type=seqText])
+DEBUG 2019.06.11 21:32:40,991 test.tsmlang.MainCheck - 
+
+node(58) (CmdTreeSeq [bCanBeEmpty=false, indexNode=58, fixPart==, fullText==, type=seqText])
+DEBUG 2019.06.11 21:32:40,991 test.tsmlang.CalcNextPossibleWords - lastMatchingNode=(58)
+DEBUG 2019.06.11 21:32:40,991 test.tsmlang.MainCheck -   node(59) (CmdTreeSeq [bCanBeEmpty=false, indexNode=59, listValues=[dir1, dir2], type=seqList])
+DEBUG 2019.06.11 21:32:40,991 test.tsmlang.MainCheck - 
+
+node(59) (CmdTreeSeq [bCanBeEmpty=false, indexNode=59, listValues=[dir1, dir2], type=seqList])
+DEBUG 2019.06.11 21:32:40,991 test.tsmlang.CalcNextPossibleWords - lastMatchingNode=(59)
+DEBUG 2019.06.11 21:32:40,991 test.tsmlang.MainCheck - 
+
+node(60) (CmdTreeChoice [fixPart=d, fullText=dir, indexNode=60, type=choiceText, level=2])
+DEBUG 2019.06.11 21:32:40,991 test.tsmlang.CalcNextPossibleWords - lastMatchingNode=(60)
+DEBUG 2019.06.11 21:32:40,991 test.tsmlang.MainCheck - End.
