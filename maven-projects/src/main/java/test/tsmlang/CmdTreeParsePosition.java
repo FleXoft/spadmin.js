@@ -4,7 +4,7 @@ import test.tsmlang.cmdtreenodes.CmdTreeNode;
 
 public class CmdTreeParsePosition
 {
-	public enum TYPE_MATCH { noMatch,subNode,partial,full };
+	public enum TYPE_MATCH { noMatch,partial,full };	// subNode,
 
 	private final String cmd;
 	private final CmdTreeNode ctnode;

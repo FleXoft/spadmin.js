@@ -273,3 +273,12 @@
 	- kész van és helyes a jelenlegi teljes tree minden node-jára a possible-next-words lista
 		- fájl mentve: app.log-saved1
 	- ezután már csak az egyes node-ok egyezéseit kell kigyúrni, és Flex példáit
+
+20190616:
+	- próbáltam a TSM parancsok TXT-ből való feldolgozásának lehetőségeit
+		- poppler pdf2txt
+		- tsm query node weboldal-ról 
+			- copy-paste Notepad++-ba, ez megtartja a struktúrát
+			- kimásolva html-ként is ok lehet: spadmin.js\maven-projects\docs\1.html
+		- mail többieknek
+	- próbáltam befejezni a tab listát, még nem ok

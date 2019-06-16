@@ -8,10 +8,9 @@ import org.apache.log4j.Logger;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import test.tsmlang.LoadCmdTreeXml;
-import test.tsmlang.MainCheck;
-import test.tsmlang.ObjectCTNodeMatch;
 import test.tsmlang.CmdTreeParsePosition.TYPE_MATCH;
+import test.tsmlang.LoadCmdTreeXml;
+import test.tsmlang.ObjectCTNodeMatch;
 import test.tsmlang.cmdtreenodes.choice.CmdTreeChoice;
 import test.tsmlang.cmdtreenodes.choice.CmdTreeChoiceList;
 import test.tsmlang.cmdtreenodes.choice.CmdTreeChoiceSub;
@@ -202,7 +201,7 @@ public abstract class CmdTreeNode
 
 	protected ObjectCTNodeMatch checkCTNodeForText1( String cmd,String fixPart,String fullText )
 	{
-		ObjectCTNodeMatch result = new ObjectCTNodeMatch();
+		ObjectCTNodeMatch result = new ObjectCTNodeMatch( this );
 		if ( cmd.length()>0 )
 		{
 			int indexMatch = getLastStringMatchIndex( cmd,fullText );
@@ -220,7 +219,7 @@ public abstract class CmdTreeNode
 
 	protected ObjectCTNodeMatch checkCTNodeForList1( String cmd,List<String> listValues )
 	{
-		ObjectCTNodeMatch result = new ObjectCTNodeMatch();
+		ObjectCTNodeMatch result = new ObjectCTNodeMatch( this );
 		if ( cmd.length()>0 )
 		{
 			for ( String value : listValues )

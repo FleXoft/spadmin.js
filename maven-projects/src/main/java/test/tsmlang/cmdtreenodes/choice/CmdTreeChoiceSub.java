@@ -5,7 +5,6 @@ import java.util.List;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
-import test.tsmlang.CmdTreeParsePosition.TYPE_MATCH;
 import test.tsmlang.ObjectCTNodeMatch;
 import test.tsmlang.cmdtreenodes.CmdTreeNode;
 
@@ -25,7 +24,7 @@ public class CmdTreeChoiceSub extends CmdTreeChoice
 	@Override
 	public ObjectCTNodeMatch checkCTNode( String cmd )
 	{
-		return new ObjectCTNodeMatch( cmd,TYPE_MATCH.subNode );
+		return null; // new ObjectCTNodeMatch( this,cmd,TYPE_MATCH.subNode );
 	}
 
 	@Override

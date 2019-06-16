@@ -31,18 +31,9 @@ public class TestCmd
 					String cmd = scanner.nextLine();
 					if ( "quit".equalsIgnoreCase( cmd )==true )
 						break;
-					List<CmdTreeParseTabChoices> listTabChoices = MainCheck.checkInput( nodeRoot,cmd );
-					if ( listTabChoices.isEmpty()==false )
-					{
-						System.out.println( "--------- tab choices:" );
-						for ( CmdTreeParseTabChoices item : listTabChoices )
-							System.out.println( String.format( "%s (%d)",item.getStrChoice(),item.getCtnode().getIndexNode() ) );
-					}
-					else
-					{
-						System.out.println( "--------- no tab choices" );
-					}
-//					System.out.println( "Your username is " + cmd );
+
+//					handleCommand( nodeRoot,cmd );
+					handleCommand2( nodeRoot,cmd );
 				}
 			}
 		}
@@ -53,5 +44,45 @@ public class TestCmd
 
 		logger.debug( "End." );
 		System.out.println( "End." );
+	}
+
+	private static void handleCommand2( CmdTreeRootNode nodeRoot,String cmd )
+	{
+		List<ObjectCTNodeMatch> listResults = MainCheck.checkInput2( nodeRoot,cmd );
+		if ( listResults.isEmpty()==false )
+		{
+			System.out.println( "--------- tab choices:" );
+			for ( ObjectCTNodeMatch item : listResults )
+			{
+				List<String> list = item.ctNode.addTabChoices( "" );
+				if ( list!=null && list.isEmpty()==false )
+				{
+					for ( String val : list )
+					{
+						System.out.println( String.format( "%s (%d)",val,item.ctNode.getIndexNode() ) );
+					}
+				}
+			}
+		}
+		else
+		{
+			System.out.println( "--------- no tab choices" );
+		}
+	}
+
+	private static void handleCommand( CmdTreeRootNode nodeRoot,String cmd )
+	{
+		List<CmdTreeParseTabChoices> listTabChoices = MainCheck.checkInput( nodeRoot,cmd );
+		if ( listTabChoices.isEmpty()==false )
+		{
+			System.out.println( "--------- tab choices:" );
+			
+			for ( CmdTreeParseTabChoices item : listTabChoices )
+				System.out.println( String.format( "%s (%d)",item.getStrChoice(),item.getCtnode().getIndexNode() ) );
+		}
+		else
+		{
+			System.out.println( "--------- no tab choices" );
+		}
 	}
 }

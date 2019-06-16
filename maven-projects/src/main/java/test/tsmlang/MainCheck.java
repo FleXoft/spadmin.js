@@ -1,5 +1,6 @@
 package test.tsmlang;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -66,6 +67,29 @@ public class MainCheck
 			}
 		}
 
+		logger.debug( "---------  cmd check -------------" );
+
+		List<ObjectCTNodeMatch> listResults = checkInput2( nodeRoot,"  query  no no" );
+
+		if ( listResults.isEmpty()==false )
+		{
+			logger.debug( "--------- tab choices:" );
+			for ( ObjectCTNodeMatch item : listResults )
+			{
+				List<String> list = item.ctNode.addTabChoices( "" );
+				if ( list!=null && list.isEmpty()==false )
+				{
+					for ( String val : list )
+					{
+						logger.debug( String.format( "%s (%d)",val,item.ctNode.getIndexNode() ) );
+					}
+				}
+			}
+		}
+		else
+		{
+			logger.debug( "--------- no tab choices" );
+		}
 
 //		checkInput( nodeRoot,"  query" );
 //		checkInput( nodeRoot,"  quer   node" );
@@ -80,6 +104,56 @@ public class MainCheck
 
 //		checkInput( args[0] );
 //		handleTab( args[0] );
+	}
+
+	public static List<ObjectCTNodeMatch> checkInput2( CmdTreeRootNode nodeRoot,String cmd )
+	{
+		CmdTreeNode currentNode = nodeRoot;
+		String currentCmd = cmd;
+		List<ObjectCTNodeMatch> listTmpResults = new ArrayList<ObjectCTNodeMatch>();
+		List<CmdTreeNode> listResults = new ArrayList<CmdTreeNode>();
+
+		while ( true )
+		{
+			listTmpResults.clear();
+
+			currentCmd = MainCheck.skipFirstSpaces( currentCmd );
+			if ( currentCmd.length()<=0 )
+				break;
+			logger.debug( String.format( "currentCmd(%s)",currentCmd ) );
+
+			List<CmdTreeNode> list = CalcNextPossibleWords.calc( currentNode );
+
+			for ( CmdTreeNode ctNode : list )
+			{
+				ObjectCTNodeMatch matchResult = ctNode.checkCTNode( currentCmd );
+				if ( matchResult!=null && matchResult.match!=TYPE_MATCH.noMatch )
+				{
+					listTmpResults.add( matchResult );
+					logger.debug( String.format( "  matchResult(%02d) (%s)",ctNode.getIndexNode(),matchResult.match ) );
+				}
+			}
+
+			if ( listTmpResults.size()==1 )
+			{
+				ObjectCTNodeMatch matchResult = listTmpResults.get( 0 );
+				currentCmd = matchResult.nextCmd;
+				currentNode = matchResult.ctNode;
+				listResults.add( currentNode );
+			}
+			else
+			{
+				break;
+			}
+		}
+
+		logger.debug( String.format( "-- node path" ) );
+		for ( CmdTreeNode ctNode :listResults )
+		{
+			logger.debug( String.format( " node(%02d) %s",ctNode.getIndexNode(),ctNode.toString() ) );
+		}
+
+		return listTmpResults;
 	}
 
 	public static List<CmdTreeParseTabChoices> checkInput( CmdTreeRootNode nodeRoot,String cmd )
