@@ -282,3 +282,27 @@
 			- kimásolva html-ként is ok lehet: spadmin.js\maven-projects\docs\1.html
 		- mail többieknek
 	- próbáltam befejezni a tab listát, még nem ok
+
+20190704:
+	- flex vps-én tesztek:
+		- kiszedtem a help táblázatot
+			- dsmadmc -id=fuge -password=ASDpoi123 help > a2
+		- kiszedtem a help-ből egy adott cmd help TXT-jét (3.68.19 UPDATE NODE (Update node attributes))
+			- dsmadmc -id=fuge -password=ASDpoi123 help 3.68.19 > a1
+		- kiszedtem a help táblázatból a létező cmd-ket:
+			- kitöröltem a 3. szekción kívüli elemeket
+			- kitöröltem a cmd-k mögötti (... elemeket
+				- notepad++ regexp: " \(.+" -> ""
+			- kitöröltem azokat a sorokat, ami nem "3"-al kezdődik
+				- notepad++ regexp: "^\s+[^3]+$" -> ""
+			- kitöröltem a dupla space-eket
+			- kivétel:
+				- "3.16.12 DEFINE DEVCLASS - z/OS media server"
+				- "3.68.11 UPDATE DEVCLASS - z/OS media server"
+			- üres sorok törlése
+				- notepad++ csere "\n\n" -> "\n"
+			- így kész lett az allcmd lista
+		- allcmd txt-ből készítek script-et, amely kiszedi az összes TXT-t
+			- allcmd-ben csere "(^[^\s]+)\s.+$" > "dsmadmc -id=fuge -password=ASDpoi123 help \1 > help\1"
+				- így kész a script
+			- elindítottam, szépen készíti a help txt-ket :)
