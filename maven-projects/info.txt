@@ -306,3 +306,7 @@
 			- allcmd-ben csere "(^[^\s]+)\s.+$" > "dsmadmc -id=fuge -password=ASDpoi123 help \1 > help\1"
 				- így kész a script
 			- elindítottam, szépen készíti a help txt-ket :)
+
+20190707:
+	- kész a help TXT-k 1 soros cmd-be tevése, nagyon szép lett :)
+		- spadmin.js\maven-projects\docs\all-cmds-txt-tree.zip
