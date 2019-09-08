@@ -35,16 +35,17 @@ public class ObjectHelpTXTMultiLine
 		}
 		else if ( parseStatus==PARSE_STATUS.SyntaxLine )
 		{
+			listLinesCmdPart.clear();
 			if ( line.startsWith( ">>-" )==true )
 				throw new RuntimeException( "PARSE_STATUS.SyntaxLine" );
 			parseStatus = PARSE_STATUS.LinesAfterSyntaxLine;
 		}
 		else if ( parseStatus==PARSE_STATUS.LinesAfterSyntaxLine )
 		{
+			if ( line.isEmpty()==false )
+				listLinesCmdPart.add( line );
 			if ( line.startsWith( ">>-" )==true )
 			{
-				listLinesCmdPart.clear();
-				listLinesCmdPart.add( line );
 				if ( line.endsWith( "-><" )==true )
 					parseStatus = PARSE_STATUS.LinesLastCmdPart;
 				else
@@ -167,6 +168,7 @@ public class ObjectHelpTXTMultiLine
 
 	public void printFinalLines( PrintWriter pw )
 	{
+		pw.println( "---commandStart---" );
 		ArrayList<Integer> sortedList = new ArrayList<Integer>( hmFinalLines.keySet() );
 		Collections.sort( sortedList );
 		for ( Integer index : sortedList )

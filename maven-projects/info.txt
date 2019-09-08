@@ -310,3 +310,13 @@
 20190707:
 	- kész a help TXT-k 1 soros cmd-be tevése, nagyon szép lett :)
 		- spadmin.js\maven-projects\docs\all-cmds-txt-tree.zip
+
+20190908:
+	- create XML file
+		- https://www.mkyong.com/java/how-to-create-xml-file-in-java-dom/
+	- update xml file
+		- https://stackoverflow.com/questions/6124239/how-to-update-xml-using-xpath-and-java
+	- java merge xml-s
+		- https://stackoverflow.com/questions/14568995/merging-xml-file-using-java-nodelist
+	- belehaltam a + jel kezelésébe
+		- rengeteg lehetőség van
