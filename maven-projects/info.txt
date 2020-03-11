@@ -320,3 +320,19 @@
 		- https://stackoverflow.com/questions/14568995/merging-xml-file-using-java-nodelist
 	- belehaltam a + jel kezelésébe
 		- rengeteg lehetőség van
+
+20200311:
+	- azt találtam ki, hogy egy köztes állapotba konvertálom a txt-ben leírt command-okat
+		- ez egy irányított gráf, amelyet valahogy (először akár ObjectOutputStream-el is) kiírok egy fájlba
+			- a lényeg, hogy az irányított gráf le legyen kódolva
+		- aztán majd továbbkódolom, ha kell
+			- lehet, hogy ebből a gráfból jobb is lesz a parser...
+	- a gráf irányított, azaz egyértelműen balról jobbra halad, néha visszacsatolható...
+	- a csomópontokból 1 vagy több másik csomópontba mehet az él
+	- egy él lehet
+		- üres, azaz úgy jutok a következő csomóponthoz, hogy nincs semmilyen karakter közben
+		- fix paraméter név, minimum 1 nagybetűvel kezdődik
+		- valamilyen érték, ez lehet 
+			- egy listaelem
+			- fix érték
+			- wildcard karakter

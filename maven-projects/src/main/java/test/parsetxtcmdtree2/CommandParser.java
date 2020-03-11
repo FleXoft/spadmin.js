@@ -1,12 +1,11 @@
-package test.parsetxtcmdtree;
+package test.parsetxtcmdtree2;
 
 import java.util.List;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
 import org.apache.log4j.Logger;
-import org.w3c.dom.Document;
+
+import test.parsetxtcmdtree.CommandParser.BranchType;
+import test.parsetxtcmdtree2.GraphVertex.GraphVertexType;
 
 public class CommandParser
 {
@@ -16,12 +15,9 @@ public class CommandParser
 	private static final String COMMAND_MULTILINE_SEPARATOR = ">|>";
 
 	private final List<String> listLinesOneCommand;
-	private int mainLineIndex;
-	private String commandId;
-	private int mainCol;
+	private GraphVertex cmdStart = null;
 
 	public enum Token { plusSign, equalSign, commandEnd, listOrName, option, lineEnd, questioMark };
-	public enum BranchType { onlyDefaultOption,commaSeparatedListOnePlusSign,commaSeparatedListTwoPlusSigns,choices };
 
 
 	public CommandParser( List<String> listLinesOneCommand )
@@ -29,22 +25,16 @@ public class CommandParser
 		this.listLinesOneCommand = listLinesOneCommand;
 	}
 
-	public Document generateCommandTreeXml() throws Exception
+	public void parse() throws Exception
 	{
-		DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
-		DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
-		Document result = docBuilder.newDocument();
-
 		logger.debug( String.format( "------------cmd line start" ) );
 		for ( String line : listLinesOneCommand )
 		{
 			logger.debug( String.format( "cmd line:(%s)",line ) );
 		}
 
-		this.mainLineIndex = getMainLineIndex();
-		this.commandId = getCommandId( mainLineIndex );
-		this.mainCol = COMMAND_START_PREFIX.length() + commandId.length() + 1;
-		logger.debug( String.format( "mainLineIndex(%d) commandId(%s) mainCol(%d)",mainLineIndex,commandId,mainCol ) );
+		this.cmdStart = getCmdStartVertex();
+		logger.debug( String.format( "cmdStart ttpos(%s)",this.cmdStart.pos.toString() ) );
 
 //		DEfine ALERTTrigger, hibás commaSeparatedList '+--message_number-+'
 //		DEFine PROFASSOCiation, több szintű elágazás
@@ -120,8 +110,6 @@ public class CommandParser
 				logger.debug( String.format( "questioMark tokenStr(%s) mainCol(%d)",tokenStr,mainCol ) );
 			}
 		}
-
-		return result;
 	}
 
 	private void calcBranchEndCol( BranchType bType )
@@ -310,25 +298,20 @@ public class CommandParser
 		}
 	}
 
-	private String getCommandId( int mainLineIndex )
+	private GraphVertex getCmdStartVertex()
 	{
-		String line = listLinesOneCommand.get( mainLineIndex );
-		int index = line.indexOf( '-',COMMAND_START_PREFIX.length()+1 );
-		if ( index<0 )
-			throw new RuntimeException( "" );
-		return line.substring( COMMAND_START_PREFIX.length(),index );
-	}
-
-	private int getMainLineIndex()
-	{
-		int result = 0;
+		TxtTreePos ttpos = new TxtTreePos();
+		ttpos.indexOfLines = 0;
 		for ( String line : listLinesOneCommand )
 		{
 			if ( line.startsWith( COMMAND_START_PREFIX )==true )
-				return result;
-			result++;
+			{
+				ttpos.posStartInLine = 0;
+				ttpos.posLength = COMMAND_START_PREFIX.length();
+				return new GraphVertex( GraphVertexType.commandStart,ttpos );
+			}
+			ttpos.indexOfLines++;
 		}
 		throw new RuntimeException( "" );
 	}
-
 }
