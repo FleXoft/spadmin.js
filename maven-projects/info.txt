@@ -361,6 +361,18 @@
 		- UPDate RETRule
 	- DE ha kitörlöm ezeket a cmd-ket az all-cmds-txt-tree.txt fájlból, akkor a jelenlegi prg (test.parsetxtcmdtree2.ParseTxtCmdTree2)
 		- még csak a fő szálat vizsgálja...
+	- elkészítettem egy másik zip fájlt is, amely a működő verziót tartalmazza:
+		- all-cmds-txt-tree-no-subtree1.zip 
+	- az eredeti hibás txt ebben van:
+		- all-cmds-txt-tree-missing-subtrees.zip
+	- elkezdtem a subTree-ket kezelni, de elég macerás
+		- most befejezem, de van egy bug, amit meg kell oldani
+		- először a subtree-ket kell lekezelni, mert a mainline-ban ha a 2. '+' karakterhez érek, akkor tudni kell, hogy ez egy "visszatérés" elágazásból
+		- ezt csak akkor fogom tudni, ha a subtree-t már lekezeltem
+		- ez azt is jelenti, hogy keresnem kell tudni TreePos alapján, ha már megvan, akkor még egyszer nem kezelem le...
+																			 |   .-MAXPRocess--=--8----------.                             
+			>>-CONvert STGpool--source_stgpool--target_stgpool-------------->|>--+---------------------------+--+----------------------+-----><
+																			 |   '-MAXPRocess--=----number---'  '-DUration--=--minutes-'   
 
 
 

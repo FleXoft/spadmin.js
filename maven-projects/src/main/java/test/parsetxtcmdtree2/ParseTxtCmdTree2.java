@@ -31,7 +31,7 @@ public class ParseTxtCmdTree2
 			while ( true )
 			{
 				List<String> listLinesOneCommand = mcr.readNextCommand();
-				if ( listLinesOneCommand==null )
+				if ( listLinesOneCommand==null || listLinesOneCommand.size()==0 )
 					break;
 
 				CommandParser mcp = new CommandParser( listLinesOneCommand );

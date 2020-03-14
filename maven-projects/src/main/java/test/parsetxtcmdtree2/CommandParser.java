@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import test.parsetxtcmdtree2.CmdTreeToken.CmtTreeTokenMode;
 import test.parsetxtcmdtree2.CmdTreeToken.CmtTreeTokenType;
 
 public class CommandParser
@@ -33,23 +34,43 @@ public class CommandParser
 
 	public void parse() throws Exception
 	{
+		CmdTreeToken.indexAllTokens = 0;
 		logger.debug( String.format( "------------cmd line start" ) );
 		for ( String line:listLinesOneCommand )
 		{
 			logger.debug( String.format( "cmd line:(%s)",line ) );
 		}
 
-		this.startToken = getStartItem();
-		fillNextTokens( this.startToken );
-		calcAllNextTokens( this.startToken );
+		try
+		{
+			this.startToken = getStartItem();
+			fillNextTokens( this.startToken );
+			calcAllNextTokens( this.startToken );
 
-		logger.debug( String.format( "startItem ttpos(%s)",this.startToken.pos.toString() ) );
+			logger.debug( String.format( "startItem ttpos(%s)",this.startToken.pos.toString() ) );
+		}
+		finally
+		{
+			printTree( this.startToken );
+		}
+	}
+
+	private void printTree( CmdTreeToken token )
+	{
+		for ( int ic=0; ic<CmdTreeToken.indexAllTokens; ic++ )
+		{
+			logger.debug( String.format( "token %02d:(%s)",ic,CmdTreeToken.arrayAllTokens[ic].toString( listLinesOneCommand ) ) );
+		}
 	}
 
 	private void calcAllNextTokens( CmdTreeToken paramToken )
 	{
-		if ( paramToken.listNextItems.size()==1 && paramToken.listNextItems.get( 0 ).type==CmtTreeTokenType.commandEnd )
-			return;
+		if ( paramToken.listNextItems.size()==1 )
+		{
+			CmdTreeToken token = paramToken.listNextItems.get( 0 );
+			if ( token.type==CmtTreeTokenType.commandEnd && token.mode==CmtTreeTokenMode.MainLine )
+				return;
+		}
 
 		for ( CmdTreeToken token : paramToken.listNextItems )
 		{
@@ -60,7 +81,11 @@ public class CommandParser
 
 	private void fillNextTokens( CmdTreeToken paramToken )
 	{
-		String lineCont = getLineAfterToket( paramToken );
+		if ( paramToken.mode!=CmtTreeTokenMode.MainLine )
+			logger.debug( "paramToken.mode!=CmtTreeTokenMode.MainLine" );
+		String lineCont = getLineAfterToken( paramToken );
+		String charAboveToken = getCharAboveToken( paramToken );
+		String charBelowToken = getCharBelowToken( paramToken );
 		if ( paramToken.type==CmtTreeTokenType.commandStart )
 		{
 			CmtTreeTokenType tokenTpye = getNextTokenTypeInLine( lineCont );
@@ -68,7 +93,7 @@ public class CommandParser
 				throw new RuntimeException( "commandStart after" );
 
 			TxtTreePos ttpos = paramToken.getNextPosInLine( tokenTpye,lineCont );
-			CmdTreeToken nextToken = new CmdTreeToken( tokenTpye,ttpos );
+			CmdTreeToken nextToken = new CmdTreeToken( tokenTpye,paramToken.mode,ttpos );
 			paramToken.listNextItems.add( nextToken );
 		}
 		else if ( paramToken.type==CmtTreeTokenType.separator )
@@ -78,7 +103,7 @@ public class CommandParser
 				throw new RuntimeException( "separator after" );
 
 			TxtTreePos ttpos = paramToken.getNextPosInLine( tokenTpye,lineCont );
-			CmdTreeToken nextToken = new CmdTreeToken( tokenTpye,ttpos );
+			CmdTreeToken nextToken = new CmdTreeToken( tokenTpye,paramToken.mode,ttpos );
 			paramToken.listNextItems.add( nextToken );
 		}
 		else if ( paramToken.type==CmtTreeTokenType.notSeparator )
@@ -88,7 +113,7 @@ public class CommandParser
 				throw new RuntimeException( "notSeparator after" );
 
 			TxtTreePos ttpos = paramToken.getNextPosInLine( tokenTpye,lineCont );
-			CmdTreeToken nextToken = new CmdTreeToken( tokenTpye,ttpos );
+			CmdTreeToken nextToken = new CmdTreeToken( tokenTpye,paramToken.mode,ttpos );
 			paramToken.listNextItems.add( nextToken );
 		}
 		else if ( paramToken.type==CmtTreeTokenType.lineSeparator )
@@ -98,24 +123,88 @@ public class CommandParser
 				throw new RuntimeException( "lineSeparator after" );
 
 			TxtTreePos ttpos = paramToken.getNextPosInLine( tokenTpye,lineCont );
-			CmdTreeToken nextToken = new CmdTreeToken( tokenTpye,ttpos );
+			CmdTreeToken nextToken = new CmdTreeToken( tokenTpye,paramToken.mode,ttpos );
 			paramToken.listNextItems.add( nextToken );
 		}
 		else if ( paramToken.type==CmtTreeTokenType.junction1 )
 		{
+			{
+				CmtTreeTokenType tokenTpye = getNextTokenTypeInLine( lineCont );
+				if ( tokenTpye!=CmtTreeTokenType.separator )
+					throw new RuntimeException( "lineSeparator after" );
+
+				TxtTreePos ttpos = paramToken.getNextPosInLine( tokenTpye,lineCont );
+				CmdTreeToken nextToken = new CmdTreeToken( tokenTpye,paramToken.mode,ttpos );
+				paramToken.listNextItems.add( nextToken );
+			}
+
+			if ( charAboveToken==null && charBelowToken==null )
+			{
+				// van ilyen is, ez hiba: DEfine ALERTTrigger
+			}
+
+			if ( charAboveToken!=null && charBelowToken!=null )
+			{
+				// ilyenkor van default ág a fenti, ezzel nem foglalkozunk!
+				CmtTreeTokenType tokenTpye = getNextTokenTypeInLine( charBelowToken );
+				if ( tokenTpye!=CmtTreeTokenType.junction1 && tokenTpye!=CmtTreeTokenType.junction2 && tokenTpye!=CmtTreeTokenType.junction3 )
+					throw new RuntimeException( "junction1 below" );
+
+				TxtTreePos ttpos = paramToken.getNextPosLineBelowOrAbove( tokenTpye,1 );
+				CmdTreeToken nextToken = new CmdTreeToken( tokenTpye,CmtTreeTokenMode.SubLine,ttpos );
+				paramToken.listNextItems.add( nextToken );
+			}
+		}
+		else if ( paramToken.type==CmtTreeTokenType.junction2 )
+		{
+			if ( paramToken.mode!=CmtTreeTokenMode.SubLine )
+				throw new RuntimeException( "junction2 mode" );
+
 			CmtTreeTokenType tokenTpye = getNextTokenTypeInLine( lineCont );
 			if ( tokenTpye!=CmtTreeTokenType.separator )
 				throw new RuntimeException( "lineSeparator after" );
 
 			TxtTreePos ttpos = paramToken.getNextPosInLine( tokenTpye,lineCont );
-			CmdTreeToken nextToken = new CmdTreeToken( tokenTpye,ttpos );
+			CmdTreeToken nextToken = new CmdTreeToken( tokenTpye,paramToken.mode,ttpos );
 			paramToken.listNextItems.add( nextToken );
 		}
 		else
 			throw new RuntimeException( "unknown tokentype:" + paramToken.type.getName() );
 	}
 
-	private String getLineAfterToket( CmdTreeToken paramToken )
+	private String getCharBelowToken( CmdTreeToken paramToken )
+	{
+		String result = null;
+		if ( listLinesOneCommand.size()>paramToken.pos.indexOfLines+1 )
+		{
+			String line = listLinesOneCommand.get( paramToken.pos.indexOfLines+1 );
+			if ( paramToken.pos.posStartInLine<line.length() )
+			{
+				char ch = line.charAt( paramToken.pos.posStartInLine );
+				if ( ch!=' ' )
+					result = new String( new char[]{ ch } );
+			}
+		}
+		return result;
+	}
+
+	private String getCharAboveToken( CmdTreeToken paramToken )
+	{
+		String result = null;
+		if ( paramToken.pos.indexOfLines>0 )
+		{
+			String line = listLinesOneCommand.get( paramToken.pos.indexOfLines-1 );
+			if ( paramToken.pos.posStartInLine<line.length() )
+			{
+				char ch = line.charAt( paramToken.pos.posStartInLine );
+				if ( ch!=' ' )
+					result = new String( new char[]{ ch } );
+			}
+		}
+		return result;
+	}
+
+	private String getLineAfterToken( CmdTreeToken paramToken )
 	{
 		String line = listLinesOneCommand.get( paramToken.pos.indexOfLines );
 		return line.substring( paramToken.pos.posStartInLine+paramToken.pos.posLength );
@@ -145,7 +234,7 @@ public class CommandParser
 			{
 				ttpos.posStartInLine = 0;
 				ttpos.posLength = COMMAND_START_PREFIX.length();
-				return new CmdTreeToken( CmtTreeTokenType.commandStart,ttpos );
+				return new CmdTreeToken( CmtTreeTokenType.commandStart,CmtTreeTokenMode.MainLine,ttpos );
 			}
 			ttpos.indexOfLines++;
 		}
