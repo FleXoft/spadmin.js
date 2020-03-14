@@ -336,3 +336,32 @@
 			- egy listaelem
 			- fix érték
 			- wildcard karakter
+
+20200314:
+	- nem jó a gráfos megközelítés...
+	- új ötlet:
+		- egyszerű token parse-olás lesz, utána fogok további szemantikai vizsgálatotak, egyszerűsítéseket bevezetni
+		- a cmdtree txt-ben minden entitást külön felveszek, és egy ezeket egymás után fűzöm láncolt listába
+		- nincs semmilyen szemantikai ellenőrzés egyenlőre, csak felveszem a token-eket
+		- a token-ek:
+			- ">>" : cmd start
+			- "><" : cmd end
+			- ">|>": line separator
+			- "+" : elágazás (több jelentése lehet)
+			- "'" : elágazásból új ág kezdete vagy vége csak "+" vagy "|" jel alatt lehet
+			- "|" : elágazás kötőjel, csak "+" jel alatt lehet
+			- egy vagy több "-": kötöjel
+			- nem "-": "-" után levő nem kötőjel vagy előbb felsorolt karakterek, a következő '-'-ig tart", pl ezek lehetnek
+				- "nem kötőjel nagybetűvel kezdődik (tsm utasítás), a következő '-'-ig tart" : tsm utasítás (vagy több, space-el elválasztva)
+				- "nem kötőjel kisbetűvel kezdődik (valamilyen tsm utasítás paramétere), a következő '-'-ig tart" : tsm utasítás (vagy több, space-el elválasztva)
+	- kiderült, hogy nem megfelelő az all-cmds-txt-tree.txt fájl generálás
+		- sajnos vannak olyan parancsok, amelyek subCmdTree-t tartalmaznak, amelyek nincsenek is benne az all-cmds-txt-tree.txt fájlban
+		- DEFine RETRule
+		- PERForm LIBACTion
+		- UPDate RETRule
+	- DE ha kitörlöm ezeket a cmd-ket az all-cmds-txt-tree.txt fájlból, akkor a jelenlegi prg (test.parsetxtcmdtree2.ParseTxtCmdTree2)
+		- még csak a fő szálat vizsgálja...
+
+
+
+x
