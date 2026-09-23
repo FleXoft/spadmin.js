@@ -33,7 +33,7 @@
 		<dependency>
 			<groupId>org.jline</groupId>
 			<artifactId>jline-reader</artifactId>
-			<version>3.9.0</version>
+			<version>3.30.15</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.jline/jline-builtins -->
 		<dependency>
